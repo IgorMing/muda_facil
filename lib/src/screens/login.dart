@@ -15,6 +15,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
+  @override
+  void initState() {
+    _emailController.text = 'igor.ming@gmail.com';
+    _passwordController.text = 'Igor1993';
+    super.initState();
+  }
+
   String error = '';
 
   @override
@@ -112,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
       setState(() {
         final String message;
         switch (err.code) {
-          case 'wrong-password':
           case 'user-not-found':
+          case 'wrong-password':
             message = 'Email and/or password must be wrong';
             break;
           default:
