@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -6,6 +7,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -14,10 +17,13 @@ class HomeScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const Text('This is the home screen'),
-            ElevatedButton(
-              onPressed: () {},
-              child: const Text('Sign out'),
+            Text('You are logged in as: ${user!.email}'),
+            ElevatedButton.icon(
+              icon: const Icon(Icons.logout),
+              onPressed: () {
+                FirebaseAuth.instance.signOut();
+              },
+              label: const Text('Sign out'),
             )
           ],
         ),
