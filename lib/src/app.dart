@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/loading.dart';
-import 'package:muda_facil/src/screens/login.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -34,7 +34,7 @@ class App extends StatelessWidget {
           if (snapshot.hasData) {
             return const HomeScreen();
           } else {
-            return const LoginScreen();
+            return const AuthScreen();
           }
         },
       ),

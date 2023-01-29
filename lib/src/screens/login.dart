@@ -2,9 +2,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
+import 'package:muda_facil/src/widgets/link_text.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  final VoidCallback onClickedSignUp;
+
+  const LoginScreen({super.key, required this.onClickedSignUp});
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -93,7 +96,15 @@ class _LoginScreenState extends State<LoginScreen> {
                 icon: const Icon(
                   Icons.lock_open,
                 ),
-              )
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              LinkText(
+                onTap: widget.onClickedSignUp,
+                message: 'No Account?',
+                link: 'Sign Up',
+              ),
             ],
           ),
         ),
