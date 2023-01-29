@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               const SizedBox(
-                height: 20,
+                height: 12,
               ),
               Text(
                 error,

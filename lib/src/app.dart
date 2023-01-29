@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/screens/home.dart';
+import 'package:muda_facil/src/screens/loading.dart';
 import 'package:muda_facil/src/screens/login.dart';
 
 class App extends StatelessWidget {
@@ -17,6 +18,16 @@ class App extends StatelessWidget {
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const LoadingScreen();
+          }
+
+          if (snapshot.hasError) {
+            return const Center(
+              child: Text('Something went wrong.'),
+            );
+          }
+
           if (snapshot.hasData) {
             return const HomeScreen();
           } else {

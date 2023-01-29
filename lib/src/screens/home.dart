@@ -18,6 +18,7 @@ class HomeScreen extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('You are logged in as: ${user!.email}'),
+            const SizedBox(height: 8),
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
               onPressed: () {
