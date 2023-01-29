@@ -5,12 +5,15 @@ import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/loading.dart';
 import 'package:muda_facil/src/screens/login.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(scheme: FlexScheme.aquaBlue),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.aquaBlue),
