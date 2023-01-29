@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/utils/string_api.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -9,59 +10,112 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
 
-  @override
-  void dispose() {
-    emailController.dispose();
-    passwordController.dispose();
-
-    super.dispose();
-  }
+  String error = '';
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const SizedBox(
-            height: 80,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const SizedBox(
+                height: 80,
+              ),
+              TextFormField(
+                controller: _emailController,
+                autocorrect: false,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                ),
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'The email is empty';
+                  }
+
+                  if (!value.isValidEmail) {
+                    return 'Invalid email address';
+                  }
+
+                  return null;
+                },
+              ),
+              TextFormField(
+                controller: _passwordController,
+                textInputAction: TextInputAction.done,
+                decoration: const InputDecoration(
+                  labelText: 'Password',
+                ),
+                obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return 'The password is empty';
+                  }
+
+                  if (!value.isValidPassword) {
+                    return 'The password must have at least 6 characters';
+                  }
+
+                  return null;
+                },
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.red),
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    signIn();
+                  }
+                },
+                label: const Text('Sign in'),
+                icon: const Icon(
+                  Icons.lock_open,
+                ),
+              )
+            ],
           ),
-          const TextField(
-            textInputAction: TextInputAction.next,
-            decoration: InputDecoration(
-              labelText: 'Email',
-            ),
-          ),
-          const TextField(
-            textInputAction: TextInputAction.done,
-            decoration: InputDecoration(
-              labelText: 'Password',
-            ),
-            obscureText: true,
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          ElevatedButton.icon(
-            onPressed: signIn,
-            label: const Text('Sign in'),
-            icon: const Icon(
-              Icons.lock_open,
-            ),
-          )
-        ],
-      )),
+        ),
+      ),
     );
   }
 
   Future signIn() async {
-    await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: emailController.text.trim(),
-      password: passwordController.text.trim(),
-    );
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: _emailController.text.trim(),
+        password: _passwordController.text.trim(),
+      );
+    } catch (err) {
+      setState(() {
+        FirebaseAuthException fbErr = err as FirebaseAuthException;
+        final String message;
+        switch (fbErr.code) {
+          case 'wrong-password':
+          case 'user-not-found':
+            message = 'Email and/or password must be wrong';
+            break;
+          default:
+            message = 'Unexpected error';
+        }
+
+        setState(() {
+          error = message;
+        });
+      });
+    }
   }
 }
