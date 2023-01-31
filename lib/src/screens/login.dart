@@ -22,6 +22,7 @@ class _LoginScreenState extends State<LoginScreen> {
           email: email,
           password: password,
         ),
+        buttonText: 'Sign in',
         linkText: LinkText(
           onTap: widget.onClickedSignUp,
           message: 'No Account?',

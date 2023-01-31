@@ -6,11 +6,13 @@ import 'package:muda_facil/src/widgets/link_text.dart';
 
 class AuthLayout extends StatefulWidget {
   final Function onPress;
+  final String buttonText;
   final LinkText? linkText;
 
   const AuthLayout({
     super.key,
     required this.onPress,
+    required this.buttonText,
     this.linkText,
   });
 
@@ -97,7 +99,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                   onPressButton();
                 }
               },
-              label: const Text('Sign in'),
+              label: Text(widget.buttonText),
               icon: const Icon(
                 Icons.lock_open,
               ),
