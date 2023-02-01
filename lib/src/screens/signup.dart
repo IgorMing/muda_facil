@@ -18,8 +18,8 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: AuthLayout(
         title: 'Sign up',
-        onPress: (email, password) =>
-            FirebaseAuth.instance.signInWithEmailAndPassword(
+        onPress: (String email, String password) =>
+            FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         ),

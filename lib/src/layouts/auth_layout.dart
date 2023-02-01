@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
@@ -26,15 +27,26 @@ class _AuthLayoutState extends State<AuthLayout> {
   final _formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+
   late String _error;
+  late bool _visiblePassword;
 
   @override
   void initState() {
     _emailController.text = 'igor.ming@gmail.com';
     _passwordController.text = 'Igor1993';
     _error = '';
+    _visiblePassword = false;
 
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+
+    super.dispose();
   }
 
   @override
@@ -82,7 +94,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                         return 'The email is empty';
                       }
 
-                      if (!value.isValidEmail) {
+                      if (!EmailValidator.validate(value)) {
                         return 'Invalid email address';
                       }
 
@@ -92,10 +104,22 @@ class _AuthLayoutState extends State<AuthLayout> {
                   TextFormField(
                     controller: _passwordController,
                     textInputAction: TextInputAction.done,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       labelText: 'Password',
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _visiblePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _visiblePassword = !_visiblePassword;
+                          });
+                        },
+                      ),
                     ),
-                    obscureText: true,
+                    obscureText: !_visiblePassword,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'The password is empty';
@@ -150,7 +174,12 @@ class _AuthLayoutState extends State<AuthLayout> {
     );
 
     try {
-      await widget.onPress(_emailController.text, _passwordController.text);
+      if (_formKey.currentState!.validate()) {
+        await widget.onPress(
+          _emailController.text.trim(),
+          _passwordController.text.trim(),
+        );
+      }
     } on FirebaseAuthException catch (err) {
       setState(() {
         final String message;

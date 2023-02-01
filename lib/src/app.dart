@@ -21,7 +21,8 @@ class App extends StatelessWidget {
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
       darkTheme: FlexThemeData.dark(scheme: FlexScheme.bahamaBlue),
-      themeMode: ThemeMode.light, // change this later to `ThemeMode.system`
+      themeMode:
+          ThemeMode.light, // FIXME: change this later to `ThemeMode.system`
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
