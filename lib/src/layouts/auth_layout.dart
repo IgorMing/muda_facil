@@ -106,17 +106,21 @@ class _AuthLayoutState extends State<AuthLayout> {
                     textInputAction: TextInputAction.done,
                     decoration: InputDecoration(
                       labelText: 'Password',
-                      suffixIcon: IconButton(
-                        icon: Icon(
-                          _visiblePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                      suffixIcon: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 500),
+                        child: IconButton(
+                          icon: Icon(
+                            _visiblePassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _visiblePassword = !_visiblePassword;
+                            });
+                          },
+                          key: ValueKey<bool>(_visiblePassword),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _visiblePassword = !_visiblePassword;
-                          });
-                        },
                       ),
                     ),
                     obscureText: !_visiblePassword,
