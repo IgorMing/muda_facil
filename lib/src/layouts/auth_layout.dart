@@ -8,9 +8,11 @@ class AuthLayout extends StatefulWidget {
   final Function onPress;
   final String buttonText;
   final LinkText? linkText;
+  final String title;
 
   const AuthLayout({
     super.key,
+    required this.title,
     required this.onPress,
     required this.buttonText,
     this.linkText,
@@ -37,77 +39,101 @@ class _AuthLayoutState extends State<AuthLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
+    return Container(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 16,
+      ),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Theme.of(context).colorScheme.primary,
+            Colors.white70,
+          ],
+        ),
+      ),
+      child: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(
-              height: 80,
-            ),
-            TextFormField(
-              controller: _emailController,
-              autocorrect: false,
-              keyboardType: TextInputType.emailAddress,
-              textInputAction: TextInputAction.next,
-              decoration: const InputDecoration(
-                labelText: 'Email',
-              ),
-              validator: (String? value) {
-                if (value!.isEmpty) {
-                  return 'The email is empty';
-                }
-
-                if (!value.isValidEmail) {
-                  return 'Invalid email address';
-                }
-
-                return null;
-              },
-            ),
-            TextFormField(
-              controller: _passwordController,
-              textInputAction: TextInputAction.done,
-              decoration: const InputDecoration(
-                labelText: 'Password',
-              ),
-              obscureText: true,
-              validator: (value) {
-                if (value!.isEmpty) {
-                  return 'The password is empty';
-                }
-
-                if (!value.isValidPassword) {
-                  return 'The password must have at least 6 characters';
-                }
-
-                return null;
-              },
-            ),
-            const SizedBox(
-              height: 12,
-            ),
             Text(
-              _error,
-              style: const TextStyle(color: Colors.red),
+              widget.title,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
-            ElevatedButton.icon(
-              onPressed: () {
-                if (_formKey.currentState!.validate()) {
-                  onPressButton();
-                }
-              },
-              label: Text(widget.buttonText),
-              icon: const Icon(
-                Icons.lock_open,
+            Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  TextFormField(
+                    controller: _emailController,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'The email is empty';
+                      }
+
+                      if (!value.isValidEmail) {
+                        return 'Invalid email address';
+                      }
+
+                      return null;
+                    },
+                  ),
+                  TextFormField(
+                    controller: _passwordController,
+                    textInputAction: TextInputAction.done,
+                    decoration: const InputDecoration(
+                      labelText: 'Password',
+                    ),
+                    obscureText: true,
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'The password is empty';
+                      }
+
+                      if (!value.isValidPassword) {
+                        return 'The password must have at least 6 characters';
+                      }
+
+                      return null;
+                    },
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  Text(
+                    _error,
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.error),
+                  ),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        onPressButton();
+                      }
+                    },
+                    label: Text(widget.buttonText),
+                    icon: const Icon(
+                      Icons.lock_open,
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 12,
+                  ),
+                  widget.linkText!
+                ],
               ),
             ),
-            const SizedBox(
-              height: 12,
-            ),
-            widget.linkText!
           ],
         ),
       ),

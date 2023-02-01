@@ -17,6 +17,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
+        title: 'Sign in',
         onPress: (email, password) =>
             FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,

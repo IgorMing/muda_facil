@@ -35,6 +35,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_launcher_icons: ^0.11.0
+  google_fonts: ^4.0.1
 
 dev_dependencies:
   flutter_lints: ^2.0.0

@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/loading.dart';
@@ -15,8 +16,11 @@ class App extends StatelessWidget {
     return MaterialApp(
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
-      theme: FlexThemeData.light(scheme: FlexScheme.aquaBlue),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.aquaBlue),
+      theme: FlexThemeData.light(
+        scheme: FlexScheme.bahamaBlue,
+        textTheme: GoogleFonts.montserratTextTheme(),
+      ),
+      darkTheme: FlexThemeData.dark(scheme: FlexScheme.bahamaBlue),
       themeMode: ThemeMode.light, // change this later to `ThemeMode.system`
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),

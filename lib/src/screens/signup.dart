@@ -17,6 +17,7 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
+        title: 'Sign up',
         onPress: (email, password) =>
             FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
