@@ -22,7 +22,10 @@ class App extends StatelessWidget {
         scheme: FlexScheme.bahamaBlue,
         textTheme: GoogleFonts.montserratTextTheme(),
       ),
-      darkTheme: FlexThemeData.dark(scheme: FlexScheme.bahamaBlue),
+      darkTheme: FlexThemeData.dark(
+        scheme: FlexScheme.blumineBlue,
+        textTheme: GoogleFonts.montserratTextTheme(),
+      ),
       themeMode:
           ThemeMode.light, // FIXME: change this later to `ThemeMode.system`
       home: StreamBuilder<User?>(

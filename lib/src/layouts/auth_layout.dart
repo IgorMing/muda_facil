@@ -5,12 +5,11 @@ import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
 import 'package:muda_facil/src/utils/ui.dart';
-import 'package:muda_facil/src/widgets/link_text.dart';
 
 class AuthLayout extends StatefulWidget {
   final Function onPress;
   final String buttonText;
-  final LinkText? linkText;
+  final Widget? extra;
   final String title;
 
   const AuthLayout({
@@ -18,7 +17,7 @@ class AuthLayout extends StatefulWidget {
     required this.title,
     required this.onPress,
     required this.buttonText,
-    this.linkText,
+    this.extra,
   });
 
   @override
@@ -60,7 +59,9 @@ class _AuthLayoutState extends State<AuthLayout> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            Theme.of(context).colorScheme.primary,
+            UIUtils.isDarkmode(context)
+                ? Colors.blueGrey
+                : Theme.of(context).colorScheme.primary,
             Colors.white,
           ],
         ),
@@ -150,7 +151,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                   const SizedBox(
                     height: 12,
                   ),
-                  widget.linkText!
+                  widget.extra!,
                 ],
               ),
             ),

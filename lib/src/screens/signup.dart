@@ -24,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
           password: password,
         ),
         buttonText: 'Create account',
-        linkText: LinkText(
+        extra: LinkText(
           onTap: widget.onClickedSignIn,
           message: 'Already have an account?',
           link: 'Sign In',

@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 
 class LinkText extends StatelessWidget {
   final VoidCallback onTap;
@@ -18,18 +19,18 @@ class LinkText extends StatelessWidget {
     return RichText(
       text: TextSpan(
         text: message,
-        style: TextStyle(
-          color: Theme.of(context).colorScheme.primary,
-        ),
+        style: Theme.of(context).textTheme.bodyMedium!,
         children: [
           TextSpan(
             recognizer: TapGestureRecognizer()..onTap = onTap,
             text: ' $link',
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontWeight: FontWeight.bold,
-              decoration: TextDecoration.underline,
-            ),
+            style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                  color: UIUtils.isDarkmode(context)
+                      ? null
+                      : Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,
+                ),
           ),
         ],
       ),
