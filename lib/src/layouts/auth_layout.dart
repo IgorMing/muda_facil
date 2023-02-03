@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
 class AuthLayout extends StatefulWidget {
@@ -28,14 +29,12 @@ class _AuthLayoutState extends State<AuthLayout> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
-  late String _error;
   late bool _visiblePassword;
 
   @override
   void initState() {
     _emailController.text = 'igor.ming@gmail.com';
     _passwordController.text = 'Igor1993';
-    _error = '';
     _visiblePassword = false;
 
     super.initState();
@@ -136,14 +135,6 @@ class _AuthLayoutState extends State<AuthLayout> {
                       return null;
                     },
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Text(
-                    _error,
-                    style:
-                        TextStyle(color: Theme.of(context).colorScheme.error),
-                  ),
                   ElevatedButton.icon(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -185,21 +176,7 @@ class _AuthLayoutState extends State<AuthLayout> {
         );
       }
     } on FirebaseAuthException catch (err) {
-      setState(() {
-        final String message;
-        switch (err.code) {
-          case 'user-not-found':
-          case 'wrong-password':
-            message = 'Email and/or password must be wrong';
-            break;
-          default:
-            message = 'Unexpected error';
-        }
-
-        setState(() {
-          _error = message;
-        });
-      });
+      UIUtils.showSnackBar(context, err.message);
     } finally {
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
