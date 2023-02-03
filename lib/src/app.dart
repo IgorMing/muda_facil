@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/loading.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -14,6 +15,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      scaffoldMessengerKey: UIUtils.messengerKey,
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false,
       theme: FlexThemeData.light(
