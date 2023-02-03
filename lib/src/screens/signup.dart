@@ -17,13 +17,13 @@ class _SignupScreenState extends State<SignupScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
-        title: 'Sign up',
+        title: 'Create your account',
         onPress: (String email, String password) =>
             FirebaseAuth.instance.createUserWithEmailAndPassword(
           email: email,
           password: password,
         ),
-        buttonText: 'Sign up',
+        buttonText: 'Create account',
         linkText: LinkText(
           onTap: widget.onClickedSignIn,
           message: 'Already have an account?',
