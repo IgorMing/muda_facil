@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
@@ -52,7 +53,7 @@ class _AuthLayoutState extends State<AuthLayout> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(
-        horizontal: 16,
+        horizontal: kDefaultPadding,
       ),
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -60,7 +61,7 @@ class _AuthLayoutState extends State<AuthLayout> {
           end: Alignment.bottomCenter,
           colors: [
             Theme.of(context).colorScheme.primary,
-            Colors.white70,
+            Colors.white,
           ],
         ),
       ),
