@@ -24,10 +24,20 @@ class _LoginScreenState extends State<LoginScreen> {
           password: password,
         ),
         buttonText: 'Sign in',
-        linkText: LinkText(
-          onTap: widget.onClickedSignUp,
-          message: 'No Account?',
-          link: 'Sign Up',
+        extra: Column(
+          children: [
+            LinkText(
+              onTap: widget.onClickedSignUp,
+              message: 'No Account?',
+              link: 'Sign Up',
+            ),
+            GestureDetector(
+              child: Text(
+                'Forgot your password?',
+                style: Theme.of(context).textTheme.bodyMedium!,
+              ),
+            )
+          ],
         ),
       ),
     );
