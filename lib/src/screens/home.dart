@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/screens/profile.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -10,56 +11,29 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late int _selectedIndex;
-
-  @override
-  void initState() {
-    _selectedIndex = 0;
-
-    super.initState();
-  }
+  int _selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        color: Theme.of(context).colorScheme.primary,
-        child: IconTheme(
-          data: IconThemeData(
-            color: Theme.of(context).colorScheme.onPrimary,
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        onTap: (int selected) {
+          setState(() {
+            _selectedIndex = selected;
+          });
+        },
+        items: const [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
           ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 0;
-                  });
-                },
-                icon: const Icon(Icons.menu),
-              ),
-              IconButton(
-                onPressed: () {
-                  setState(() {
-                    _selectedIndex = 1;
-                  });
-                },
-                icon: const Icon(Icons.person),
-              ),
-            ],
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
           ),
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        child: Icon(
-          Icons.add,
-          color: Theme.of(context).colorScheme.onPrimary,
-        ),
-        onPressed: () {},
+        ],
       ),
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
@@ -74,8 +48,21 @@ class _HomeScreenState extends State<HomeScreen> {
         return const ProfileScreen();
       case 0:
       default:
-        return const Center(
-          child: Text('This is the home screen'),
+        return Container(
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text('Querendo se mudar? Vamos começar!'),
+              FilledButton(
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const ItemsScreen()));
+                },
+                child: const Text('Iniciar mudança'),
+              )
+            ],
+          ),
         );
     }
   }
