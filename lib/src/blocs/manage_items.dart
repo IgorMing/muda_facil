@@ -4,16 +4,21 @@ import 'package:muda_facil/src/models/item.dart';
 class ManageItems extends StateNotifier<List<Item>> {
   ManageItems() : super([]);
 
+  bool get isSingle => false;
+
   bool exists(Item item) {
-    return state.contains(item);
+    return state.any((each) => each.name == item.name);
   }
 
   void plus(Item item) {
-    if (!exists(item)) return;
+    if (!exists(item)) {
+      _addItem(item);
+      return;
+    }
 
     for (final each in state) {
       if (each.name == item.name) {
-        item.amount += 1;
+        each.amount += 1;
       }
     }
 
@@ -21,11 +26,9 @@ class ManageItems extends StateNotifier<List<Item>> {
   }
 
   void minus(Item item) {
-    if (!exists(item)) return;
-
     for (final each in state) {
       if (each.amount == 1) {
-        removeItem(item);
+        _removeItem(item);
       } else {
         each.amount -= 1;
       }
@@ -34,14 +37,14 @@ class ManageItems extends StateNotifier<List<Item>> {
     state = [...state];
   }
 
-  void addItem(Item item) {
+  void _addItem(Item item) {
     if (!exists(item)) {
       item.amount = 1;
       state = [...state, item];
     }
   }
 
-  void removeItem(Item item) {
+  void _removeItem(Item item) {
     if (exists(item)) {
       state = [
         for (final each in state)
