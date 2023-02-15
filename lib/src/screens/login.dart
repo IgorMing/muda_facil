@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
+import 'package:muda_facil/src/screens/reset_password.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -17,13 +18,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
-        title: 'Sign in',
+        title: 'Log in',
         onPress: (email, password) =>
             FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email,
           password: password,
         ),
-        buttonText: 'Sign in',
+        buttonText: 'Log in',
         extra: Column(
           children: [
             LinkText(
@@ -32,6 +33,13 @@ class _LoginScreenState extends State<LoginScreen> {
               link: 'Sign Up',
             ),
             GestureDetector(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (context) => const ResetPasswordScreen(),
+                  ),
+                );
+              },
               child: Text(
                 'Forgot your password?',
                 style: Theme.of(context).textTheme.bodyMedium!,

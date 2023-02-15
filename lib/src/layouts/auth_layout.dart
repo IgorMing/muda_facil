@@ -10,6 +10,8 @@ class AuthLayout extends StatefulWidget {
   final Function onPress;
   final String buttonText;
   final Widget? extra;
+  final bool? hidePasswordField;
+  final bool? hasSuccessSnackbar;
   final String title;
 
   const AuthLayout({
@@ -18,6 +20,8 @@ class AuthLayout extends StatefulWidget {
     required this.onPress,
     required this.buttonText,
     this.extra,
+    this.hidePasswordField,
+    this.hasSuccessSnackbar,
   });
 
   @override
@@ -102,40 +106,43 @@ class _AuthLayoutState extends State<AuthLayout> {
                       return null;
                     },
                   ),
-                  TextFormField(
-                    controller: _passwordController,
-                    textInputAction: TextInputAction.done,
-                    decoration: InputDecoration(
-                      labelText: 'Password',
-                      suffixIcon: AnimatedSwitcher(
-                        duration: const Duration(milliseconds: 500),
-                        child: IconButton(
-                          icon: Icon(
-                            _visiblePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
+                  Visibility(
+                    visible: !(widget.hidePasswordField == true),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        labelText: 'Password',
+                        suffixIcon: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: IconButton(
+                            icon: Icon(
+                              _visiblePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _visiblePassword = !_visiblePassword;
+                              });
+                            },
+                            key: ValueKey<bool>(_visiblePassword),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _visiblePassword = !_visiblePassword;
-                            });
-                          },
-                          key: ValueKey<bool>(_visiblePassword),
                         ),
                       ),
+                      obscureText: !_visiblePassword,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'The password is empty';
+                        }
+
+                        if (!value.isValidPassword) {
+                          return 'The password must have at least 6 characters';
+                        }
+
+                        return null;
+                      },
                     ),
-                    obscureText: !_visiblePassword,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'The password is empty';
-                      }
-
-                      if (!value.isValidPassword) {
-                        return 'The password must have at least 6 characters';
-                      }
-
-                      return null;
-                    },
                   ),
                   ElevatedButton.icon(
                     onPressed: () {
@@ -151,7 +158,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                   const SizedBox(
                     height: 12,
                   ),
-                  widget.extra!,
+                  widget.extra ?? const SizedBox(),
                 ],
               ),
             ),
@@ -162,6 +169,8 @@ class _AuthLayoutState extends State<AuthLayout> {
   }
 
   Future onPressButton() async {
+    bool hasError = false;
+
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -178,8 +187,16 @@ class _AuthLayoutState extends State<AuthLayout> {
         );
       }
     } on FirebaseAuthException catch (err) {
+      hasError = true;
       UIUtils.showSnackBar(context, err.message);
     } finally {
+      if (widget.hasSuccessSnackbar == true && !hasError) {
+        UIUtils.showSnackBar(
+          context,
+          'Um email foi enviado para resetar sua senha',
+          success: true,
+        );
+      }
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     }
   }

@@ -7,12 +7,14 @@ class UIUtils {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static showSnackBar(BuildContext context, String? text) {
+  static showSnackBar(BuildContext context, String? text,
+      {bool success = false}) {
     if (text == null) return;
 
     final snackBar = SnackBar(
       content: Text(text),
-      backgroundColor: Theme.of(context).colorScheme.error,
+      backgroundColor:
+          success ? Colors.green : Theme.of(context).colorScheme.error,
     );
 
     messengerKey.currentState!
