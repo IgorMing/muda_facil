@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
+import 'package:muda_facil/src/services/auth.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
 class SignupScreen extends StatefulWidget {
@@ -19,10 +19,7 @@ class _SignupScreenState extends State<SignupScreen> {
       body: AuthLayout(
         title: 'Create your account',
         onPress: (String email, String password) =>
-            FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        ),
+            AuthService.signUpByEmailAndPassword(email, password),
         buttonText: 'Create account',
         extra: LinkText(
           onTap: widget.onClickedSignIn,

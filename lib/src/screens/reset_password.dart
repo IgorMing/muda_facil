@@ -1,6 +1,6 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
+import 'package:muda_facil/src/services/auth.dart';
 
 class ResetPasswordScreen extends StatefulWidget {
   const ResetPasswordScreen({super.key});
@@ -16,8 +16,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: AppBar(),
       body: AuthLayout(
         title: 'Reset your password',
-        onPress: (email, _) =>
-            FirebaseAuth.instance.sendPasswordResetEmail(email: email),
+        onPress: (email, _) => AuthService.resetPasswordByEmail(email),
         buttonText: 'Reset',
         hidePasswordField: true,
         hasSuccessSnackbar: true,
