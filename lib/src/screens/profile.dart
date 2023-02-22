@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/services/auth.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -18,7 +19,7 @@ class ProfileScreen extends StatelessWidget {
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
               onPressed: () {
-                FirebaseAuth.instance.signOut();
+                AuthService.signOut();
               },
               label: const Text('Sign out'),
             )
