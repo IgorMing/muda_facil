@@ -27,10 +27,10 @@ class ManageItems extends StateNotifier<List<Item>> {
 
   void minus(Item item) {
     for (final each in state) {
-      if (each.amount == 1) {
-        _removeItem(item);
-      } else {
+      if (each.amount > 1) {
         each.amount -= 1;
+      } else {
+        _removeItem(item);
       }
     }
 
