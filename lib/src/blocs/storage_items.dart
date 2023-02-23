@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/services/items.dart';
 
 class StorageItemResponse {
@@ -23,3 +24,15 @@ class StorageItems extends StateNotifier<StorageItemResponse> {
 final storageItemsProvider =
     StateNotifierProvider<StorageItems, StorageItemResponse>(
         (ref) => StorageItems());
+
+final filteredItemsProvider = FutureProvider((ref) {
+  final selectedItems = ref.watch(manageItemsProvider);
+  final storageItems = ref.watch(storageItemsProvider);
+
+  return storageItems.data.toList()
+    ..retainWhere(
+      (element) {
+        return !selectedItems.any((item) => item.name == element);
+      },
+    );
+});

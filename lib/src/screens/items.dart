@@ -13,8 +13,9 @@ class ItemsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     late TextEditingController textEditingController = TextEditingController();
     final items = ref.watch(manageItemsProvider);
-    final storageItems = ref.watch(storageItemsProvider);
     final manageItems = ref.read(manageItemsProvider.notifier);
+
+    final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -31,6 +32,9 @@ class ItemsScreen extends ConsumerWidget {
               return TextField(
                 controller: fieldTextEditingController,
                 focusNode: fieldFocusNode,
+                decoration: const InputDecoration(
+                    suffixIcon: Icon(Icons.search),
+                    helperText: 'Pesquise o nome do item de sua casa...'),
               );
             },
             optionsBuilder: (textEditingValue) {
@@ -38,7 +42,7 @@ class ItemsScreen extends ConsumerWidget {
                 return const Iterable.empty();
               }
 
-              return storageItems.data.where((option) => option
+              return filtered.value!.where((option) => option
                   .toLowerCase()
                   .contains(textEditingValue.text.toLowerCase()));
             },

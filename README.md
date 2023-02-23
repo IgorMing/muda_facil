@@ -7,4 +7,5 @@ App for learning flutter
 - [x] check how to get app's ThemeMode properly
 - [x] implement reset password flow
 - [x] get list of items from firebase firestore
+- [x] filter out from autocomplete list all items that were already selected
 - [ ] add a way to include a comment/observation for each item of the list
