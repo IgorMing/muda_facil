@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:muda_facil/src/models/item.dart';
-
-import 'item_counter.dart';
+import 'package:muda_facil/src/widgets/item_counter.dart';
 
 class ItemTile extends StatelessWidget {
   final Item data;
@@ -17,12 +17,30 @@ class ItemTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(data.name),
-      trailing: ItemCounter(
-        data.amount,
-        onMinus: onMinus,
-        onPlus: onPlus,
+    return Slidable(
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (_) {
+              // TODO: open menu to add an observation
+            },
+            icon: Icons.details,
+            label: "Observação",
+            backgroundColor: Colors.yellow.shade800,
+            foregroundColor: Colors.white,
+          ),
+        ],
+      ),
+      child: Card(
+        elevation: 4.0,
+        child: ListTile(
+          title: Text("${data.name} ( ${data.amount} )"),
+          trailing: ItemCounter(
+            onMinus: onMinus,
+            onPlus: onPlus,
+          ),
+        ),
       ),
     );
   }
