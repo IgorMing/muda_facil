@@ -4,7 +4,7 @@ import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/storage_items.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/utils/ui.dart';
-import 'package:muda_facil/src/widgets/item_counter.dart';
+import 'package:muda_facil/src/widgets/item_tile.dart';
 
 class ItemsScreen extends ConsumerWidget {
   const ItemsScreen({super.key});
@@ -13,7 +13,7 @@ class ItemsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     late TextEditingController textEditingController = TextEditingController();
     final items = ref.watch(manageItemsProvider);
-    final manageItems = ref.read(manageItemsProvider.notifier);
+    final manageItemsActions = ref.read(manageItemsProvider.notifier);
 
     final filtered = ref.watch(filteredItemsProvider);
 
@@ -47,7 +47,7 @@ class ItemsScreen extends ConsumerWidget {
                   .contains(textEditingValue.text.toLowerCase()));
             },
             onSelected: (selected) {
-              manageItems.plus(Item(name: selected));
+              manageItemsActions.plus(Item(name: selected));
               textEditingController.clear();
             },
           ),
@@ -56,27 +56,24 @@ class ItemsScreen extends ConsumerWidget {
               padding: const EdgeInsets.all(8.0),
               itemCount: items.length,
               itemBuilder: (_, index) {
-                return ListTile(
-                  title: Text(items[index].name),
-                  trailing: ItemCounter(
-                    items[index].amount,
-                    onMinus: () {
-                      Function callback =
-                          ref.read(manageItemsProvider.notifier).minus;
-                      if (items[index].amount == 1) {
-                        UIUtils.showAlertDialog(context, onSelect: (selected) {
-                          if (selected) {
-                            callback(items[index]);
-                          }
-                        });
-                      } else {
-                        callback(items[index]);
-                      }
-                    },
-                    onPlus: () {
-                      ref.read(manageItemsProvider.notifier).plus(items[index]);
-                    },
-                  ),
+                final item = items[index];
+
+                return ItemTile(
+                  data: item,
+                  onMinus: () {
+                    if (item.amount == 1) {
+                      UIUtils.showAlertDialog(context, onSelect: (selected) {
+                        if (selected) {
+                          manageItemsActions.minus(item);
+                        }
+                      });
+                    } else {
+                      manageItemsActions.minus(item);
+                    }
+                  },
+                  onPlus: () {
+                    manageItemsActions.plus(item);
+                  },
                 );
               },
             ),
