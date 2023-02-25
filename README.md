@@ -8,4 +8,10 @@ App for learning flutter
 - [x] implement reset password flow
 - [x] get list of items from firebase firestore
 - [x] filter out from autocomplete list all items that were already selected
-- [ ] add a way to include a comment/observation for each item of the list
+- [x] add a way to include a comment/observation for each item of the list
+
+- [ ] do a visual diagram exposing the data distribution/architecture
+
+## bug
+
+- [x] when I add more than one item, and I try to add more items to one of them, both changes. Fix it!

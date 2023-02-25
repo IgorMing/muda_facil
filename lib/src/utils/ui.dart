@@ -34,14 +34,55 @@ class UIUtils {
               onSelect!(false);
               Navigator.of(context).pop();
             },
-            child: const Text('No'),
+            child: const Text('Não'),
           ),
           TextButton(
             onPressed: () {
               onSelect!(true);
               Navigator.of(context).pop();
             },
-            child: const Text('Yes'),
+            child: const Text('Sim'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  static showInputDialog(
+    BuildContext context, {
+    required Function onSave,
+    String? initialText = '',
+  }) {
+    final controller = TextEditingController(text: initialText);
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Observação'),
+        content: TextField(
+          controller: controller,
+          autofocus: true,
+          autocorrect: false,
+          textCapitalization: TextCapitalization.sentences,
+          decoration: const InputDecoration(
+            focusedBorder: OutlineInputBorder(),
+            border: OutlineInputBorder(),
+          ),
+          maxLines: 3,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('Cancelar'),
+          ),
+          TextButton(
+            onPressed: () {
+              onSave(controller.text);
+              Navigator.of(context).pop();
+            },
+            child: const Text('Salvar'),
           ),
         ],
       ),

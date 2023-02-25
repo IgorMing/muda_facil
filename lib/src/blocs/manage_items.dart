@@ -10,6 +10,16 @@ class ManageItems extends StateNotifier<List<Item>> {
     return state.any((each) => each.name == item.name);
   }
 
+  void addComment(String comment, Item item) {
+    for (final each in state) {
+      if (each.name == item.name) {
+        each.comment = comment;
+      }
+    }
+
+    state = [...state];
+  }
+
   void plus(Item item) {
     if (!exists(item)) {
       _addItem(item);
@@ -27,10 +37,12 @@ class ManageItems extends StateNotifier<List<Item>> {
 
   void minus(Item item) {
     for (final each in state) {
-      if (each.amount > 1) {
-        each.amount -= 1;
-      } else {
-        _removeItem(item);
+      if (each.name == item.name) {
+        if (each.amount > 1) {
+          each.amount -= 1;
+        } else {
+          _removeItem(item);
+        }
       }
     }
 
@@ -38,19 +50,15 @@ class ManageItems extends StateNotifier<List<Item>> {
   }
 
   void _addItem(Item item) {
-    if (!exists(item)) {
-      item.amount = 1;
-      state = [...state, item];
-    }
+    item.amount = 1;
+    state = [...state, item];
   }
 
   void _removeItem(Item item) {
-    if (exists(item)) {
-      state = [
-        for (final each in state)
-          if (each.name != item.name) each
-      ];
-    }
+    state = [
+      for (final each in state)
+        if (each.name != item.name) each
+    ];
   }
 }
 

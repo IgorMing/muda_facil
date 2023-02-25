@@ -34,7 +34,7 @@ class ItemsScreen extends ConsumerWidget {
                 focusNode: fieldFocusNode,
                 decoration: const InputDecoration(
                     suffixIcon: Icon(Icons.search),
-                    helperText: 'Pesquise o nome do item de sua casa...'),
+                    helperText: 'Deslize para adicionar uma observação'),
               );
             },
             optionsBuilder: (textEditingValue) {
@@ -73,6 +73,9 @@ class ItemsScreen extends ConsumerWidget {
                   },
                   onPlus: () {
                     manageItemsActions.plus(item);
+                  },
+                  onAddComment: (text) {
+                    manageItemsActions.addComment(text, item);
                   },
                 );
               },
