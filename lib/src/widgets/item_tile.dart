@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/models/item.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/item_counter.dart';
 
@@ -25,11 +26,18 @@ class ItemTile extends StatelessWidget {
       elevation: 4.0,
       child: ExpansionTile(
         key: GlobalKey(),
-        // contentPadding: const EdgeInsets.all(4.0),
+        childrenPadding: const EdgeInsets.all(4.0),
+        tilePadding: const EdgeInsets.symmetric(
+          vertical: 2.0,
+          horizontal: kDefaultPadding,
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("${data.name} ( ${data.amount} )"),
+            Text(
+              "${data.name} ( ${data.amount} )",
+              style: Theme.of(context).textTheme.titleMedium,
+            ),
             ItemCounter(
               onMinus: onMinus,
               onPlus: onPlus,
@@ -37,7 +45,10 @@ class ItemTile extends StatelessWidget {
           ],
         ),
         subtitle: data.comment != null && data.comment!.isNotEmpty
-            ? Text(data.comment ?? '')
+            ? Text(
+                data.comment ?? '',
+                style: Theme.of(context).textTheme.bodySmall,
+              )
             : null,
         children: [
           ListTile(
