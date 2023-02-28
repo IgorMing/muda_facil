@@ -23,10 +23,12 @@ class ItemsScreen extends ConsumerWidget {
       body: Column(
         children: [
           Autocomplete<String>(
-            fieldViewBuilder: (BuildContext context,
-                TextEditingController fieldTextEditingController,
-                FocusNode fieldFocusNode,
-                VoidCallback onFieldSubmitted) {
+            fieldViewBuilder: (
+              BuildContext context,
+              TextEditingController fieldTextEditingController,
+              FocusNode fieldFocusNode,
+              VoidCallback onFieldSubmitted,
+            ) {
               textEditingController = fieldTextEditingController;
               return Stack(children: [
                 TextField(
@@ -34,7 +36,7 @@ class ItemsScreen extends ConsumerWidget {
                   focusNode: fieldFocusNode,
                   decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.search),
-                      helperText: 'Deslize para adicionar uma observação'),
+                      helperText: 'Pesquise o item que quer adicionar'),
                 ),
               ]);
             },
@@ -43,7 +45,6 @@ class ItemsScreen extends ConsumerWidget {
                 return const Iterable.empty();
               }
 
-              // return storageItems.when(
               return filtered.when(
                 data: (value) => value.where(
                   (option) => option
@@ -68,6 +69,9 @@ class ItemsScreen extends ConsumerWidget {
 
                 return ItemTile(
                   data: item,
+                  onRemove: () {
+                    manageItemsActions.removeItem(item);
+                  },
                   onMinus: () {
                     if (item.amount == 1) {
                       UIUtils.showAlertDialog(context, onSelect: (selected) {

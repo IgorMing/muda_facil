@@ -8,6 +8,7 @@ class ItemTile extends StatelessWidget {
   final Item data;
   final VoidCallback? onMinus;
   final VoidCallback? onPlus;
+  final VoidCallback? onRemove;
   final Function? onAddComment;
 
   const ItemTile({
@@ -15,6 +16,7 @@ class ItemTile extends StatelessWidget {
     required this.data,
     this.onMinus,
     this.onPlus,
+    this.onRemove,
     this.onAddComment,
   });
 
@@ -43,16 +45,51 @@ class ItemTile extends StatelessWidget {
       ),
       child: Card(
         elevation: 4.0,
-        child: ListTile(
-          contentPadding: const EdgeInsets.all(4.0),
-          title: Text("${data.name} ( ${data.amount} )"),
+        child: ExpansionTile(
+          key: GlobalKey(),
+          // contentPadding: const EdgeInsets.all(4.0),
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text("${data.name} ( ${data.amount} )"),
+              ItemCounter(
+                onMinus: onMinus,
+                onPlus: onPlus,
+              )
+            ],
+          ),
           subtitle: data.comment != null && data.comment!.isNotEmpty
               ? Text(data.comment ?? '')
               : null,
-          trailing: ItemCounter(
-            onMinus: onMinus,
-            onPlus: onPlus,
-          ),
+          children: [
+            ListTile(
+              title: const Text('Adicionar observação'),
+              onTap: () {
+                UIUtils.showInputDialog(
+                  context,
+                  onSave: (text) {
+                    onAddComment!(text);
+                  },
+                  initialText: data.comment,
+                );
+              },
+            ),
+            ListTile(
+              onTap: () {
+                UIUtils.showAlertDialog(context, onSelect: (selected) {
+                  if (selected) {
+                    onRemove!();
+                  }
+                });
+              },
+              title: Text(
+                'Remover item',
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.error,
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
