@@ -1,7 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:muda_facil/src/screens/items.dart';
-import 'package:muda_facil/src/screens/profile.dart';
+import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -11,59 +12,45 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int _selectedIndex = 0;
+  final user = FirebaseAuth.instance.currentUser;
+  bool isEditting = false;
+  final _controller = TextEditingController();
+
+  @override
+  void initState() {
+    _controller.text = user!.email ?? '';
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        onTap: (int selected) {
-          setState(() {
-            _selectedIndex = selected;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(kDefaultPadding),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Text('Bem vindo, ${user!.email}'),
+                IconButton(
+                  onPressed: () {
+                    UIUtils.showInputDialog(context, onSave: () {});
+                  },
+                  icon: const Icon(Icons.edit_outlined),
+                ),
+              ],
+            ),
+            FilledButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ItemsScreen()));
+              },
+              child: const Text('Iniciar mudança'),
+            )
+          ],
+        ),
       ),
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
-      ),
-      body: activeScreen(),
     );
-  }
-
-  Widget activeScreen() {
-    switch (_selectedIndex) {
-      case 1:
-        return const ProfileScreen();
-      case 0:
-      default:
-        return Container(
-          alignment: Alignment.center,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text('Querendo se mudar? Vamos começar!'),
-              FilledButton(
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ItemsScreen()));
-                },
-                child: const Text('Iniciar mudança'),
-              )
-            ],
-          ),
-        );
-    }
   }
 }

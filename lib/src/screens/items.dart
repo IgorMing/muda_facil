@@ -11,10 +11,9 @@ class ItemsScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    late TextEditingController textEditingController = TextEditingController();
+    late final TextEditingController textEditingController;
     final items = ref.watch(manageItemsProvider);
     final manageItemsActions = ref.read(manageItemsProvider.notifier);
-
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
@@ -29,22 +28,31 @@ class ItemsScreen extends ConsumerWidget {
                 FocusNode fieldFocusNode,
                 VoidCallback onFieldSubmitted) {
               textEditingController = fieldTextEditingController;
-              return TextField(
-                controller: fieldTextEditingController,
-                focusNode: fieldFocusNode,
-                decoration: const InputDecoration(
-                    suffixIcon: Icon(Icons.search),
-                    helperText: 'Deslize para adicionar uma observação'),
-              );
+              return Stack(children: [
+                TextField(
+                  controller: fieldTextEditingController,
+                  focusNode: fieldFocusNode,
+                  decoration: const InputDecoration(
+                      suffixIcon: Icon(Icons.search),
+                      helperText: 'Deslize para adicionar uma observação'),
+                ),
+              ]);
             },
             optionsBuilder: (textEditingValue) {
               if (textEditingValue.text.isEmpty) {
                 return const Iterable.empty();
               }
 
-              return filtered.value!.where((option) => option
-                  .toLowerCase()
-                  .contains(textEditingValue.text.toLowerCase()));
+              // return storageItems.when(
+              return filtered.when(
+                data: (value) => value.where(
+                  (option) => option
+                      .toLowerCase()
+                      .contains(textEditingValue.text.toLowerCase()),
+                ),
+                error: (error, stackTrace) => const Iterable.empty(),
+                loading: () => const Iterable.empty(),
+              );
             },
             onSelected: (selected) {
               manageItemsActions.plus(Item(name: selected));

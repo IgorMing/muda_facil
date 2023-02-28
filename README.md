@@ -9,8 +9,9 @@ App for learning flutter
 - [x] get list of items from firebase firestore
 - [x] filter out from autocomplete list all items that were already selected
 - [x] add a way to include a comment/observation for each item of the list
-
-- [ ] do a visual diagram exposing the data distribution/architecture
+- [x] do a visual diagram exposing the data distribution/architecture
+- [ ] add a consistent first option to "add" the string that were not found
+- [ ] change the way that we add observations. Use ExpansionTile instead. _(better UX)_
 
 ## bug
 

@@ -1,38 +1,33 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
+import 'package:muda_facil/src/models/storage_items_response.dart';
 import 'package:muda_facil/src/services/items.dart';
 
-class StorageItemResponse {
-  List<String> data;
-
-  StorageItemResponse(this.data);
-}
-
-class StorageItems extends StateNotifier<StorageItemResponse> {
-  StorageItems() : super(StorageItemResponse([])) {
+class StorageItems extends StateNotifier<StorageItemsResponse> {
+  StorageItems() : super(StorageItemsResponse([])) {
     getItems();
   }
 
-  ItemsService itemsService = ItemsService();
+  final ItemsService _itemsService = ItemsService();
 
-  getItems() async {
-    var response = await itemsService.getAll();
-    state = StorageItemResponse([...response]);
+  void getItems() async {
+    // TODO: we should save this info in a cache, probably
+    state = await _itemsService.getAll();
   }
 }
 
 final storageItemsProvider =
-    StateNotifierProvider<StorageItems, StorageItemResponse>(
-        (ref) => StorageItems());
+    StateNotifierProvider<StorageItems, StorageItemsResponse>((ref) {
+  return StorageItems();
+});
 
-final filteredItemsProvider = FutureProvider((ref) {
+final filteredItemsProvider = FutureProvider<List<String>>((ref) {
   final selectedItems = ref.watch(manageItemsProvider);
   final storageItems = ref.watch(storageItemsProvider);
 
-  return storageItems.data.toList()
-    ..retainWhere(
-      (element) {
-        return !selectedItems.any((item) => item.name == element);
-      },
-    );
+  return storageItems.data.where((element) {
+    if (selectedItems.isEmpty) return true;
+
+    return selectedItems.any((item) => item.name != element);
+  }).toList();
 });
