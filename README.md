@@ -11,7 +11,7 @@ App for learning flutter
 - [x] add a way to include a comment/observation for each item of the list
 - [x] do a visual diagram exposing the data distribution/architecture
 - [x] change the way that we add observations. Use ExpansionTile instead. _(better UX)_
-- [ ] add a consistent first option to "add" the string that were not found
+- [x] add a consistent first option to "add" the string that were not found
 
 ## bug
 

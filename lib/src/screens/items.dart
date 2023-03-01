@@ -46,11 +46,24 @@ class ItemsScreen extends ConsumerWidget {
               }
 
               return filtered.when(
-                data: (value) => value.where(
-                  (option) => option
-                      .toLowerCase()
-                      .contains(textEditingValue.text.toLowerCase()),
-                ),
+                data: (value) {
+                  var list = value
+                      .where(
+                        (option) => option
+                            .toLowerCase()
+                            .contains(textEditingValue.text.toLowerCase()),
+                      )
+                      .toList();
+                  if (list.length > 3) {
+                    list = list.sublist(0, 3);
+                  }
+
+                  if (list.length != 1) {
+                    list.insert(list.length, textEditingValue.text);
+                  }
+
+                  return list;
+                },
                 error: (error, stackTrace) => const Iterable.empty(),
                 loading: () => const Iterable.empty(),
               );
