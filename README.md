@@ -12,6 +12,7 @@ App for learning flutter
 - [x] do a visual diagram exposing the data distribution/architecture
 - [x] change the way that we add observations. Use ExpansionTile instead. _(better UX)_
 - [x] add a consistent first option to "add" the string that were not found
+- [x] create review screen
 
 ## bug
 

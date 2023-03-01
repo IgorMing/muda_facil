@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/storage_items.dart';
 import 'package:muda_facil/src/models/item.dart';
+import 'package:muda_facil/src/screens/review.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/item_tile.dart';
 
@@ -17,6 +18,17 @@ class ItemsScreen extends ConsumerWidget {
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const ReviewScreen(),
+          ));
+        },
+        tooltip: "Próximo",
+        child: const Icon(Icons.navigate_next_outlined),
+      ),
       appBar: AppBar(
         title: const Text('Adicionar itens'),
       ),
@@ -32,6 +44,7 @@ class ItemsScreen extends ConsumerWidget {
               textEditingController = fieldTextEditingController;
               return Stack(children: [
                 TextField(
+                  textCapitalization: TextCapitalization.sentences,
                   controller: fieldTextEditingController,
                   focusNode: fieldFocusNode,
                   decoration: const InputDecoration(
