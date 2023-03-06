@@ -18,16 +18,19 @@ class ItemsScreen extends ConsumerWidget {
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => const ReviewScreen(),
-          ));
-        },
-        tooltip: "Próximo",
-        child: const Icon(Icons.navigate_next_outlined),
+      floatingActionButton: Visibility(
+        visible: items.isNotEmpty,
+        child: FloatingActionButton(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.onPrimary,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const ReviewScreen(),
+            ));
+          },
+          tooltip: "Próximo",
+          child: const Icon(Icons.navigate_next_outlined),
+        ),
       ),
       appBar: AppBar(
         title: const Text('Adicionar itens'),

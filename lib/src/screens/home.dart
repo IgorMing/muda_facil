@@ -3,25 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
+import 'package:muda_facil/src/widgets/my_order.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreen extends StatelessWidget {
   final user = FirebaseAuth.instance.currentUser;
-  bool isEditting = false;
-  final _controller = TextEditingController();
 
-  @override
-  void initState() {
-    _controller.text = user!.email ?? '';
-
-    super.initState();
-  }
+  HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -41,6 +28,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
               ],
             ),
+            const MyOrder(),
             FilledButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(

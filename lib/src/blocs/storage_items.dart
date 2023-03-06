@@ -11,6 +11,7 @@ class StorageItems extends StateNotifier<List<String>> {
 
   void getItems() async {
     // TODO: we should save this info in a cache, probably
+    // do firebase does that already? let's spike that out later
     state = await _itemsService.getAll();
   }
 }

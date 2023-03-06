@@ -19,7 +19,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
         return const ProfileScreen();
       case 0:
       default:
-        return const HomeScreen();
+        return HomeScreen();
     }
   }
 

@@ -13,7 +13,9 @@ App for learning flutter
 - [x] change the way that we add observations. Use ExpansionTile instead. _(better UX)_
 - [x] add a consistent first option to "add" the string that were not found
 - [x] create review screen
-- [ ] on confirming the review, persist it on firestore _(save it on a new collection called `orders/`)_
+- [x] show current moving order in home screen. _(create a separated widget to it)_
+- [ ] make a better UI for the current order, and validate the UI if the order is null
+- [ ] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
 - [ ] find items that are not in the list, and persist them into a different document
 - [ ] create differences by user role _(create new users collection, and save the role data by user)_
 - [ ] create an admin tab that can check new items on the separated list, and edit/approve it. _(Approve means: Add it to the document `items/candidates`)_
