@@ -28,13 +28,20 @@ class ItemTile extends StatelessWidget {
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "${data.name} ( ${data.amount} )",
-              style: Theme.of(context).textTheme.titleMedium,
+            Flexible(
+              flex: 2,
+              child: Text(
+                "( ${data.amount} ) ${data.name} ",
+                style: Theme.of(context).textTheme.titleMedium,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
             ),
-            ItemCounter(
-              onMinus: onMinus,
-              onPlus: onPlus,
+            Flexible(
+              child: ItemCounter(
+                onMinus: onMinus,
+                onPlus: onPlus,
+              ),
             )
           ],
         ),
