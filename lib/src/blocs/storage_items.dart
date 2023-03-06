@@ -21,12 +21,9 @@ final storageItemsProvider =
 });
 
 final filteredItemsProvider = FutureProvider<List<String>>((ref) {
-  final selectedItems = ref.watch(manageItemsProvider);
-  final storageItems = ref.watch(storageItemsProvider);
+  final selectedItems =
+      ref.watch(manageItemsProvider).map((e) => e.name).toSet();
+  final storageItems = ref.watch(storageItemsProvider).toSet();
 
-  return storageItems.where((element) {
-    if (selectedItems.isEmpty) return true;
-
-    return selectedItems.any((item) => item.name != element);
-  }).toList();
+  return storageItems.difference(selectedItems).toList();
 });
