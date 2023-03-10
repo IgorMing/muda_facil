@@ -1,6 +1,8 @@
-# muda_facil
+# Muda Fácil App
 
-App for learning flutter
+App for learning flutter _(and maybe become a solution for house moving)_
+
+> Here's a [link](https://drive.google.com/file/d/1ddqhjFzTeCn-ubGbUCgLDcDuqTYL2Z4N/view?usp=sharing) to Some wireframes and basic screen navigation flow
 
 ## MVP TODOs
 
@@ -14,8 +16,8 @@ App for learning flutter
 - [x] add a consistent first option to "add" the string that were not found
 - [x] create review screen
 - [x] show current moving order in home screen. _(create a separated widget to it)_
-
-- [ ] make a better UI for the current order, and validate the UI if the order is null
+- [x] check the best way to treat date
+- [x] make a better UI for the current order, and validate the UI if the order is null
 - [ ] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
 - [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
 - [ ] create differences by user role _(create new users collection, and save the role data by user)_
@@ -24,9 +26,13 @@ App for learning flutter
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
 
+- [ ] configure splash screen
+
 ## Less priority TODOs
 
 - [ ] create an admin tab that can check new items on the separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
+
+- [ ] separate items on groups, to make the user's lifes easier
 
 ## Structural info
 

@@ -7,6 +7,7 @@ class MovingOrder {
   final bool? flexibleMovingDate;
   final Timestamp? movingDate;
   final String? destinyAddress;
+  final String? originAddress;
 
   MovingOrder({
     this.items,
@@ -14,6 +15,7 @@ class MovingOrder {
     this.movingDate,
     this.destinyAddress,
     this.flexibleMovingDate,
+    this.originAddress,
   });
 
   factory MovingOrder.fromFirestore(
@@ -33,6 +35,7 @@ class MovingOrder {
       createdAt: data?["createdAt"],
       movingDate: data?["movingDate"],
       destinyAddress: data?["destinyAddress"],
+      originAddress: data?["originAddress"],
       flexibleMovingDate: data?["flexibleMovingDate"],
     );
   }
@@ -43,6 +46,7 @@ class MovingOrder {
       if (createdAt != null) "createdAt": createdAt,
       if (movingDate != null) "movingDate": movingDate,
       if (destinyAddress != null) "destinyAddress": destinyAddress,
+      if (originAddress != null) "originAddress": originAddress,
       if (flexibleMovingDate != null) "flexibleMovingDate": flexibleMovingDate,
     };
   }

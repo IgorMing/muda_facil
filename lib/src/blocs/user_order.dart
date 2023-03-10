@@ -12,6 +12,11 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   void getOrder() async {
     state = await orderService.getOrder();
   }
+
+  get allCompleted =>
+      state?.destinyAddress != null &&
+      state?.originAddress != null &&
+      state?.movingDate != null;
 }
 
 final userOrderProvider =
