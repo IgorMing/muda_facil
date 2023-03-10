@@ -30,6 +30,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 ## Less priority TODOs
 
+- [ ] add a progress bar to the order
+
 - [ ] create an admin tab that can check new items on the separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] separate items on groups, to make the user's lifes easier

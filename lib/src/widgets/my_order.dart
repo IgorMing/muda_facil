@@ -30,6 +30,7 @@ class MyOrder extends ConsumerWidget {
         borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             'Minha mudança',
@@ -55,7 +56,6 @@ class MyOrder extends ConsumerWidget {
               value: DateFormat('dd/MM/yyyy H:m')
                   .format(DateTime.fromMicrosecondsSinceEpoch(movingDateMs)),
             ),
-          const Divider(),
           CheckableButton(
             title: originAddress == null ? "Origem" : 'Editar origem',
             checked: originAddress != null,

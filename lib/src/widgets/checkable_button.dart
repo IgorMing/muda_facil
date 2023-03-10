@@ -9,11 +9,24 @@ class CheckableButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return OutlinedButton(
+      style: OutlinedButton.styleFrom(
+        side: BorderSide(
+            color: checked == true
+                ? Colors.green
+                : Theme.of(context).colorScheme.primary),
+      ),
       onPressed: () {},
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Text(title),
+          Text(
+            title,
+            style: TextStyle(
+                color: checked == true
+                    ? Colors.green[800]
+                    : Theme.of(context).colorScheme.primary),
+          ),
           const SizedBox(width: 5),
           if (checked == true) const Icon(Icons.check, color: Colors.green),
         ],
