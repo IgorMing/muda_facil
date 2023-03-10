@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
-import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/my_order.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -20,18 +19,10 @@ class HomeScreen extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Text('Bem vindo, ${user!.email}'),
-                IconButton(
-                  onPressed: () {
-                    UIUtils.showInputDialog(context, onSave: () {});
-                  },
-                  icon: const Icon(Icons.edit_outlined),
-                ),
-              ],
-            ),
+            Text('Bem vindo, ${user!.email}'),
+            const SizedBox(height: kDefaultPadding * 2),
             if (userOrder != null)
               const MyOrder()
             else

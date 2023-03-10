@@ -32,6 +32,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 - [ ] add a progress bar to the order
 
+- [ ] add a way to the user change its name
+
 - [ ] create an admin tab that can check new items on the separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] separate items on groups, to make the user's lifes easier
