@@ -18,6 +18,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] show current moving order in home screen. _(create a separated widget to it)_
 - [x] check the best way to treat date
 - [x] make a better UI for the current order, and validate the UI if the order is null
+- [x] navigate to items screen for editting the order
 - [ ] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
 - [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
 - [ ] create differences by user role _(create new users collection, and save the role data by user)_
@@ -34,7 +35,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 - [ ] add a way to the user change its name
 
-- [ ] create an admin tab that can check new items on the separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
+- [ ] create an admin tab that can check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] separate items on groups, to make the user's lifes easier
 

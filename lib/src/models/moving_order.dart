@@ -50,4 +50,9 @@ class MovingOrder {
       if (flexibleMovingDate != null) "flexibleMovingDate": flexibleMovingDate,
     };
   }
+
+  @override
+  String toString() {
+    return "moving order with items: ${items?.map((e) => e.name)}";
+  }
 }

@@ -13,13 +13,13 @@ class ItemsScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     late final TextEditingController textEditingController;
-    final items = ref.watch(manageItemsProvider);
+    final items = ref.watch(orderItemsProvider);
     final manageItemsActions = ref.read(manageItemsProvider.notifier);
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
       floatingActionButton: Visibility(
-        visible: items.isNotEmpty,
+        visible: items.value!.isNotEmpty,
         child: FloatingActionButton(
           backgroundColor: Theme.of(context).colorScheme.primary,
           foregroundColor: Theme.of(context).colorScheme.onPrimary,
@@ -89,39 +89,40 @@ class ItemsScreen extends ConsumerWidget {
               textEditingController.clear();
             },
           ),
-          Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              itemCount: items.length,
-              itemBuilder: (_, index) {
-                final item = items[index];
+          if (items.value != null)
+            Expanded(
+              child: ListView.builder(
+                padding: const EdgeInsets.all(8.0),
+                itemCount: items.value!.length,
+                itemBuilder: (_, index) {
+                  final item = items.value![index];
 
-                return ItemTile(
-                  data: item,
-                  onRemove: () {
-                    manageItemsActions.removeItem(item);
-                  },
-                  onMinus: () {
-                    if (item.amount == 1) {
-                      UIUtils.showAlertDialog(context, onSelect: (selected) {
-                        if (selected) {
-                          manageItemsActions.minus(item);
-                        }
-                      });
-                    } else {
-                      manageItemsActions.minus(item);
-                    }
-                  },
-                  onPlus: () {
-                    manageItemsActions.plus(item);
-                  },
-                  onAddComment: (text) {
-                    manageItemsActions.addComment(text, item);
-                  },
-                );
-              },
-            ),
-          )
+                  return ItemTile(
+                    data: item,
+                    onRemove: () {
+                      manageItemsActions.removeItem(item);
+                    },
+                    onMinus: () {
+                      if (item.amount == 1) {
+                        UIUtils.showAlertDialog(context, onSelect: (selected) {
+                          if (selected) {
+                            manageItemsActions.minus(item);
+                          }
+                        });
+                      } else {
+                        manageItemsActions.minus(item);
+                      }
+                    },
+                    onPlus: () {
+                      manageItemsActions.plus(item);
+                    },
+                    onAddComment: (text) {
+                      manageItemsActions.addComment(text, item);
+                    },
+                  );
+                },
+              ),
+            )
         ],
       ),
     );

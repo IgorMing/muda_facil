@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
@@ -57,14 +58,21 @@ class MyOrder extends ConsumerWidget {
                   .format(DateTime.fromMicrosecondsSinceEpoch(movingDateMs)),
             ),
           CheckableButton(
+            onPressed: () {},
             title: originAddress == null ? "Origem" : 'Editar origem',
             checked: originAddress != null,
           ),
           CheckableButton(
+            onPressed: () {},
             title: destinyAddress == null ? "Destino" : 'Editar destino',
             checked: destinyAddress != null,
           ),
-          const CheckableButton(
+          CheckableButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ItemsScreen(),
+              ));
+            },
             title: 'Editar Itens',
             checked: true,
           ),

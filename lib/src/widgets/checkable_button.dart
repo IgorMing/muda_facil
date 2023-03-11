@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
 class CheckableButton extends StatelessWidget {
-  const CheckableButton({super.key, required this.title, this.checked});
+  const CheckableButton({
+    super.key,
+    required this.title,
+    required this.onPressed,
+    this.checked,
+  });
 
   final String title;
   final bool? checked;
+  final Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +21,7 @@ class CheckableButton extends StatelessWidget {
                 ? Colors.green
                 : Theme.of(context).colorScheme.primary),
       ),
-      onPressed: () {},
+      onPressed: onPressed,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         mainAxisSize: MainAxisSize.max,

@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/models/item.dart';
 
 class ManageItems extends StateNotifier<List<Item>> {
@@ -64,3 +65,8 @@ class ManageItems extends StateNotifier<List<Item>> {
 
 final manageItemsProvider =
     StateNotifierProvider<ManageItems, List<Item>>((ref) => ManageItems());
+
+final orderItemsProvider = FutureProvider<List<Item>>((ref) {
+  final userOrder = ref.watch(userOrderProvider);
+  return userOrder?.items ?? [];
+});

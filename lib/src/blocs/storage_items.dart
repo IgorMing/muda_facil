@@ -16,7 +16,7 @@ class StorageItems extends StateNotifier<List<String>> {
   }
 }
 
-final storageItemsProvider =
+final _storageItemsProvider =
     StateNotifierProvider<StorageItems, List<String>>((ref) {
   return StorageItems();
 });
@@ -24,7 +24,7 @@ final storageItemsProvider =
 final filteredItemsProvider = FutureProvider<List<String>>((ref) {
   final selectedItems =
       ref.watch(manageItemsProvider).map((e) => e.name).toSet();
-  final storageItems = ref.watch(storageItemsProvider).toSet();
+  final storageItems = ref.watch(_storageItemsProvider).toSet();
 
   return storageItems.difference(selectedItems).toList();
 });
