@@ -15,9 +15,12 @@ class OrderService {
         );
   }
 
-  Future<MovingOrder> getOrder() async {
+  Future<MovingOrder?> getOrder() async {
     final docs = await collection.limit(1).get();
-    return docs.docs[0].data();
+    if (docs.docs.isNotEmpty) {
+      return docs.docs[0].data();
+    }
+    return null;
   }
 
   Future<void> setOrder(Order order) async {

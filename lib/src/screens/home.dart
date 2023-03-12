@@ -23,16 +23,15 @@ class HomeScreen extends ConsumerWidget {
           children: [
             Text('Bem vindo, ${user!.email}'),
             const SizedBox(height: kDefaultPadding * 2),
-            if (userOrder != null)
-              const MyOrder()
-            else
+            const MyOrder(),
+            if (userOrder == null)
               ElevatedButton(
                 onPressed: () {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: (context) => const ItemsScreen()));
                 },
                 child: const Text('Iniciar mudança'),
-              )
+              ),
           ],
         ),
       ),
