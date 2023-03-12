@@ -4,6 +4,9 @@ import 'package:muda_facil/src/models/item.dart';
 
 class ManageItems extends StateNotifier<List<Item>> {
   ManageItems() : super([]);
+  ManageItems.withList(List<Item> list) : super([]) {
+    _createWith(list);
+  }
 
   bool get isSingle => false;
 
@@ -61,12 +64,16 @@ class ManageItems extends StateNotifier<List<Item>> {
         if (each.name != item.name) each
     ];
   }
+
+  void _createWith(List<Item> list) {
+    state = [...list];
+  }
 }
 
 final manageItemsProvider =
-    StateNotifierProvider<ManageItems, List<Item>>((ref) => ManageItems());
-
-final orderItemsProvider = FutureProvider<List<Item>>((ref) {
+    StateNotifierProvider<ManageItems, List<Item>>((ref) {
   final userOrder = ref.watch(userOrderProvider);
-  return userOrder?.items ?? [];
+  final userOrderItems = userOrder?.items ?? [];
+
+  return ManageItems.withList(userOrderItems);
 });
