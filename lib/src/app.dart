@@ -21,6 +21,11 @@ class App extends StatelessWidget {
       theme: FlexThemeData.light(
         scheme: FlexScheme.bahamaBlue,
         textTheme: GoogleFonts.montserratTextTheme(),
+      ).copyWith(
+        floatingActionButtonTheme: const FloatingActionButtonThemeData(
+          backgroundColor: FlexColor.bahamaBlueDarkPrimaryContainer,
+          foregroundColor: Colors.white,
+        ),
       ),
       darkTheme: FlexThemeData.dark(
         scheme: FlexScheme.blumineBlue,
