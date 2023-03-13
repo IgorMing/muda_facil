@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {
@@ -7,10 +8,20 @@ class AuthService {
         .signInWithEmailAndPassword(email: email, password: password);
   }
 
+  static Future<void> addUserRole(String uid, {String role = "user"}) {
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .set({"role": role});
+  }
+
   static Future<UserCredential> signUpByEmailAndPassword(
-      String email, String password) {
-    return FirebaseAuth.instance
+      String email, String password) async {
+    final createdUser = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
+
+    addUserRole(createdUser.user!.uid);
+    return createdUser;
   }
 
   static Future<void> resetPasswordByEmail(String email) {
