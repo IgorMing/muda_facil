@@ -21,8 +21,6 @@ class ItemsScreen extends ConsumerWidget {
       floatingActionButton: Visibility(
         visible: items.isNotEmpty,
         child: FloatingActionButton(
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onPrimary,
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
               builder: (context) => const ReviewScreen(),
