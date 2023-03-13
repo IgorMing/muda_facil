@@ -21,7 +21,7 @@ class ProfileScreen extends ConsumerWidget {
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
               onPressed: () {
-                ref.invalidate(userOrderProvider);
+                ref.invalidate(userOrderOrNullProvider);
                 AuthService.signOut();
               },
               label: const Text('Sign out'),

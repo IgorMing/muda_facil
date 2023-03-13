@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
+import 'package:muda_facil/src/screens/addresses.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
@@ -13,8 +14,8 @@ class MyOrder extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userOrder = ref.watch(userOrderProvider);
-    final actions = ref.read(userOrderProvider.notifier);
+    final userOrder = ref.watch(userOrderOrNullProvider);
+    final actions = ref.read(userOrderOrNullProvider.notifier);
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -64,12 +65,12 @@ class Info extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         Divider(color: Theme.of(context).primaryColorDark),
-        if (originAddress != null)
+        if (originAddress!.isNotEmpty)
           InfoRow(
             label: "Origem",
             value: originAddress,
           ),
-        if (destinyAddress != null)
+        if (destinyAddress!.isNotEmpty)
           InfoRow(
             label: "Destino",
             value: destinyAddress,
@@ -81,14 +82,22 @@ class Info extends StatelessWidget {
                 .format(DateTime.fromMicrosecondsSinceEpoch(movingDateMs)),
           ),
         CheckableButton(
-          onPressed: () {},
-          title: originAddress == null ? "Origem" : 'Editar origem',
-          checked: originAddress != null,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const AddressesScreen(),
+            ));
+          },
+          title: originAddress.isEmpty ? "Origem" : 'Editar origem',
+          checked: originAddress.isNotEmpty,
         ),
         CheckableButton(
-          onPressed: () {},
-          title: destinyAddress == null ? "Destino" : 'Editar destino',
-          checked: destinyAddress != null,
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const AddressesScreen(),
+            ));
+          },
+          title: destinyAddress.isEmpty ? "Destino" : 'Editar destino',
+          checked: destinyAddress.isNotEmpty,
         ),
         CheckableButton(
           onPressed: () {

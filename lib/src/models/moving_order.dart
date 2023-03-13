@@ -4,10 +4,10 @@ import 'package:muda_facil/src/models/item.dart';
 class MovingOrder {
   Timestamp? createdAt;
   List<Item>? items = [];
-  final bool? flexibleMovingDate;
-  final Timestamp? movingDate;
-  final String? destinyAddress;
-  final String? originAddress;
+  bool? flexibleMovingDate;
+  Timestamp? movingDate;
+  String? destinyAddress;
+  String? originAddress;
 
   MovingOrder({
     this.items,
@@ -42,7 +42,7 @@ class MovingOrder {
 
   Map<String, dynamic> toFirestore() {
     return {
-      if (items != null) "items": items,
+      if (items != null) "items": items!.map((e) => e.toFirestore()),
       if (createdAt != null) "createdAt": createdAt,
       if (movingDate != null) "movingDate": movingDate,
       if (destinyAddress != null) "destinyAddress": destinyAddress,

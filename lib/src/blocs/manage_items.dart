@@ -72,7 +72,7 @@ class ManageItems extends StateNotifier<List<Item>> {
 
 final manageItemsProvider =
     StateNotifierProvider<ManageItems, List<Item>>((ref) {
-  final userOrder = ref.watch(userOrderProvider);
+  final userOrder = ref.watch(userOrderOrNullProvider);
   final userOrderItems = userOrder?.items ?? [];
 
   return ManageItems.withList(userOrderItems);

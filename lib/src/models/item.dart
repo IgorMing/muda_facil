@@ -10,4 +10,12 @@ class Item {
         amount: data["amount"],
         comment: data["comment"],
       );
+
+  Map<String, dynamic> toFirestore() {
+    return {
+      "name": name,
+      "amount": amount,
+      if (comment != null) "comment": comment,
+    };
+  }
 }

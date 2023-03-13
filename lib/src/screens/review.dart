@@ -1,9 +1,8 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
-import 'package:muda_facil/src/services/order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
 class ReviewScreen extends ConsumerWidget {
@@ -12,8 +11,7 @@ class ReviewScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final items = ref.watch(manageItemsProvider);
-    final userOrder = ref.watch(userOrderProvider);
-    final orderService = OrderService();
+    final userOrder = ref.read(userOrderOrNullProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(),
@@ -46,10 +44,21 @@ class ReviewScreen extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  // FIXME: this is not working...
-                  userOrder!.items = items;
-                  userOrder.createdAt = Timestamp.now();
-                  orderService.setOrder(userOrder);
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (context) => const Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  );
+
+                  // loading is good for UX :)
+                  Future.delayed(const Duration(seconds: 2), () {
+                    userOrder.setItems(items);
+                    // userOrder.persist(); // FIXME: uncomment me!
+                    navigatorKey.currentState!
+                        .popUntil((route) => route.isFirst);
+                  });
                 },
                 child: const Text('Confirmar'),
               ),

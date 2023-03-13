@@ -13,7 +13,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final userOrder = ref.watch(userOrderProvider);
+    final userOrder = ref.watch(userOrderOrNullProvider);
 
     return SingleChildScrollView(
       child: Padding(
