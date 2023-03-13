@@ -20,6 +20,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] make a better UI for the current order, and validate the UI if the order is null
 - [x] navigate to items screen for editting the order
 - [x] save user role on firebase on signup flow
+- [ ] add address flow
 - [ ] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
 - [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
 - [ ] create differences by user role _(create new users collection, and save the role data by user)_

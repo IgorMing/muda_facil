@@ -16,6 +16,9 @@ class OrderService {
   }
 
   Future<MovingOrder?> getOrder() async {
+    // this gets always the first record. initially, we'll consider that
+    // each user will have only one order. If we need to care about another,
+    // nice! Things are going well with the product :)
     final docs = await collection.limit(1).get();
     if (docs.docs.isNotEmpty) {
       return docs.docs[0].data();
@@ -23,7 +26,7 @@ class OrderService {
     return null;
   }
 
-  Future<void> setOrder(Order order) async {
-    // collection.
+  Future<void> setOrder(MovingOrder order) async {
+    await collection.add(order);
   }
 }

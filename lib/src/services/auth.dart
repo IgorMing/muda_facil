@@ -12,7 +12,7 @@ class AuthService {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
-        .set({"role": role});
+        .set({"role": role}, SetOptions(merge: true));
   }
 
   static Future<UserCredential> signUpByEmailAndPassword(
@@ -20,7 +20,7 @@ class AuthService {
     final createdUser = await FirebaseAuth.instance
         .createUserWithEmailAndPassword(email: email, password: password);
 
-    addUserRole(createdUser.user!.uid);
+    await addUserRole(createdUser.user!.uid);
     return createdUser;
   }
 
