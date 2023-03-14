@@ -175,7 +175,7 @@ class _AuthLayoutState extends State<AuthLayout> {
       context: context,
       barrierDismissible: false,
       builder: (context) => const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator.adaptive(),
       ),
     );
 
