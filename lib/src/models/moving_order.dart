@@ -53,6 +53,6 @@ class MovingOrder {
 
   @override
   String toString() {
-    return "moving order with items: ${items?.map((e) => e.name)}";
+    return "order: from $originAddress to $destinyAddress with items: ${items?.map((e) => e.name)}";
   }
 }

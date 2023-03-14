@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:intl/intl.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/screens/addresses.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/general.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
 
@@ -51,8 +51,6 @@ class Info extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final movingDateMs = order.movingDate?.microsecondsSinceEpoch;
-    final originAddress = order.originAddress;
-    final destinyAddress = order.destinyAddress;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,21 +63,20 @@ class Info extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         Divider(color: Theme.of(context).primaryColorDark),
-        if (originAddress!.isNotEmpty)
+        if (GeneralUtils.isFilled(order.originAddress))
           InfoRow(
             label: "Origem",
-            value: originAddress,
+            value: order.originAddress,
           ),
-        if (destinyAddress!.isNotEmpty)
+        if (GeneralUtils.isFilled(order.destinyAddress))
           InfoRow(
             label: "Destino",
-            value: destinyAddress,
+            value: order.destinyAddress,
           ),
         if (movingDateMs != null)
           InfoRow(
             label: "Data",
-            value: DateFormat('dd/MM/yyyy H:m')
-                .format(DateTime.fromMicrosecondsSinceEpoch(movingDateMs)),
+            value: GeneralUtils.formatDateFromTimestamp(movingDateMs),
           ),
         CheckableButton(
           onPressed: () {
@@ -87,8 +84,10 @@ class Info extends StatelessWidget {
               builder: (context) => const AddressesScreen(),
             ));
           },
-          title: originAddress.isEmpty ? "Origem" : 'Editar origem',
-          checked: originAddress.isNotEmpty,
+          title: !GeneralUtils.isFilled(order.originAddress)
+              ? "Origem"
+              : 'Editar origem',
+          checked: GeneralUtils.isFilled(order.originAddress),
         ),
         CheckableButton(
           onPressed: () {
@@ -96,8 +95,10 @@ class Info extends StatelessWidget {
               builder: (context) => const AddressesScreen(),
             ));
           },
-          title: destinyAddress.isEmpty ? "Destino" : 'Editar destino',
-          checked: destinyAddress.isNotEmpty,
+          title: !GeneralUtils.isFilled(order.destinyAddress)
+              ? "Destino"
+              : 'Editar destino',
+          checked: GeneralUtils.isFilled(order.destinyAddress),
         ),
         CheckableButton(
           onPressed: () {
@@ -105,8 +106,10 @@ class Info extends StatelessWidget {
               builder: (context) => const ItemsScreen(),
             ));
           },
-          title: 'Editar Itens',
-          checked: true,
+          title: GeneralUtils.isFilledArray(order.items)
+              ? 'Editar Itens'
+              : 'Adicionar itens',
+          checked: GeneralUtils.isFilledArray(order.items),
         ),
         if (actions.allCompleted)
           ElevatedButton(
