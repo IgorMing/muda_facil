@@ -10,23 +10,24 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     getOrder();
   }
 
+  // this will be created just on our state notifier (not on firebase, for now)
   void create() {
-    state ??= MovingOrder();
+    state ??= const MovingOrder();
   }
 
   void setAddresses({String? from, String? to}) {
-    state!.originAddress = from;
-    state!.destinyAddress = to;
+    state = state?.copyWith(originAddress: from, destinyAddress: to);
   }
 
   void setItems(List<Item> list) {
-    state!.items = list;
+    state = state?.copyWith(items: list);
   }
 
   void getOrder() async {
     state = await orderService.getOrder();
   }
 
+  // method that calls the firebase API and persist it on firestore
   void persist() async {
     if (state != null) {
       await orderService.setOrder(state!);

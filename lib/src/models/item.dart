@@ -5,13 +5,13 @@ class Item {
 
   Item({required this.name, this.amount = 0, this.comment});
 
-  factory Item.fromFirestore(Map<String, dynamic> data) => Item(
+  factory Item.fromJson(Map<String, dynamic> data) => Item(
         name: data["name"],
         amount: data["amount"],
         comment: data["comment"],
       );
 
-  Map<String, dynamic> toFirestore() {
+  Map<String, dynamic> toJson() {
     return {
       "name": name,
       "amount": amount,

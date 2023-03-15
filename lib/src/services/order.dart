@@ -4,22 +4,27 @@ import 'package:muda_facil/src/models/moving_order.dart';
 
 class OrderService {
   final User user = FirebaseAuth.instance.currentUser as User;
+  final FirebaseFirestore db = FirebaseFirestore.instance;
   late final CollectionReference<MovingOrder> collection;
 
   OrderService() {
-    collection = FirebaseFirestore.instance
-        .collection("users/${user.uid}/orders")
-        .withConverter(
-          fromFirestore: MovingOrder.fromFirestore,
-          toFirestore: (MovingOrder value, _) => value.toFirestore(),
+    collection = db.collection("users/${user.uid}/orders").withConverter(
+          fromFirestore: (snapshot, options) =>
+              MovingOrder.fromJson(snapshot.data()),
+          toFirestore: (MovingOrder value, _) => value.toJson(),
         );
+  }
+
+  Future<QuerySnapshot<MovingOrder>> _getLastOrder() {
+    // add orderBy createdAt desc in the future
+    return collection.limit(1).get();
   }
 
   Future<MovingOrder?> getOrder() async {
     // this gets always the first record. initially, we'll consider that
     // each user will have only one order. If we need to care about another,
     // nice! Things are going well with the product :)
-    final docs = await collection.limit(1).get();
+    final docs = await _getLastOrder();
     if (docs.docs.isNotEmpty) {
       return docs.docs[0].data();
     }
@@ -27,6 +32,16 @@ class OrderService {
   }
 
   Future<void> setOrder(MovingOrder order) async {
-    await collection.add(order);
+    final existentOrder = await _getLastOrder();
+    if (existentOrder.docs.isEmpty) {
+      await collection.add(order);
+    } else {
+      // TODO: continue from here
+      // check how to update the order properly!
+      final docRef = existentOrder.docs[0];
+      // db.runTransaction((transaction) {
+      //   transaction.update(docRef, {});
+      // });
+    }
   }
 }

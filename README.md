@@ -20,10 +20,9 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] make a better UI for the current order, and validate the UI if the order is null
 - [x] navigate to items screen for editting the order
 - [x] save user role on firebase on signup flow
-- [ ] add address flow
-- [ ] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
-- [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
-- [ ] create differences by user role _(create new users collection, and save the role data by user)_
+- [x] add address flow
+- [x] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
+- [ ] remake the order creation flow to provide a good UX
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
@@ -33,6 +32,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 ## Less priority TODOs
 
+- [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
+
 - [ ] add a progress bar to the order
 
 - [ ] add a way to the user change its name
@@ -40,6 +41,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [ ] create an admin tab that can check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] separate items on groups, to make the user's lifes easier
+
+- [ ] change focus based on which button was pressed _(for addresses)_
 
 ## Structural info
 

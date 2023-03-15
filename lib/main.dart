@@ -21,6 +21,7 @@ class Logger extends ProviderObserver {
     print('''
 {
   "provider": "${provider.name ?? provider.runtimeType}",
+  "newValue": "${previousValue.toString()}"
   "newValue": "${newValue.toString()}"
 }''');
   }
