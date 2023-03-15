@@ -8,10 +8,9 @@ part of 'moving_order.dart';
 
 _$_MovingOrder _$$_MovingOrderFromJson(Map<String, dynamic> json) =>
     _$_MovingOrder(
-      items: (json['items'] as List<dynamic>?)
-              ?.map((e) => Item.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
+      items: json['items'] == null
+          ? const ItemList(data: [])
+          : ItemList.fromJson(json['items'] as Map<String, dynamic>?),
       flexibleMovingDate: json['flexibleMovingDate'] as bool?,
       movingDate: json['movingDate'] == null
           ? null

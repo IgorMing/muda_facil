@@ -1,21 +1,15 @@
-class Item {
-  final String name;
-  int amount;
-  String? comment;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  Item({required this.name, this.amount = 0, this.comment});
+part 'item.freezed.dart';
+part 'item.g.dart';
 
-  factory Item.fromJson(Map<String, dynamic> data) => Item(
-        name: data["name"],
-        amount: data["amount"],
-        comment: data["comment"],
-      );
+@unfreezed
+class Item with _$Item {
+  factory Item({
+    required String name,
+    @Default(0) int amount,
+    String? comment,
+  }) = _Item;
 
-  Map<String, dynamic> toJson() {
-    return {
-      "name": name,
-      "amount": amount,
-      if (comment != null) "comment": comment,
-    };
-  }
+  factory Item.fromJson(Map<String, dynamic>? json) => _$ItemFromJson(json!);
 }

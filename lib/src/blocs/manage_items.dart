@@ -4,19 +4,19 @@ import 'package:muda_facil/src/models/item.dart';
 
 class ManageItems extends StateNotifier<List<Item>> {
   ManageItems() : super([]);
-  ManageItems.withList(List<Item> list) : super([]) {
-    _createWith(list);
+  ManageItems.withList(List<Item> list) : super(list) {
+    state = list;
   }
 
   bool get isSingle => false;
 
-  bool exists(Item item) {
-    return state.any((each) => each.name == item.name);
+  bool exists(String itemName) {
+    return state.any((each) => each.name == itemName);
   }
 
-  void addComment(String comment, Item item) {
-    for (final each in state) {
-      if (each.name == item.name) {
+  void addComment({required String comment, required String itemName}) {
+    for (var each in state) {
+      if (each.name == itemName) {
         each.comment = comment;
       }
     }
@@ -24,14 +24,14 @@ class ManageItems extends StateNotifier<List<Item>> {
     state = [...state];
   }
 
-  void plus(Item item) {
-    if (!exists(item)) {
-      _addItem(item);
+  void plus(String name) {
+    if (!exists(name)) {
+      _addItem(name);
       return;
     }
 
-    for (final each in state) {
-      if (each.name == item.name) {
+    for (var each in state) {
+      if (each.name == name) {
         each.amount += 1;
       }
     }
@@ -40,7 +40,7 @@ class ManageItems extends StateNotifier<List<Item>> {
   }
 
   void minus(Item item) {
-    for (final each in state) {
+    for (var each in state) {
       if (each.name == item.name) {
         if (each.amount > 1) {
           each.amount -= 1;
@@ -53,27 +53,23 @@ class ManageItems extends StateNotifier<List<Item>> {
     state = [...state];
   }
 
-  void _addItem(Item item) {
-    item.amount = 1;
-    state = [...state, item];
+  void _addItem(String itemName) {
+    state = [...state, Item(amount: 1, name: itemName)];
   }
 
   void removeItem(Item item) {
-    state = [
-      for (final each in state)
-        if (each.name != item.name) each
-    ];
-  }
-
-  void _createWith(List<Item> list) {
-    state = [...list];
+    for (final each in state) {
+      if (each.name != item.name) each;
+    }
   }
 }
 
 final manageItemsProvider =
     StateNotifierProvider<ManageItems, List<Item>>((ref) {
   final userOrder = ref.watch(userOrderOrNullProvider);
-  final userOrderItems = userOrder?.items ?? [];
+  final userOrderItems = userOrder?.items;
 
-  return ManageItems.withList(userOrderItems);
+  return userOrderItems == null
+      ? ManageItems()
+      : ManageItems.withList(userOrderItems.data);
 });

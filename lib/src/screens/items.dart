@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/storage_items.dart';
-import 'package:muda_facil/src/models/item.dart';
+import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/screens/review.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/item_tile.dart';
@@ -15,6 +15,8 @@ class ItemsScreen extends ConsumerWidget {
     late final TextEditingController textEditingController;
     final items = ref.watch(manageItemsProvider);
     final manageItemsActions = ref.read(manageItemsProvider.notifier);
+    final a = ref.watch(userOrderOrNullProvider);
+
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
@@ -45,6 +47,7 @@ class ItemsScreen extends ConsumerWidget {
               textEditingController = fieldTextEditingController;
               return Stack(children: [
                 TextField(
+                  autofocus: true,
                   textCapitalization: TextCapitalization.sentences,
                   controller: fieldTextEditingController,
                   focusNode: fieldFocusNode,
@@ -83,7 +86,7 @@ class ItemsScreen extends ConsumerWidget {
               );
             },
             onSelected: (selected) {
-              manageItemsActions.plus(Item(name: selected));
+              manageItemsActions.plus(selected);
               textEditingController.clear();
             },
           ),
@@ -111,10 +114,13 @@ class ItemsScreen extends ConsumerWidget {
                     }
                   },
                   onPlus: () {
-                    manageItemsActions.plus(item);
+                    manageItemsActions.plus(item.name);
                   },
                   onAddComment: (text) {
-                    manageItemsActions.addComment(text, item);
+                    manageItemsActions.addComment(
+                      comment: text,
+                      itemName: item.name,
+                    );
                   },
                 );
               },

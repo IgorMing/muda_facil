@@ -106,10 +106,10 @@ class Info extends StatelessWidget {
               builder: (context) => const ItemsScreen(),
             ));
           },
-          title: GeneralUtils.isFilledArray(order.items)
+          title: GeneralUtils.isFilledArray(order.items!.data)
               ? 'Editar Itens'
               : 'Adicionar itens',
-          checked: GeneralUtils.isFilledArray(order.items),
+          checked: GeneralUtils.isFilledArray(order.items!.data),
         ),
         if (actions.allCompleted)
           ElevatedButton(
