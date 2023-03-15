@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:muda_facil/src/models/item.dart';
 
 class GeneralUtils {
   static String formatDateFromTimestamp(int value) {
@@ -12,5 +13,15 @@ class GeneralUtils {
 
   static bool isFilledArray(List? list) {
     return list != null && list.isNotEmpty;
+  }
+
+  static String getFormattedItems(List<Item> items) {
+    final strItems = items.fold<String>(
+      '',
+      (previousValue, element) =>
+          "$previousValue (${element.amount}) ${element.name}, ",
+    );
+
+    return strItems.substring(0, strItems.length - 2);
   }
 }

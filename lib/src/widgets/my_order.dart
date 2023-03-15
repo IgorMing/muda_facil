@@ -78,6 +78,12 @@ class Info extends StatelessWidget {
             label: "Data",
             value: GeneralUtils.formatDateFromTimestamp(movingDateMs),
           ),
+        if (order.items!.data.isNotEmpty)
+          InfoRow(
+            label: "Itens",
+            value: GeneralUtils.getFormattedItems(order.items!.data),
+            showAll: true,
+          ),
         CheckableButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -99,6 +105,19 @@ class Info extends StatelessWidget {
               ? "Destino"
               : 'Editar destino',
           checked: GeneralUtils.isFilled(order.destinyAddress),
+        ),
+        CheckableButton(
+          title: 'Adicionar data',
+          onPressed: () {
+            final now = DateTime.now();
+
+            showDatePicker(
+              context: context,
+              initialDate: now,
+              firstDate: now,
+              lastDate: DateTime(now.year + 1),
+            );
+          },
         ),
         CheckableButton(
           onPressed: () {

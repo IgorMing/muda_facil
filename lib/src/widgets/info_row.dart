@@ -6,10 +6,12 @@ class InfoRow extends StatelessWidget {
     super.key,
     required this.label,
     this.value,
+    this.showAll = false,
   });
 
   final String label;
   final dynamic value;
+  final bool showAll;
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +20,9 @@ class InfoRow extends StatelessWidget {
         vertical: kDefaultPadding / 2,
       ),
       child: RichText(
-        softWrap: false,
-        overflow: TextOverflow.ellipsis,
-        maxLines: 2,
+        softWrap: showAll,
+        overflow: showAll ? TextOverflow.visible : TextOverflow.ellipsis,
+        maxLines: showAll ? null : 2,
         text: TextSpan(
           text: '$label:',
           style: Theme.of(context)

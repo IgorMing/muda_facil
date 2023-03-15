@@ -22,7 +22,9 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] save user role on firebase on signup flow
 - [x] add address flow
 - [x] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
-- [ ] remake the order creation flow to provide a good UX
+- [x] remake the order creation flow to provide a good UX
+- [x] show order items for a better UX
+- [ ] add moving date flow
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_

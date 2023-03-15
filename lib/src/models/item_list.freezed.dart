@@ -85,7 +85,7 @@ class __$$_ItemListCopyWithImpl<$Res>
   }) {
     return _then(_$_ItemList(
       data: null == data
-          ? _value.data
+          ? _value._data
           : data // ignore: cast_nullable_to_non_nullable
               as List<Item>,
     ));
@@ -95,13 +95,18 @@ class __$$_ItemListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ItemList implements _ItemList {
-  const _$_ItemList({required this.data});
+  const _$_ItemList({required final List<Item> data}) : _data = data;
 
   factory _$_ItemList.fromJson(Map<String, dynamic> json) =>
       _$$_ItemListFromJson(json);
 
+  final List<Item> _data;
   @override
-  final List<Item> data;
+  List<Item> get data {
+    if (_data is EqualUnmodifiableListView) return _data;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_data);
+  }
 
   @override
   String toString() {
@@ -113,13 +118,13 @@ class _$_ItemList implements _ItemList {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ItemList &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other._data, _data));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(data));
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_data));
 
   @JsonKey(ignore: true)
   @override

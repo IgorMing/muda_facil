@@ -14,17 +14,15 @@ class ReviewScreen extends ConsumerWidget {
     final userOrder = ref.read(userOrderOrNullProvider.notifier);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Revisão de itens'),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
           mainAxisSize: MainAxisSize.max,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              'Revisão de itens',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
             Expanded(
               child: ListView.builder(
                   itemCount: items.length,
