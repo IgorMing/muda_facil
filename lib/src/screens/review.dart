@@ -54,10 +54,9 @@ class ReviewScreen extends ConsumerWidget {
 
                   // loading is good for UX :)
                   // TODO: double check this for adding it to other places as well...
-                  Future.delayed(const Duration(seconds: 2), () {
-                    // userOrder.setItems(items.data);
+                  Future.delayed(const Duration(seconds: 1), () {
+                    userOrder.setItems(items);
                     // userOrder.persist();
-                    ref.invalidate(userOrderOrNullProvider);
                     navigatorKey.currentState!
                         .popUntil((route) => route.isFirst);
                   });
