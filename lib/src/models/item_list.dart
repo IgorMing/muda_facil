@@ -7,9 +7,9 @@ part 'item_list.g.dart';
 @freezed
 class ItemList with _$ItemList {
   const factory ItemList({
-    required List<Item> data,
+    @Default([]) List<Item> data,
   }) = _ItemList;
 
-  factory ItemList.fromJson(Map<String, dynamic>? json) =>
-      _$ItemListFromJson(json!);
+  factory ItemList.fromJson(List<dynamic>? json) =>
+      _$ItemListFromJson(json![0]);
 }

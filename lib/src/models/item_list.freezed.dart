@@ -95,13 +95,14 @@ class __$$_ItemListCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_ItemList implements _ItemList {
-  const _$_ItemList({required final List<Item> data}) : _data = data;
+  const _$_ItemList({final List<Item> data = const []}) : _data = data;
 
   factory _$_ItemList.fromJson(Map<String, dynamic> json) =>
       _$$_ItemListFromJson(json);
 
   final List<Item> _data;
   @override
+  @JsonKey()
   List<Item> get data {
     if (_data is EqualUnmodifiableListView) return _data;
     // ignore: implicit_dynamic_type
@@ -141,7 +142,7 @@ class _$_ItemList implements _ItemList {
 }
 
 abstract class _ItemList implements ItemList {
-  const factory _ItemList({required final List<Item> data}) = _$_ItemList;
+  const factory _ItemList({final List<Item> data}) = _$_ItemList;
 
   factory _ItemList.fromJson(Map<String, dynamic> json) = _$_ItemList.fromJson;
 

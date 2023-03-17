@@ -22,6 +22,7 @@ MovingOrder _$MovingOrderFromJson(Map<String, dynamic> json) {
 mixin _$MovingOrder {
   ItemList? get items => throw _privateConstructorUsedError;
   bool? get flexibleMovingDate => throw _privateConstructorUsedError;
+  @TimestampOrNullConverter()
   DateTime? get movingDate => throw _privateConstructorUsedError;
   String? get destinyAddress => throw _privateConstructorUsedError;
   String? get originAddress => throw _privateConstructorUsedError;
@@ -41,7 +42,7 @@ abstract class $MovingOrderCopyWith<$Res> {
   $Res call(
       {ItemList? items,
       bool? flexibleMovingDate,
-      DateTime? movingDate,
+      @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress});
 
@@ -115,7 +116,7 @@ abstract class _$$_MovingOrderCopyWith<$Res>
   $Res call(
       {ItemList? items,
       bool? flexibleMovingDate,
-      DateTime? movingDate,
+      @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress});
 
@@ -169,9 +170,9 @@ class __$$_MovingOrderCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MovingOrder implements _MovingOrder {
   const _$_MovingOrder(
-      {this.items = const ItemList(data: []),
+      {this.items,
       this.flexibleMovingDate,
-      this.movingDate,
+      @TimestampOrNullConverter() this.movingDate,
       this.destinyAddress,
       this.originAddress});
 
@@ -179,11 +180,11 @@ class _$_MovingOrder implements _MovingOrder {
       _$$_MovingOrderFromJson(json);
 
   @override
-  @JsonKey()
   final ItemList? items;
   @override
   final bool? flexibleMovingDate;
   @override
+  @TimestampOrNullConverter()
   final DateTime? movingDate;
   @override
   final String? destinyAddress;
@@ -234,7 +235,7 @@ abstract class _MovingOrder implements MovingOrder {
   const factory _MovingOrder(
       {final ItemList? items,
       final bool? flexibleMovingDate,
-      final DateTime? movingDate,
+      @TimestampOrNullConverter() final DateTime? movingDate,
       final String? destinyAddress,
       final String? originAddress}) = _$_MovingOrder;
 
@@ -246,6 +247,7 @@ abstract class _MovingOrder implements MovingOrder {
   @override
   bool? get flexibleMovingDate;
   @override
+  @TimestampOrNullConverter()
   DateTime? get movingDate;
   @override
   String? get destinyAddress;

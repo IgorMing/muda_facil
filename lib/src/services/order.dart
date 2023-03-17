@@ -24,9 +24,9 @@ class OrderService {
     // this gets always the first record. initially, we'll consider that
     // each user will have only one order. If we need to care about another,
     // nice! Things are going well with the product :)
-    final docs = await _getLastOrder();
-    if (docs.docs.isNotEmpty) {
-      return docs.docs[0].data();
+    final snapshot = await _getLastOrder();
+    if (snapshot.docs.isNotEmpty) {
+      return snapshot.docs[0].data();
     }
     return null;
   }
