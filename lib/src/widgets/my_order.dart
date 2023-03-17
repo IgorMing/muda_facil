@@ -24,7 +24,8 @@ class MyOrder extends ConsumerWidget {
       ),
       decoration: BoxDecoration(
         border: Border.all(
-            color: Theme.of(context).primaryColorDark.withOpacity(0.4)),
+          color: Theme.of(context).primaryColorDark.withOpacity(0.4),
+        ),
         color: Theme.of(context).colorScheme.background,
         borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
@@ -107,16 +108,18 @@ class Info extends StatelessWidget {
           checked: GeneralUtils.isFilled(order.destinyAddress),
         ),
         CheckableButton(
-          title: 'Adicionar data',
-          onPressed: () {
+          title: 'Data',
+          onPressed: () async {
             final now = DateTime.now();
 
-            showDatePicker(
+            final selectedDate = await showDatePicker(
               context: context,
               initialDate: now,
               firstDate: now,
               lastDate: DateTime(now.year + 1),
             );
+
+            print(selectedDate);
           },
         ),
         CheckableButton(
@@ -127,7 +130,7 @@ class Info extends StatelessWidget {
           },
           title: GeneralUtils.isFilledArray(order.items!.data)
               ? 'Editar Itens'
-              : 'Adicionar itens',
+              : 'Itens',
           checked: GeneralUtils.isFilledArray(order.items!.data),
         ),
         if (actions.allCompleted)
