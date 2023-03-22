@@ -24,6 +24,10 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     state = state?.copyWith(items: ItemList(data: list));
   }
 
+  void setMovingDate(DateTime date) {
+    state = state?.copyWith(movingDate: date);
+  }
+
   void getOrder() async {
     state = await orderService.getOrder();
   }

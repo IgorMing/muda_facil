@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
@@ -108,18 +110,51 @@ class Info extends StatelessWidget {
           checked: GeneralUtils.isFilled(order.destinyAddress),
         ),
         CheckableButton(
-          title: 'Data',
+          title: !GeneralUtils.isFilled(order.movingDate?.toIso8601String())
+              ? 'Data'
+              : 'Editar data',
+          checked: GeneralUtils.isFilled(order.movingDate?.toIso8601String()),
           onPressed: () async {
             final now = DateTime.now();
 
-            final selectedDate = await showDatePicker(
-              context: context,
-              initialDate: now,
-              firstDate: now,
-              lastDate: DateTime(now.year + 1),
-            );
-
-            print(selectedDate);
+            if (Platform.isIOS) {
+              final containerHeight = MediaQuery.of(context).size.height / 3;
+              showCupertinoModalPopup(
+                context: context,
+                builder: (context) => Container(
+                  height: containerHeight,
+                  padding: const EdgeInsets.only(top: 6.0),
+                  // The Bottom margin is provided to align the popup above the system
+                  // navigation bar.
+                  margin: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom,
+                  ),
+                  // Provide a background color for the popup.
+                  color: CupertinoColors.systemBackground.resolveFrom(context),
+                  // Use a SafeArea widget to avoid system overlaps.
+                  child: SafeArea(
+                    top: false,
+                    child: CupertinoDatePicker(
+                      minimumDate: now,
+                      maximumDate: DateTime(now.year + 1),
+                      initialDateTime: order.movingDate ?? now,
+                      mode: CupertinoDatePickerMode.date,
+                      onDateTimeChanged: (DateTime selectedDate) {
+                        actions.setMovingDate(selectedDate);
+                      },
+                    ),
+                  ),
+                ),
+              );
+            } else {
+              final selectedDate = await showDatePicker(
+                context: context,
+                initialDate: now,
+                firstDate: now,
+                lastDate: DateTime(now.year + 1),
+              );
+              if (selectedDate != null) actions.setMovingDate(selectedDate);
+            }
           },
         ),
         CheckableButton(

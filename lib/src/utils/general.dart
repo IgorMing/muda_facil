@@ -3,7 +3,7 @@ import 'package:muda_facil/src/models/item.dart';
 
 class GeneralUtils {
   static String formatDateFromTimestamp(int value) {
-    return DateFormat('dd/MM/yyyy H:m')
+    return DateFormat('dd/MM/yyyy')
         .format(DateTime.fromMicrosecondsSinceEpoch(value));
   }
 

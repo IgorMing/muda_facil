@@ -24,7 +24,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] on confirming the review, persist it on firestore _(save it on a new sub collection called `orders/`, into the `users/` collection)_
 - [x] remake the order creation flow to provide a good UX
 - [x] show order items for a better UX
-- [ ] add moving date flow
+- [x] add moving date flow _(with platform adaptive datepicker)_
 - [ ] add/update order in firestore
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order
