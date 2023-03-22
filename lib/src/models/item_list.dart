@@ -10,6 +10,6 @@ class ItemList with _$ItemList {
     @Default([]) List<Item> data,
   }) = _ItemList;
 
-  factory ItemList.fromJson(List<dynamic>? json) =>
-      _$ItemListFromJson(json![0]);
+  factory ItemList.fromJson(Map<String, dynamic>? json) =>
+      _$ItemListFromJson(json!);
 }

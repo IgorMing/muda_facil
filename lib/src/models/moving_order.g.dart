@@ -10,7 +10,7 @@ _$_MovingOrder _$$_MovingOrderFromJson(Map<String, dynamic> json) =>
     _$_MovingOrder(
       items: json['items'] == null
           ? null
-          : ItemList.fromJson(json['items'] as List<dynamic>?),
+          : ItemList.fromJson(json['items'] as Map<String, dynamic>?),
       flexibleMovingDate: json['flexibleMovingDate'] as bool?,
       movingDate: const TimestampOrNullConverter()
           .fromJson(json['movingDate'] as Timestamp?),
