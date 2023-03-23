@@ -25,6 +25,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] remake the order creation flow to provide a good UX
 - [x] show order items for a better UX
 - [x] add moving date flow _(with platform adaptive datepicker)_
+- [x] save the date on the flow only after clicking in confirm
 - [ ] add/update order in firestore
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order

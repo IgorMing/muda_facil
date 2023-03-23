@@ -41,7 +41,7 @@ class MyOrder extends ConsumerWidget {
   }
 }
 
-class Info extends StatelessWidget {
+class Info extends StatefulWidget {
   const Info({
     super.key,
     required this.actions,
@@ -52,8 +52,15 @@ class Info extends StatelessWidget {
   final UserOrder actions;
 
   @override
+  State<Info> createState() => _InfoState();
+}
+
+class _InfoState extends State<Info> {
+  DateTime? _selectedDate;
+
+  @override
   Widget build(BuildContext context) {
-    final movingDateMs = order.movingDate?.microsecondsSinceEpoch;
+    final movingDateMs = widget.order.movingDate?.microsecondsSinceEpoch;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,25 +73,25 @@ class Info extends StatelessWidget {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         Divider(color: Theme.of(context).primaryColorDark),
-        if (GeneralUtils.isFilled(order.originAddress))
+        if (GeneralUtils.isFilled(widget.order.originAddress))
           InfoRow(
             label: "Origem",
-            value: order.originAddress,
+            value: widget.order.originAddress,
           ),
-        if (GeneralUtils.isFilled(order.destinyAddress))
+        if (GeneralUtils.isFilled(widget.order.destinyAddress))
           InfoRow(
             label: "Destino",
-            value: order.destinyAddress,
+            value: widget.order.destinyAddress,
           ),
         if (movingDateMs != null)
           InfoRow(
             label: "Data",
             value: GeneralUtils.formatDateFromTimestamp(movingDateMs),
           ),
-        if (order.items.isNotEmpty)
+        if (widget.order.items.isNotEmpty)
           InfoRow(
             label: "Itens",
-            value: GeneralUtils.getFormattedItems(order.items),
+            value: GeneralUtils.getFormattedItems(widget.order.items),
             showAll: true,
           ),
         CheckableButton(
@@ -93,10 +100,10 @@ class Info extends StatelessWidget {
               builder: (context) => const AddressesScreen(),
             ));
           },
-          title: !GeneralUtils.isFilled(order.originAddress)
+          title: !GeneralUtils.isFilled(widget.order.originAddress)
               ? "Origem"
               : 'Editar origem',
-          checked: GeneralUtils.isFilled(order.originAddress),
+          checked: GeneralUtils.isFilled(widget.order.originAddress),
         ),
         CheckableButton(
           onPressed: () {
@@ -104,16 +111,18 @@ class Info extends StatelessWidget {
               builder: (context) => const AddressesScreen(),
             ));
           },
-          title: !GeneralUtils.isFilled(order.destinyAddress)
+          title: !GeneralUtils.isFilled(widget.order.destinyAddress)
               ? "Destino"
               : 'Editar destino',
-          checked: GeneralUtils.isFilled(order.destinyAddress),
+          checked: GeneralUtils.isFilled(widget.order.destinyAddress),
         ),
         CheckableButton(
-          title: !GeneralUtils.isFilled(order.movingDate?.toIso8601String())
-              ? 'Data'
-              : 'Editar data',
-          checked: GeneralUtils.isFilled(order.movingDate?.toIso8601String()),
+          title:
+              !GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String())
+                  ? 'Data'
+                  : 'Editar data',
+          checked:
+              GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String()),
           onPressed: () async {
             final now = DateTime.now();
 
@@ -132,17 +141,46 @@ class Info extends StatelessWidget {
                   // Provide a background color for the popup.
                   color: CupertinoColors.systemBackground.resolveFrom(context),
                   // Use a SafeArea widget to avoid system overlaps.
-                  child: SafeArea(
-                    top: false,
-                    child: CupertinoDatePicker(
-                      minimumDate: now,
-                      maximumDate: DateTime(now.year + 1),
-                      initialDateTime: order.movingDate ?? now,
-                      mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: (DateTime selectedDate) {
-                        actions.setMovingDate(selectedDate);
-                      },
-                    ),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          CupertinoButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Cancelar'),
+                          ),
+                          CupertinoButton(
+                            onPressed: () {
+                              if (_selectedDate != null) {
+                                widget.actions.setMovingDate(_selectedDate!);
+                              }
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text('Confirmar'),
+                          ),
+                        ],
+                      ),
+                      SafeArea(
+                        top: false,
+                        child: SizedBox(
+                          height: containerHeight - 100,
+                          child: CupertinoDatePicker(
+                            minimumDate: now,
+                            maximumDate: DateTime(now.year + 1),
+                            initialDateTime: widget.order.movingDate ?? now,
+                            mode: CupertinoDatePickerMode.date,
+                            onDateTimeChanged: (DateTime selectedDate) {
+                              setState(() {
+                                _selectedDate = selectedDate;
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               );
@@ -153,7 +191,11 @@ class Info extends StatelessWidget {
                 firstDate: now,
                 lastDate: DateTime(now.year + 1),
               );
-              if (selectedDate != null) actions.setMovingDate(selectedDate);
+              if (selectedDate != null) {
+                setState(() {
+                  widget.actions.setMovingDate(selectedDate);
+                });
+              }
             }
           },
         ),
@@ -163,12 +205,12 @@ class Info extends StatelessWidget {
               builder: (context) => const ItemsScreen(),
             ));
           },
-          title: GeneralUtils.isFilledArray(order.items)
+          title: GeneralUtils.isFilledArray(widget.order.items)
               ? 'Editar Itens'
               : 'Itens',
-          checked: GeneralUtils.isFilledArray(order.items),
+          checked: GeneralUtils.isFilledArray(widget.order.items),
         ),
-        if (actions.allCompleted)
+        if (widget.actions.allCompleted)
           ElevatedButton(
             onPressed: () {},
             child: const Text('Confirmar'),
