@@ -1,6 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/models/item.dart';
-import 'package:muda_facil/src/models/item_list.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/services/order.dart';
 
@@ -21,7 +20,7 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   }
 
   void setItems(List<Item> list) {
-    state = state?.copyWith(items: ItemList(data: list));
+    state = state?.copyWith(items: list);
   }
 
   void setMovingDate(DateTime date) {

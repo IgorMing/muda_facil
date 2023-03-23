@@ -71,5 +71,5 @@ final manageItemsProvider =
 
   return userOrderItems == null
       ? ManageItems()
-      : ManageItems.withList(userOrderItems.data);
+      : ManageItems.withList(userOrderItems);
 });

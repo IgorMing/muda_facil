@@ -20,7 +20,7 @@ MovingOrder _$MovingOrderFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MovingOrder {
-  ItemList? get items => throw _privateConstructorUsedError;
+  List<Item> get items => throw _privateConstructorUsedError;
   bool? get flexibleMovingDate => throw _privateConstructorUsedError;
   @TimestampOrNullConverter()
   DateTime? get movingDate => throw _privateConstructorUsedError;
@@ -40,13 +40,11 @@ abstract class $MovingOrderCopyWith<$Res> {
       _$MovingOrderCopyWithImpl<$Res, MovingOrder>;
   @useResult
   $Res call(
-      {ItemList? items,
+      {List<Item> items,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress});
-
-  $ItemListCopyWith<$Res>? get items;
 }
 
 /// @nodoc
@@ -62,17 +60,17 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
   }) {
     return _then(_value.copyWith(
-      items: freezed == items
+      items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
-              as ItemList?,
+              as List<Item>,
       flexibleMovingDate: freezed == flexibleMovingDate
           ? _value.flexibleMovingDate
           : flexibleMovingDate // ignore: cast_nullable_to_non_nullable
@@ -91,18 +89,6 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
               as String?,
     ) as $Val);
   }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $ItemListCopyWith<$Res>? get items {
-    if (_value.items == null) {
-      return null;
-    }
-
-    return $ItemListCopyWith<$Res>(_value.items!, (value) {
-      return _then(_value.copyWith(items: value) as $Val);
-    });
-  }
 }
 
 /// @nodoc
@@ -114,14 +100,11 @@ abstract class _$$_MovingOrderCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {ItemList? items,
+      {List<Item> items,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress});
-
-  @override
-  $ItemListCopyWith<$Res>? get items;
 }
 
 /// @nodoc
@@ -135,17 +118,17 @@ class __$$_MovingOrderCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? items = freezed,
+    Object? items = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
   }) {
     return _then(_$_MovingOrder(
-      items: freezed == items
-          ? _value.items
+      items: null == items
+          ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
-              as ItemList?,
+              as List<Item>,
       flexibleMovingDate: freezed == flexibleMovingDate
           ? _value.flexibleMovingDate
           : flexibleMovingDate // ignore: cast_nullable_to_non_nullable
@@ -170,17 +153,25 @@ class __$$_MovingOrderCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MovingOrder implements _MovingOrder {
   const _$_MovingOrder(
-      {this.items,
+      {final List<Item> items = const [],
       this.flexibleMovingDate,
       @TimestampOrNullConverter() this.movingDate,
       this.destinyAddress,
-      this.originAddress});
+      this.originAddress})
+      : _items = items;
 
   factory _$_MovingOrder.fromJson(Map<String, dynamic> json) =>
       _$$_MovingOrderFromJson(json);
 
+  final List<Item> _items;
   @override
-  final ItemList? items;
+  @JsonKey()
+  List<Item> get items {
+    if (_items is EqualUnmodifiableListView) return _items;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_items);
+  }
+
   @override
   final bool? flexibleMovingDate;
   @override
@@ -201,7 +192,7 @@ class _$_MovingOrder implements _MovingOrder {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MovingOrder &&
-            (identical(other.items, items) || other.items == items) &&
+            const DeepCollectionEquality().equals(other._items, _items) &&
             (identical(other.flexibleMovingDate, flexibleMovingDate) ||
                 other.flexibleMovingDate == flexibleMovingDate) &&
             (identical(other.movingDate, movingDate) ||
@@ -214,8 +205,13 @@ class _$_MovingOrder implements _MovingOrder {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, items, flexibleMovingDate,
-      movingDate, destinyAddress, originAddress);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_items),
+      flexibleMovingDate,
+      movingDate,
+      destinyAddress,
+      originAddress);
 
   @JsonKey(ignore: true)
   @override
@@ -233,7 +229,7 @@ class _$_MovingOrder implements _MovingOrder {
 
 abstract class _MovingOrder implements MovingOrder {
   const factory _MovingOrder(
-      {final ItemList? items,
+      {final List<Item> items,
       final bool? flexibleMovingDate,
       @TimestampOrNullConverter() final DateTime? movingDate,
       final String? destinyAddress,
@@ -243,7 +239,7 @@ abstract class _MovingOrder implements MovingOrder {
       _$_MovingOrder.fromJson;
 
   @override
-  ItemList? get items;
+  List<Item> get items;
   @override
   bool? get flexibleMovingDate;
   @override

@@ -14,12 +14,8 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
-ItemList _$ItemListFromJson(
-  Map<String, dynamic> json,
-) {
-  return _ItemList.fromJson(
-    json,
-  );
+ItemList _$ItemListFromJson(Map<String, dynamic> json) {
+  return _ItemList.fromJson(json);
 }
 
 /// @nodoc
@@ -101,12 +97,8 @@ class __$$_ItemListCopyWithImpl<$Res>
 class _$_ItemList implements _ItemList {
   const _$_ItemList({final List<Item> data = const []}) : _data = data;
 
-  factory _$_ItemList.fromJson(
-    Map<String, dynamic> json,
-  ) =>
-      _$$_ItemListFromJson(
-        json,
-      );
+  factory _$_ItemList.fromJson(Map<String, dynamic> json) =>
+      _$$_ItemListFromJson(json);
 
   final List<Item> _data;
   @override
@@ -152,9 +144,7 @@ class _$_ItemList implements _ItemList {
 abstract class _ItemList implements ItemList {
   const factory _ItemList({final List<Item> data}) = _$_ItemList;
 
-  factory _ItemList.fromJson(
-    Map<String, dynamic> json,
-  ) = _$_ItemList.fromJson;
+  factory _ItemList.fromJson(Map<String, dynamic> json) = _$_ItemList.fromJson;
 
   @override
   List<Item> get data;

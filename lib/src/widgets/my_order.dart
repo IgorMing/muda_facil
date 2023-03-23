@@ -81,10 +81,10 @@ class Info extends StatelessWidget {
             label: "Data",
             value: GeneralUtils.formatDateFromTimestamp(movingDateMs),
           ),
-        if (order.items!.data.isNotEmpty)
+        if (order.items.isNotEmpty)
           InfoRow(
             label: "Itens",
-            value: GeneralUtils.getFormattedItems(order.items!.data),
+            value: GeneralUtils.getFormattedItems(order.items),
             showAll: true,
           ),
         CheckableButton(
@@ -163,10 +163,10 @@ class Info extends StatelessWidget {
               builder: (context) => const ItemsScreen(),
             ));
           },
-          title: GeneralUtils.isFilledArray(order.items!.data)
+          title: GeneralUtils.isFilledArray(order.items)
               ? 'Editar Itens'
               : 'Itens',
-          checked: GeneralUtils.isFilledArray(order.items!.data),
+          checked: GeneralUtils.isFilledArray(order.items),
         ),
         if (actions.allCompleted)
           ElevatedButton(
