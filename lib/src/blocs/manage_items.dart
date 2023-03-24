@@ -58,9 +58,10 @@ class ManageItems extends StateNotifier<List<Item>> {
   }
 
   void removeItem(Item item) {
-    for (final each in state) {
-      if (each.name != item.name) each;
-    }
+    state = [
+      for (final each in state)
+        if (each.name != item.name) each
+    ];
   }
 }
 
