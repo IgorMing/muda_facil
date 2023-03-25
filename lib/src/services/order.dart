@@ -32,16 +32,14 @@ class OrderService {
   }
 
   Future<void> setOrder(MovingOrder order) async {
-    final existentOrder = await _getLastOrder();
-    if (existentOrder.docs.isEmpty) {
+    final snapshot = await _getLastOrder();
+    if (snapshot.docs.isEmpty) {
+      // add
       await collection.add(order);
     } else {
-      // TODO: continue from here
-      // check how to update the order properly!
-      final docRef = existentOrder.docs[0];
-      // db.runTransaction((transaction) {
-      //   transaction.update(docRef, {});
-      // });
+      // update
+      final docRef = collection.doc(snapshot.docs[0].id);
+      await docRef.set(order);
     }
   }
 }

@@ -12,8 +12,18 @@ _$_Item _$$_ItemFromJson(Map<String, dynamic> json) => _$_Item(
       comment: json['comment'] as String?,
     );
 
-Map<String, dynamic> _$$_ItemToJson(_$_Item instance) => <String, dynamic>{
-      'name': instance.name,
-      'amount': instance.amount,
-      'comment': instance.comment,
-    };
+Map<String, dynamic> _$$_ItemToJson(_$_Item instance) {
+  final val = <String, dynamic>{
+    'name': instance.name,
+    'amount': instance.amount,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('comment', instance.comment);
+  return val;
+}

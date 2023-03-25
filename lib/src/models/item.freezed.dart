@@ -114,7 +114,8 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false)
 class _$_Item implements _Item {
   _$_Item({required this.name, this.amount = 0, this.comment});
 

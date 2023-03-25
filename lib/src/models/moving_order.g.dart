@@ -19,12 +19,21 @@ _$_MovingOrder _$$_MovingOrderFromJson(Map<String, dynamic> json) =>
       originAddress: json['originAddress'] as String?,
     );
 
-Map<String, dynamic> _$$_MovingOrderToJson(_$_MovingOrder instance) =>
-    <String, dynamic>{
-      'items': instance.items,
-      'flexibleMovingDate': instance.flexibleMovingDate,
-      'movingDate':
-          const TimestampOrNullConverter().toJson(instance.movingDate),
-      'destinyAddress': instance.destinyAddress,
-      'originAddress': instance.originAddress,
-    };
+Map<String, dynamic> _$$_MovingOrderToJson(_$_MovingOrder instance) {
+  final val = <String, dynamic>{
+    'items': instance.items.map((e) => e.toJson()).toList(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('flexibleMovingDate', instance.flexibleMovingDate);
+  writeNotNull('movingDate',
+      const TimestampOrNullConverter().toJson(instance.movingDate));
+  writeNotNull('destinyAddress', instance.destinyAddress);
+  writeNotNull('originAddress', instance.originAddress);
+  return val;
+}

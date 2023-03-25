@@ -17,14 +17,17 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   void setAddresses({String? from, String? to}) {
     state = state?.copyWith(originAddress: from, destinyAddress: to);
+    _persist();
   }
 
   void setItems(List<Item> list) {
     state = state?.copyWith(items: list);
+    _persist();
   }
 
   void setMovingDate(DateTime date) {
     state = state?.copyWith(movingDate: date);
+    _persist();
   }
 
   void getOrder() async {
@@ -32,7 +35,7 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   }
 
   // method that calls the firebase API and persist it on firestore
-  void persist() async {
+  void _persist() async {
     if (state != null) {
       await orderService.setOrder(state!);
     }

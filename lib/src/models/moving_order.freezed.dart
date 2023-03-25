@@ -150,7 +150,8 @@ class __$$_MovingOrderCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(includeIfNull: false, explicitToJson: true)
 class _$_MovingOrder implements _MovingOrder {
   const _$_MovingOrder(
       {final List<Item> items = const [],
