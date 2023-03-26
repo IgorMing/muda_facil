@@ -27,6 +27,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add moving date flow _(with platform adaptive datepicker)_
 - [x] save the date on the flow only after clicking in confirm
 - [x] add/update order in firestore
+- [x] add a way to use RefreshIndicator on my order
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_

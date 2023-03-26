@@ -5,6 +5,9 @@ import 'package:muda_facil/src/services/order.dart';
 
 class UserOrder extends StateNotifier<MovingOrder?> {
   final orderService = OrderService();
+  bool _checked = false;
+
+  bool get isLoading => _checked == false;
 
   UserOrder() : super(null) {
     getOrder();
@@ -30,8 +33,10 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     _persist();
   }
 
-  void getOrder() async {
+  Future getOrder() async {
+    _checked = false;
     state = await orderService.getOrder();
+    _checked = true;
   }
 
   // method that calls the firebase API and persist it on firestore

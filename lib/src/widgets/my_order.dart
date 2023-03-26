@@ -19,6 +19,16 @@ class MyOrder extends ConsumerWidget {
     final userOrder = ref.watch(userOrderOrNullProvider);
     final actions = ref.read(userOrderOrNullProvider.notifier);
 
+    if (userOrder == null && !actions.isLoading) {
+      ElevatedButton(
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const AddressesScreen()));
+        },
+        child: const Text('Iniciar mudança'),
+      );
+    }
+
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
