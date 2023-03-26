@@ -2,7 +2,7 @@
 
 App for learning flutter _(and maybe become a solution for house moving)_
 
-> Here's a [link](https://drive.google.com/file/d/1ddqhjFzTeCn-ubGbUCgLDcDuqTYL2Z4N/view?usp=sharing) to Some wireframes and basic screen navigation flow
+> Here's a [link](https://app.diagrams.net/#G1ddqhjFzTeCn-ubGbUCgLDcDuqTYL2Z4N) to Some wireframes and basic screen navigation flow
 
 ## MVP TODOs
 
@@ -26,7 +26,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] show order items for a better UX
 - [x] add moving date flow _(with platform adaptive datepicker)_
 - [x] save the date on the flow only after clicking in confirm
-- [ ] add/update order in firestore
+- [x] add/update order in firestore
 - [ ] prepare the moving order structure to have both status and "pix code"
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
