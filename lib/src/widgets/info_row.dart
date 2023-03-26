@@ -22,7 +22,7 @@ class InfoRow extends StatelessWidget {
       child: RichText(
         softWrap: showAll,
         overflow: showAll ? TextOverflow.visible : TextOverflow.ellipsis,
-        maxLines: showAll ? null : 2,
+        maxLines: showAll ? null : kDefaultMaxLines,
         text: TextSpan(
           text: '$label:',
           style: Theme.of(context)

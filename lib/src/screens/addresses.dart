@@ -54,10 +54,8 @@ class AddressesScreen extends ConsumerWidget {
               const Padding(
                 padding: EdgeInsets.all(kDefaultPadding * 2),
                 child: Text(
-                  'Estes campos podem ser preenchidos mais tarde, se quiser',
-                  style: TextStyle(
-                    fontStyle: FontStyle.italic,
-                  ),
+                  'Adicione a informação completa do endereço. Exemplo: Rua José Roberto, n. 23, Bairro, Cidade-UF',
+                  style: TextStyle(fontStyle: FontStyle.italic, height: 1.6),
                 ),
               ),
             ],
@@ -85,6 +83,7 @@ class AddressField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLines: kDefaultMaxLines,
       autofocus: autoFocus,
       validator: (value) {
         if (required == false) return null;
