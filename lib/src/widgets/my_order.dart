@@ -211,9 +211,12 @@ class _InfoState extends State<Info> {
           checked: GeneralUtils.isFilledArray(widget.order.items),
         ),
         if (widget.actions.allCompleted)
-          ElevatedButton(
-            onPressed: () {},
-            child: const Text('Confirmar'),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {},
+              child: const Text('Revisão geral'),
+            ),
           ),
       ],
     );
