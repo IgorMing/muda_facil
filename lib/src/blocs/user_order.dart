@@ -2,12 +2,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/services/order.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
 class UserOrder extends StateNotifier<MovingOrder?> {
   final orderService = OrderService();
-  bool _checked = false;
-
-  bool get isLoading => _checked == false;
 
   UserOrder() : super(null) {
     getOrder();
@@ -15,7 +13,7 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   // this will be created just on our state notifier (not on firebase, for now)
   void create() {
-    state ??= const MovingOrder();
+    state ??= const MovingOrder(status: OrderStatus.pending);
   }
 
   void setAddresses({String? from, String? to}) {
@@ -34,9 +32,7 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   }
 
   Future getOrder() async {
-    _checked = false;
     state = await orderService.getOrder();
-    _checked = true;
   }
 
   // method that calls the firebase API and persist it on firestore

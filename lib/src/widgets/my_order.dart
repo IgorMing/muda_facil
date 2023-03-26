@@ -19,16 +19,6 @@ class MyOrder extends ConsumerWidget {
     final userOrder = ref.watch(userOrderOrNullProvider);
     final actions = ref.read(userOrderOrNullProvider.notifier);
 
-    if (userOrder == null && !actions.isLoading) {
-      ElevatedButton(
-        onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => const AddressesScreen()));
-        },
-        child: const Text('Iniciar mudança'),
-      );
-    }
-
     return Container(
       padding: const EdgeInsets.symmetric(
         horizontal: kDefaultPadding,
@@ -42,7 +32,21 @@ class MyOrder extends ConsumerWidget {
         borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
       child: userOrder == null
-          ? const Text('Nenhuma mudança até o momento...')
+          ? Column(
+              children: [
+                const Text('Nenhuma mudança até o momento...'),
+                const SizedBox(
+                  height: kDefaultPadding,
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const AddressesScreen()));
+                  },
+                  child: const Text('Iniciar mudança'),
+                )
+              ],
+            )
           : Info(
               order: userOrder,
               actions: actions,
@@ -83,6 +87,10 @@ class _InfoState extends State<Info> {
               ?.copyWith(fontWeight: FontWeight.bold),
         ),
         Divider(color: Theme.of(context).primaryColorDark),
+        InfoRow(
+          label: "Status",
+          value: getOrderStatusLabelByEnumName(widget.order.status.name),
+        ),
         if (GeneralUtils.isFilled(widget.order.originAddress))
           InfoRow(
             label: "Origem",

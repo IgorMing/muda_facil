@@ -21,11 +21,13 @@ MovingOrder _$MovingOrderFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$MovingOrder {
   List<Item> get items => throw _privateConstructorUsedError;
+  OrderStatus get status => throw _privateConstructorUsedError;
   bool? get flexibleMovingDate => throw _privateConstructorUsedError;
   @TimestampOrNullConverter()
   DateTime? get movingDate => throw _privateConstructorUsedError;
   String? get destinyAddress => throw _privateConstructorUsedError;
   String? get originAddress => throw _privateConstructorUsedError;
+  String? get pixCode => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -41,10 +43,12 @@ abstract class $MovingOrderCopyWith<$Res> {
   @useResult
   $Res call(
       {List<Item> items,
+      OrderStatus status,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
-      String? originAddress});
+      String? originAddress,
+      String? pixCode});
 }
 
 /// @nodoc
@@ -61,16 +65,22 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
   @override
   $Res call({
     Object? items = null,
+    Object? status = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
+    Object? pixCode = freezed,
   }) {
     return _then(_value.copyWith(
       items: null == items
           ? _value.items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Item>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as OrderStatus,
       flexibleMovingDate: freezed == flexibleMovingDate
           ? _value.flexibleMovingDate
           : flexibleMovingDate // ignore: cast_nullable_to_non_nullable
@@ -86,6 +96,10 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
       originAddress: freezed == originAddress
           ? _value.originAddress
           : originAddress // ignore: cast_nullable_to_non_nullable
+              as String?,
+      pixCode: freezed == pixCode
+          ? _value.pixCode
+          : pixCode // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
@@ -101,10 +115,12 @@ abstract class _$$_MovingOrderCopyWith<$Res>
   @useResult
   $Res call(
       {List<Item> items,
+      OrderStatus status,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
-      String? originAddress});
+      String? originAddress,
+      String? pixCode});
 }
 
 /// @nodoc
@@ -119,16 +135,22 @@ class __$$_MovingOrderCopyWithImpl<$Res>
   @override
   $Res call({
     Object? items = null,
+    Object? status = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
+    Object? pixCode = freezed,
   }) {
     return _then(_$_MovingOrder(
       items: null == items
           ? _value._items
           : items // ignore: cast_nullable_to_non_nullable
               as List<Item>,
+      status: null == status
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as OrderStatus,
       flexibleMovingDate: freezed == flexibleMovingDate
           ? _value.flexibleMovingDate
           : flexibleMovingDate // ignore: cast_nullable_to_non_nullable
@@ -145,6 +167,10 @@ class __$$_MovingOrderCopyWithImpl<$Res>
           ? _value.originAddress
           : originAddress // ignore: cast_nullable_to_non_nullable
               as String?,
+      pixCode: freezed == pixCode
+          ? _value.pixCode
+          : pixCode // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -155,10 +181,12 @@ class __$$_MovingOrderCopyWithImpl<$Res>
 class _$_MovingOrder implements _MovingOrder {
   const _$_MovingOrder(
       {final List<Item> items = const [],
+      required this.status,
       this.flexibleMovingDate,
       @TimestampOrNullConverter() this.movingDate,
       this.destinyAddress,
-      this.originAddress})
+      this.originAddress,
+      this.pixCode})
       : _items = items;
 
   factory _$_MovingOrder.fromJson(Map<String, dynamic> json) =>
@@ -174,6 +202,8 @@ class _$_MovingOrder implements _MovingOrder {
   }
 
   @override
+  final OrderStatus status;
+  @override
   final bool? flexibleMovingDate;
   @override
   @TimestampOrNullConverter()
@@ -182,10 +212,12 @@ class _$_MovingOrder implements _MovingOrder {
   final String? destinyAddress;
   @override
   final String? originAddress;
+  @override
+  final String? pixCode;
 
   @override
   String toString() {
-    return 'MovingOrder(items: $items, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress)';
+    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode)';
   }
 
   @override
@@ -194,6 +226,7 @@ class _$_MovingOrder implements _MovingOrder {
         (other.runtimeType == runtimeType &&
             other is _$_MovingOrder &&
             const DeepCollectionEquality().equals(other._items, _items) &&
+            (identical(other.status, status) || other.status == status) &&
             (identical(other.flexibleMovingDate, flexibleMovingDate) ||
                 other.flexibleMovingDate == flexibleMovingDate) &&
             (identical(other.movingDate, movingDate) ||
@@ -201,7 +234,8 @@ class _$_MovingOrder implements _MovingOrder {
             (identical(other.destinyAddress, destinyAddress) ||
                 other.destinyAddress == destinyAddress) &&
             (identical(other.originAddress, originAddress) ||
-                other.originAddress == originAddress));
+                other.originAddress == originAddress) &&
+            (identical(other.pixCode, pixCode) || other.pixCode == pixCode));
   }
 
   @JsonKey(ignore: true)
@@ -209,10 +243,12 @@ class _$_MovingOrder implements _MovingOrder {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(_items),
+      status,
       flexibleMovingDate,
       movingDate,
       destinyAddress,
-      originAddress);
+      originAddress,
+      pixCode);
 
   @JsonKey(ignore: true)
   @override
@@ -231,16 +267,20 @@ class _$_MovingOrder implements _MovingOrder {
 abstract class _MovingOrder implements MovingOrder {
   const factory _MovingOrder(
       {final List<Item> items,
+      required final OrderStatus status,
       final bool? flexibleMovingDate,
       @TimestampOrNullConverter() final DateTime? movingDate,
       final String? destinyAddress,
-      final String? originAddress}) = _$_MovingOrder;
+      final String? originAddress,
+      final String? pixCode}) = _$_MovingOrder;
 
   factory _MovingOrder.fromJson(Map<String, dynamic> json) =
       _$_MovingOrder.fromJson;
 
   @override
   List<Item> get items;
+  @override
+  OrderStatus get status;
   @override
   bool? get flexibleMovingDate;
   @override
@@ -250,6 +290,8 @@ abstract class _MovingOrder implements MovingOrder {
   String? get destinyAddress;
   @override
   String? get originAddress;
+  @override
+  String? get pixCode;
   @override
   @JsonKey(ignore: true)
   _$$_MovingOrderCopyWith<_$_MovingOrder> get copyWith =>
