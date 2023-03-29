@@ -1,7 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
 import 'package:muda_facil/src/utils/ui.dart';
@@ -171,33 +170,26 @@ class _AuthLayoutState extends State<AuthLayout> {
   Future onPressButton() async {
     bool hasError = false;
 
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context) => const Center(
-        child: CircularProgressIndicator.adaptive(),
-      ),
-    );
-
-    try {
-      if (_formKey.currentState!.validate()) {
-        await widget.onPress(
-          _emailController.text.trim(),
-          _passwordController.text.trim(),
-        );
+    UIUtils.showLoaderDialog(context, action: () async {
+      try {
+        if (_formKey.currentState!.validate()) {
+          await widget.onPress(
+            _emailController.text.trim(),
+            _passwordController.text.trim(),
+          );
+        }
+      } on FirebaseAuthException catch (err) {
+        hasError = true;
+        UIUtils.showSnackBar(context, err.message);
+      } finally {
+        if (widget.hasSuccessSnackbar == true && !hasError) {
+          UIUtils.showSnackBar(
+            context,
+            'Um email foi enviado para resetar sua senha',
+            success: true,
+          );
+        }
       }
-    } on FirebaseAuthException catch (err) {
-      hasError = true;
-      UIUtils.showSnackBar(context, err.message);
-    } finally {
-      if (widget.hasSuccessSnackbar == true && !hasError) {
-        UIUtils.showSnackBar(
-          context,
-          'Um email foi enviado para resetar sua senha',
-          success: true,
-        );
-      }
-      navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    }
+    });
   }
 }

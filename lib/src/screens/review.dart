@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/review_item_card.dart';
 
 class ReviewScreen extends ConsumerWidget {
@@ -37,20 +37,8 @@ class ReviewScreen extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  showDialog(
-                    context: context,
-                    barrierDismissible: false,
-                    builder: (context) => const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  );
-
-                  // loading is good for UX :)
-                  // TODO: double check this for adding it to other places as well...
-                  Future.delayed(const Duration(seconds: 1), () {
+                  UIUtils.showLoaderDialog(context, action: () {
                     userOrder.setItems(items);
-                    navigatorKey.currentState!
-                        .popUntil((route) => route.isFirst);
                   });
                 },
                 child: const Text('Confirmar'),

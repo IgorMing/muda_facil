@@ -26,6 +26,11 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     _persist();
   }
 
+  void setStatus(OrderStatus status) {
+    state = state?.copyWith(status: status);
+    _persist();
+  }
+
   void setMovingDate(DateTime date) {
     state = state?.copyWith(movingDate: date);
     _persist();

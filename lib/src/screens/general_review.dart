@@ -14,6 +14,7 @@ class GeneralReviewScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final order = ref.watch(userOrderOrNullProvider);
+    final actions = ref.read(userOrderOrNullProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -66,8 +67,9 @@ class GeneralReviewScreen extends ConsumerWidget {
                         'Ao confirmar, iremos buscar alguém para fazer este frete. Revise com atenção todas as informações adicionadas.',
                     onSelect: (selected) {
                       if (selected) {
-                        // TODO: change status to `waiting_driver`
-                        print('bora alterar o status e fazer a busca manual.');
+                        UIUtils.showLoaderDialog(context, action: () {
+                          actions.setStatus(OrderStatus.waitingDriver);
+                        });
                       }
                     },
                   );

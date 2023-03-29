@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/app.dart';
 
 class UIUtils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -42,13 +43,31 @@ class UIUtils {
           ),
           TextButton(
             onPressed: () {
-              onSelect!(true);
               Navigator.of(context).pop();
+              onSelect!(true);
             },
             child: const Text('Sim'),
           ),
         ],
       ),
+    );
+  }
+
+  static showLoaderDialog(BuildContext context, {Function? action}) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (action != null) action();
+        navigatorKey.currentState!.popUntil((route) => route.isFirst);
+      },
     );
   }
 
