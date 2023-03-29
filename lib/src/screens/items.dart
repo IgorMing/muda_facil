@@ -104,11 +104,15 @@ class ItemsScreen extends ConsumerWidget {
                   },
                   onMinus: () {
                     if (item.amount == 1) {
-                      UIUtils.showAlertDialog(context, onSelect: (selected) {
-                        if (selected) {
-                          manageItemsActions.minus(item);
-                        }
-                      });
+                      UIUtils.showAlertDialog(
+                        context,
+                        text: 'O item sairá de sua lista',
+                        onSelect: (selected) {
+                          if (selected) {
+                            manageItemsActions.minus(item);
+                          }
+                        },
+                      );
                     } else {
                       manageItemsActions.minus(item);
                     }

@@ -22,12 +22,16 @@ class UIUtils {
       ..showSnackBar(snackBar);
   }
 
-  static showAlertDialog(BuildContext context, {Function? onSelect}) {
+  static showAlertDialog(
+    BuildContext context, {
+    required String text,
+    Function? onSelect,
+  }) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Tem certeza?'),
-        content: const Text('O item sairá de sua lista'),
+        content: Text(text),
         actions: [
           TextButton(
             onPressed: () {

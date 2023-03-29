@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/general.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/full_width_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
 import 'package:muda_facil/src/widgets/review_item_card.dart';
@@ -59,7 +60,17 @@ class GeneralReviewScreen extends ConsumerWidget {
             FullWidthButton(
                 title: 'Confirmar',
                 onPressed: () {
-                  // TODO: change status to `waiting_driver`
+                  UIUtils.showAlertDialog(
+                    context,
+                    text:
+                        'Ao confirmar, iremos buscar alguém para fazer este frete. Revise com atenção todas as informações adicionadas.',
+                    onSelect: (selected) {
+                      if (selected) {
+                        // TODO: change status to `waiting_driver`
+                        print('bora alterar o status e fazer a busca manual.');
+                      }
+                    },
+                  );
                 })
           ],
         ),

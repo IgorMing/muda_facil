@@ -66,11 +66,15 @@ class ItemTile extends StatelessWidget {
           ),
           ListTile(
             onTap: () {
-              UIUtils.showAlertDialog(context, onSelect: (selected) {
-                if (selected) {
-                  onRemove!();
-                }
-              });
+              UIUtils.showAlertDialog(
+                context,
+                text: 'O item sairá de sua lista',
+                onSelect: (selected) {
+                  if (selected) {
+                    onRemove!();
+                  }
+                },
+              );
             },
             title: Text(
               'Remover item',
