@@ -29,6 +29,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add/update order in firestore
 - [x] add a way to use RefreshIndicator on my order
 - [x] prepare the moving order structure to have status
+- [x] make general review screen
 - [ ] create payment flow
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
@@ -66,16 +67,16 @@ App for learning flutter _(and maybe become a solution for house moving)_
 ## Main flow
 
 - new moving order
-  - start the flow -> OrderStatus = pending
-  - add all required information _(origin, destiny, date and items)_
-  - if user declines, open a input dialog for explaining why... and set the status -> OrderStatus = declined
-  - on confirming the review, set it -> OrderStatus = waiting_driver
+  - [x] start the flow -> OrderStatus = pending
+  - [x] add all required information _(origin, destiny, date and items)_
+  - [ ] if user declines, open a input dialog for explaining why... and set the status -> OrderStatus = declined
+  - [ ] on confirming the review, set it -> OrderStatus = waiting_driver
     - Here is where we do the manual work for finding a driver to work on that order
     - a driver accepts that trip, and sends the proposal -> OrderStatus = waiting_approval
-  - user approves the order -> OrderStatus = waiting_payment_code
+  - [ ] user approves the order -> OrderStatus = waiting_payment_code
     - Another manual part of the flow, is creating a pix code and put it into the order
     - Generating the code, and pasting it into the firestore directly, we change the status -> OrderStatus = waiting_payment
-  - after the payment gets concluded -> OrderStatus = approved
+  - [ ] after the payment gets concluded -> OrderStatus = approved
     - now just wait for the date and make the moving gets done!
 
 ## bug

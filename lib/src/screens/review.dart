@@ -4,6 +4,7 @@ import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/widgets/review_item_card.dart';
 
 class ReviewScreen extends ConsumerWidget {
   const ReviewScreen({super.key});
@@ -29,13 +30,7 @@ class ReviewScreen extends ConsumerWidget {
                   itemBuilder: (context, index) {
                     final item = items[index];
 
-                    return Card(
-                      elevation: 2.0,
-                      child: Padding(
-                        padding: const EdgeInsets.all(kDefaultPadding),
-                        child: Text("${item.amount}x ${item.name}"),
-                      ),
-                    );
+                    return ReviewItemCard(item: item);
                   }),
             ),
             SizedBox(

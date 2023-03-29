@@ -5,10 +5,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/screens/addresses.dart';
+import 'package:muda_facil/src/screens/general_review.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/general.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
+import 'package:muda_facil/src/widgets/full_width_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
 
 class MyOrder extends ConsumerWidget {
@@ -229,12 +231,13 @@ class _InfoState extends State<Info> {
           checked: GeneralUtils.isFilledArray(widget.order.items),
         ),
         if (widget.actions.allCompleted)
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () {},
-              child: const Text('Revisão geral'),
-            ),
+          FullWidthButton(
+            title: 'Revisão geral',
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const GeneralReviewScreen(),
+              ));
+            },
           ),
       ],
     );
