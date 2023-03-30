@@ -31,6 +31,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] prepare the moving order structure to have status
 - [x] make general review screen
 - [x] delete a pending order
+- [x] add a way to refresh the entire current order
 - [ ] show different content based on the status
 - [ ] create payment flow
 - [ ] add a way to copy a pix value, for paying the moving order

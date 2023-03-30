@@ -139,6 +139,7 @@ class _InfoState extends State<Info> {
             value: GeneralUtils.getFormattedItems(widget.order.items),
             showAll: true,
           ),
+        Divider(color: Theme.of(context).primaryColorDark),
         CheckableButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(

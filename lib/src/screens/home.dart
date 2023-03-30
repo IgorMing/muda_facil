@@ -13,20 +13,30 @@ class HomeScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final actions = ref.read(userOrderOrNullProvider.notifier);
+    final refreshKey = GlobalKey<RefreshIndicatorState>();
 
     return RefreshIndicator(
+      key: refreshKey,
       onRefresh: () {
         return actions.getOrder();
       },
       child: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
+          padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: kDefaultPadding * 2),
               Text('Bem vindo, ${user!.email}'),
-              const SizedBox(height: kDefaultPadding * 2),
+              const SizedBox(height: kDefaultPadding / 2),
+              OutlinedButton.icon(
+                onPressed: () {
+                  refreshKey.currentState?.show();
+                },
+                icon: const Icon(Icons.refresh_outlined),
+                label: const Text('Atualizar'),
+              ),
+              const SizedBox(height: kDefaultPadding / 2),
               const MyOrder(),
             ],
           ),

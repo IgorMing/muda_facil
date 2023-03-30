@@ -16,7 +16,7 @@ class ProfileScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('You are logged in as: ${user!.email}'),
+            Text('Você está logado como: ${user!.email}'),
             const SizedBox(height: 8),
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),
@@ -24,7 +24,7 @@ class ProfileScreen extends ConsumerWidget {
                 ref.invalidate(userOrderOrNullProvider);
                 AuthService.signOut();
               },
-              label: const Text('Sign out'),
+              label: const Text('Encerrar sessão'),
             )
           ],
         ),
