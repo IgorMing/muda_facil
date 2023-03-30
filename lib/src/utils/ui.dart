@@ -26,7 +26,7 @@ class UIUtils {
   static showAlertDialog(
     BuildContext context, {
     required String text,
-    Function? onSelect,
+    required Function(bool v) onSelect,
   }) {
     showDialog(
       context: context,
@@ -36,7 +36,7 @@ class UIUtils {
         actions: [
           TextButton(
             onPressed: () {
-              onSelect!(false);
+              onSelect(false);
               Navigator.of(context).pop();
             },
             child: const Text('Não'),
@@ -44,7 +44,7 @@ class UIUtils {
           TextButton(
             onPressed: () {
               Navigator.of(context).pop();
-              onSelect!(true);
+              onSelect(true);
             },
             child: const Text('Sim'),
           ),

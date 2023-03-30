@@ -30,6 +30,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add a way to use RefreshIndicator on my order
 - [x] prepare the moving order structure to have status
 - [x] make general review screen
+- [x] delete a pending order
+- [ ] show different content based on the status
 - [ ] create payment flow
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_

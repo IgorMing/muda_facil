@@ -42,4 +42,11 @@ class OrderService {
       await docRef.set(order);
     }
   }
+
+  Future<void> deleteOrder() async {
+    final snapshot = await _getLastOrder();
+    if (snapshot.docs.isNotEmpty) {
+      await collection.doc(snapshot.docs[0].id).delete();
+    }
+  }
 }

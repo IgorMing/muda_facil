@@ -9,6 +9,7 @@ import 'package:muda_facil/src/screens/general_review.dart';
 import 'package:muda_facil/src/screens/items.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/general.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 import 'package:muda_facil/src/widgets/full_width_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
@@ -34,20 +35,23 @@ class MyOrder extends ConsumerWidget {
         borderRadius: const BorderRadius.all(Radius.circular(4)),
       ),
       child: userOrder == null
-          ? Column(
-              children: [
-                const Text('Nenhuma mudança até o momento...'),
-                const SizedBox(
-                  height: kDefaultPadding,
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => const AddressesScreen()));
-                  },
-                  child: const Text('Iniciar mudança'),
-                )
-              ],
+          ? SizedBox(
+              width: double.infinity,
+              child: Column(
+                children: [
+                  const Text('Nenhuma mudança até o momento...'),
+                  const SizedBox(
+                    height: kDefaultPadding,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => const AddressesScreen()));
+                    },
+                    child: const Text('Iniciar mudança'),
+                  )
+                ],
+              ),
             )
           : Info(
               order: userOrder,
@@ -81,12 +85,33 @@ class _InfoState extends State<Info> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          'Minha mudança',
-          style: Theme.of(context)
-              .textTheme
-              .titleMedium
-              ?.copyWith(fontWeight: FontWeight.bold),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Minha mudança',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            IconButton(
+              onPressed: () {
+                UIUtils.showAlertDialog(
+                  context,
+                  text:
+                      'Esta ação é irreversível, e vai apagar toda a solicitação.',
+                  onSelect: (selectedValue) {
+                    if (selectedValue) widget.actions.deleteOrder();
+                  },
+                );
+              },
+              icon: Icon(
+                Icons.delete_outline,
+                color: Theme.of(context).colorScheme.error,
+              ),
+            ),
+          ],
         ),
         Divider(color: Theme.of(context).primaryColorDark),
         InfoRow(

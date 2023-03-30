@@ -40,6 +40,12 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     state = await orderService.getOrder();
   }
 
+  Future deleteOrder() async {
+    state = null;
+    await orderService.deleteOrder();
+    _persist();
+  }
+
   // method that calls the firebase API and persist it on firestore
   void _persist() async {
     if (state != null) {
