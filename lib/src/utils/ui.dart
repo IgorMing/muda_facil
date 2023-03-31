@@ -74,14 +74,17 @@ class UIUtils {
   static showInputDialog(
     BuildContext context, {
     required Function onSave,
+    required String title,
     String? initialText = '',
+    String cancelButtonText = 'Cancelar',
+    String confirmButtonText = 'Salvar',
   }) {
     final controller = TextEditingController(text: initialText);
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Observação'),
+        title: Text(title),
         content: TextField(
           controller: controller,
           autofocus: true,
@@ -98,14 +101,14 @@ class UIUtils {
             onPressed: () {
               Navigator.of(context).pop();
             },
-            child: const Text('Cancelar'),
+            child: Text(cancelButtonText),
           ),
           TextButton(
             onPressed: () {
               onSave(controller.text);
               Navigator.of(context).pop();
             },
-            child: const Text('Salvar'),
+            child: Text(confirmButtonText),
           ),
         ],
       ),

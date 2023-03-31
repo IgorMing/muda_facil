@@ -28,6 +28,7 @@ mixin _$MovingOrder {
   String? get destinyAddress => throw _privateConstructorUsedError;
   String? get originAddress => throw _privateConstructorUsedError;
   String? get pixCode => throw _privateConstructorUsedError;
+  String? get helpNeeded => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -48,7 +49,8 @@ abstract class $MovingOrderCopyWith<$Res> {
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress,
-      String? pixCode});
+      String? pixCode,
+      String? helpNeeded});
 }
 
 /// @nodoc
@@ -71,6 +73,7 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
     Object? pixCode = freezed,
+    Object? helpNeeded = freezed,
   }) {
     return _then(_value.copyWith(
       items: null == items
@@ -101,6 +104,10 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
           ? _value.pixCode
           : pixCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      helpNeeded: freezed == helpNeeded
+          ? _value.helpNeeded
+          : helpNeeded // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -120,7 +127,8 @@ abstract class _$$_MovingOrderCopyWith<$Res>
       @TimestampOrNullConverter() DateTime? movingDate,
       String? destinyAddress,
       String? originAddress,
-      String? pixCode});
+      String? pixCode,
+      String? helpNeeded});
 }
 
 /// @nodoc
@@ -141,6 +149,7 @@ class __$$_MovingOrderCopyWithImpl<$Res>
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
     Object? pixCode = freezed,
+    Object? helpNeeded = freezed,
   }) {
     return _then(_$_MovingOrder(
       items: null == items
@@ -171,6 +180,10 @@ class __$$_MovingOrderCopyWithImpl<$Res>
           ? _value.pixCode
           : pixCode // ignore: cast_nullable_to_non_nullable
               as String?,
+      helpNeeded: freezed == helpNeeded
+          ? _value.helpNeeded
+          : helpNeeded // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -186,7 +199,8 @@ class _$_MovingOrder implements _MovingOrder {
       @TimestampOrNullConverter() this.movingDate,
       this.destinyAddress,
       this.originAddress,
-      this.pixCode})
+      this.pixCode,
+      this.helpNeeded})
       : _items = items;
 
   factory _$_MovingOrder.fromJson(Map<String, dynamic> json) =>
@@ -214,10 +228,12 @@ class _$_MovingOrder implements _MovingOrder {
   final String? originAddress;
   @override
   final String? pixCode;
+  @override
+  final String? helpNeeded;
 
   @override
   String toString() {
-    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode)';
+    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode, helpNeeded: $helpNeeded)';
   }
 
   @override
@@ -235,7 +251,9 @@ class _$_MovingOrder implements _MovingOrder {
                 other.destinyAddress == destinyAddress) &&
             (identical(other.originAddress, originAddress) ||
                 other.originAddress == originAddress) &&
-            (identical(other.pixCode, pixCode) || other.pixCode == pixCode));
+            (identical(other.pixCode, pixCode) || other.pixCode == pixCode) &&
+            (identical(other.helpNeeded, helpNeeded) ||
+                other.helpNeeded == helpNeeded));
   }
 
   @JsonKey(ignore: true)
@@ -248,7 +266,8 @@ class _$_MovingOrder implements _MovingOrder {
       movingDate,
       destinyAddress,
       originAddress,
-      pixCode);
+      pixCode,
+      helpNeeded);
 
   @JsonKey(ignore: true)
   @override
@@ -272,7 +291,8 @@ abstract class _MovingOrder implements MovingOrder {
       @TimestampOrNullConverter() final DateTime? movingDate,
       final String? destinyAddress,
       final String? originAddress,
-      final String? pixCode}) = _$_MovingOrder;
+      final String? pixCode,
+      final String? helpNeeded}) = _$_MovingOrder;
 
   factory _MovingOrder.fromJson(Map<String, dynamic> json) =
       _$_MovingOrder.fromJson;
@@ -292,6 +312,8 @@ abstract class _MovingOrder implements MovingOrder {
   String? get originAddress;
   @override
   String? get pixCode;
+  @override
+  String? get helpNeeded;
   @override
   @JsonKey(ignore: true)
   _$$_MovingOrderCopyWith<_$_MovingOrder> get copyWith =>

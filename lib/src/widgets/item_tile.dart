@@ -60,6 +60,7 @@ class ItemTile extends StatelessWidget {
                 onSave: (text) {
                   onAddComment!(text);
                 },
+                title: 'Observação',
                 initialText: data.comment,
               );
             },

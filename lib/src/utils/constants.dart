@@ -4,6 +4,7 @@ const int kDefaultMaxLines = 4;
 enum OrderStatus {
   pending,
   declined,
+  helpNeeded,
   waitingDriver,
   waitingApproval,
   waitingPaymentCode,
@@ -17,6 +18,8 @@ String getOrderStatusLabelByEnumName(String label) {
       return 'Orçamento recusado';
     case 'waitingDriver':
       return 'Aguardando frete';
+    case 'helpNeeded':
+      return 'Aguardando ajuda';
     case 'waitingApproval':
       return 'Aguardando aprovação';
     case 'waitingPaymentCode':

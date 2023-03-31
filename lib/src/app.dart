@@ -5,7 +5,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/bottom_navigation.dart';
-import 'package:muda_facil/src/screens/loading.dart';
+import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 
 final navigatorKey = GlobalKey<NavigatorState>();
@@ -46,7 +46,7 @@ class App extends StatelessWidget {
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return const LoadingScreen();
+            return const LoadingAdaptive();
           }
 
           if (snapshot.hasError) {

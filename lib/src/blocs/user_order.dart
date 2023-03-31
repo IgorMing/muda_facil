@@ -31,6 +31,14 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     _persist();
   }
 
+  void setHelp(String text) {
+    state = state?.copyWith(
+      helpNeeded: text,
+      status: OrderStatus.helpNeeded,
+    );
+    _persist();
+  }
+
   void setMovingDate(DateTime date) {
     state = state?.copyWith(movingDate: date);
     _persist();
@@ -57,6 +65,12 @@ class UserOrder extends StateNotifier<MovingOrder?> {
       state?.destinyAddress != null &&
       state?.originAddress != null &&
       state?.movingDate != null;
+
+  get canDeleteOrder =>
+      state?.status == OrderStatus.pending ||
+      state?.status == OrderStatus.helpNeeded;
+
+  get canShowEditButtons => state?.status == OrderStatus.pending;
 }
 
 final userOrderOrNullProvider =

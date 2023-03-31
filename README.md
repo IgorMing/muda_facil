@@ -32,11 +32,14 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] make general review screen
 - [x] delete a pending order
 - [x] add a way to refresh the entire current order
-- [ ] show different content based on the status
-- [ ] create payment flow
+- [x] add a way to ask for help, after sending an order
+- [x] show different content if order is pending and if it's waiting for a driver
+- [ ] after we get a driver, we should display the driver information, and provides to the user a way to approve it _(here, after the price being set, we can generate a pix code and let it ready to be used, after the user approves it)_
+- [ ] add the payment flow
 - [ ] add a way to copy a pix value, for paying the moving order
 - [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
+- [ ] add a step on the sign up flow to put the whatsapp number
 
 - [ ] configure splash screen
 

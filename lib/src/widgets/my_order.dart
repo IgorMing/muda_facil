@@ -1,4 +1,5 @@
-import 'dart:io' show Platform;
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -13,6 +14,7 @@ import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 import 'package:muda_facil/src/widgets/full_width_button.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
+import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
 class MyOrder extends ConsumerWidget {
   const MyOrder({super.key});
@@ -81,6 +83,133 @@ class _InfoState extends State<Info> {
   @override
   Widget build(BuildContext context) {
     final movingDateMs = widget.order.movingDate?.microsecondsSinceEpoch;
+    final editButtons = [
+      CheckableButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const AddressesScreen(),
+          ));
+        },
+        title: !GeneralUtils.isFilled(widget.order.originAddress)
+            ? "Origem"
+            : 'Editar origem',
+        checked: GeneralUtils.isFilled(widget.order.originAddress),
+      ),
+      CheckableButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const AddressesScreen(),
+          ));
+        },
+        title: !GeneralUtils.isFilled(widget.order.destinyAddress)
+            ? "Destino"
+            : 'Editar destino',
+        checked: GeneralUtils.isFilled(widget.order.destinyAddress),
+      ),
+      CheckableButton(
+        title:
+            !GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String())
+                ? 'Data'
+                : 'Editar data',
+        checked:
+            GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String()),
+        onPressed: () async {
+          final now = DateTime.now();
+
+          if (Platform.isIOS) {
+            final containerHeight = MediaQuery.of(context).size.height / 3;
+            showCupertinoModalPopup(
+              context: context,
+              builder: (context) => Container(
+                height: containerHeight,
+                padding: const EdgeInsets.only(top: 6.0),
+                // The Bottom margin is provided to align the popup above the system
+                // navigation bar.
+                margin: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom,
+                ),
+                // Provide a background color for the popup.
+                color: CupertinoColors.systemBackground.resolveFrom(context),
+                // Use a SafeArea widget to avoid system overlaps.
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CupertinoButton(
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Cancelar'),
+                        ),
+                        CupertinoButton(
+                          onPressed: () {
+                            if (_selectedDate != null) {
+                              widget.actions.setMovingDate(_selectedDate!);
+                            }
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text('Confirmar'),
+                        ),
+                      ],
+                    ),
+                    SafeArea(
+                      top: false,
+                      child: SizedBox(
+                        height: containerHeight - 100,
+                        child: CupertinoDatePicker(
+                          minimumDate: now,
+                          maximumDate: DateTime(now.year + 1),
+                          initialDateTime: widget.order.movingDate ?? now,
+                          mode: CupertinoDatePickerMode.date,
+                          onDateTimeChanged: (DateTime selectedDate) {
+                            setState(() {
+                              _selectedDate = selectedDate;
+                            });
+                          },
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            final selectedDate = await showDatePicker(
+              context: context,
+              initialDate: now,
+              firstDate: now,
+              lastDate: DateTime(now.year + 1),
+            );
+            if (selectedDate != null) {
+              setState(() {
+                widget.actions.setMovingDate(selectedDate);
+              });
+            }
+          }
+        },
+      ),
+      CheckableButton(
+        onPressed: () {
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const ItemsScreen(),
+          ));
+        },
+        title: GeneralUtils.isFilledArray(widget.order.items)
+            ? 'Editar Itens'
+            : 'Itens',
+        checked: GeneralUtils.isFilledArray(widget.order.items),
+      ),
+      if (widget.actions.allCompleted)
+        FullWidthButton(
+          title: 'Revisão geral',
+          onPressed: () {
+            Navigator.of(context).push(MaterialPageRoute(
+              builder: (context) => const GeneralReviewScreen(),
+            ));
+          },
+        ),
+    ];
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -95,22 +224,23 @@ class _InfoState extends State<Info> {
                   .titleMedium
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
-            IconButton(
-              onPressed: () {
-                UIUtils.showAlertDialog(
-                  context,
-                  text:
-                      'Esta ação é irreversível, e vai apagar toda a solicitação.',
-                  onSelect: (selectedValue) {
-                    if (selectedValue) widget.actions.deleteOrder();
-                  },
-                );
-              },
-              icon: Icon(
-                Icons.delete_outline,
-                color: Theme.of(context).colorScheme.error,
+            if (widget.actions.canDeleteOrder)
+              IconButton(
+                onPressed: () {
+                  UIUtils.showAlertDialog(
+                    context,
+                    text:
+                        'Esta ação é irreversível, e vai apagar toda a solicitação.',
+                    onSelect: (selectedValue) {
+                      if (selectedValue) widget.actions.deleteOrder();
+                    },
+                  );
+                },
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: Theme.of(context).colorScheme.error,
+                ),
               ),
-            ),
           ],
         ),
         Divider(color: Theme.of(context).primaryColorDark),
@@ -140,131 +270,35 @@ class _InfoState extends State<Info> {
             showAll: true,
           ),
         Divider(color: Theme.of(context).primaryColorDark),
-        CheckableButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const AddressesScreen(),
-            ));
-          },
-          title: !GeneralUtils.isFilled(widget.order.originAddress)
-              ? "Origem"
-              : 'Editar origem',
-          checked: GeneralUtils.isFilled(widget.order.originAddress),
-        ),
-        CheckableButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const AddressesScreen(),
-            ));
-          },
-          title: !GeneralUtils.isFilled(widget.order.destinyAddress)
-              ? "Destino"
-              : 'Editar destino',
-          checked: GeneralUtils.isFilled(widget.order.destinyAddress),
-        ),
-        CheckableButton(
-          title:
-              !GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String())
-                  ? 'Data'
-                  : 'Editar data',
-          checked:
-              GeneralUtils.isFilled(widget.order.movingDate?.toIso8601String()),
-          onPressed: () async {
-            final now = DateTime.now();
-
-            if (Platform.isIOS) {
-              final containerHeight = MediaQuery.of(context).size.height / 3;
-              showCupertinoModalPopup(
-                context: context,
-                builder: (context) => Container(
-                  height: containerHeight,
-                  padding: const EdgeInsets.only(top: 6.0),
-                  // The Bottom margin is provided to align the popup above the system
-                  // navigation bar.
-                  margin: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom,
-                  ),
-                  // Provide a background color for the popup.
-                  color: CupertinoColors.systemBackground.resolveFrom(context),
-                  // Use a SafeArea widget to avoid system overlaps.
-                  child: Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          CupertinoButton(
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Cancelar'),
-                          ),
-                          CupertinoButton(
-                            onPressed: () {
-                              if (_selectedDate != null) {
-                                widget.actions.setMovingDate(_selectedDate!);
-                              }
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text('Confirmar'),
-                          ),
-                        ],
-                      ),
-                      SafeArea(
-                        top: false,
-                        child: SizedBox(
-                          height: containerHeight - 100,
-                          child: CupertinoDatePicker(
-                            minimumDate: now,
-                            maximumDate: DateTime(now.year + 1),
-                            initialDateTime: widget.order.movingDate ?? now,
-                            mode: CupertinoDatePickerMode.date,
-                            onDateTimeChanged: (DateTime selectedDate) {
-                              setState(() {
-                                _selectedDate = selectedDate;
-                              });
-                            },
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
+        if (widget.actions.canShowEditButtons) ...editButtons,
+        if (widget.order.status == OrderStatus.waitingDriver) ...[
+          Padding(
+            padding: const EdgeInsets.all(kDefaultPadding * 2),
+            child: Column(
+              children: const [
+                Text(
+                    'Prontinho! Basta aguardar nossa equipe encontrar o frete ideal pra você.'),
+                SizedBox(
+                  height: kDefaultPadding,
                 ),
-              );
-            } else {
-              final selectedDate = await showDatePicker(
-                context: context,
-                initialDate: now,
-                firstDate: now,
-                lastDate: DateTime(now.year + 1),
-              );
-              if (selectedDate != null) {
-                setState(() {
-                  widget.actions.setMovingDate(selectedDate);
-                });
-              }
-            }
-          },
-        ),
-        CheckableButton(
-          onPressed: () {
-            Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => const ItemsScreen(),
-            ));
-          },
-          title: GeneralUtils.isFilledArray(widget.order.items)
-              ? 'Editar Itens'
-              : 'Itens',
-          checked: GeneralUtils.isFilledArray(widget.order.items),
-        ),
-        if (widget.actions.allCompleted)
-          FullWidthButton(
-            title: 'Revisão geral',
-            onPressed: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const GeneralReviewScreen(),
-              ));
-            },
+                LoadingAdaptive(),
+              ],
+            ),
           ),
+          TextButton(
+            onPressed: () {
+              UIUtils.showInputDialog(
+                context,
+                confirmButtonText: 'Enviar',
+                onSave: (text) {
+                  widget.actions.setHelp(text);
+                },
+                title: 'Em que podemos lhe ajudar?',
+              );
+            },
+            child: const Text('Precisa de ajuda? Clique aqui'),
+          ),
+        ]
       ],
     );
   }
