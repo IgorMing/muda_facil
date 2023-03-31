@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/features/my_order/editButtons.dart';
+import 'package:muda_facil/src/features/my_order/order_help.dart';
+import 'package:muda_facil/src/features/my_order/order_waiting_driver.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/general.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
-import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
 class OrderInfo extends StatefulWidget {
   const OrderInfo({
@@ -104,32 +105,8 @@ class _OrderInfoState extends State<OrderInfo> {
             selectedDate: _selectedDate,
           ),
         if (widget.order.status == OrderStatus.waitingDriver) ...[
-          Padding(
-            padding: const EdgeInsets.all(kDefaultPadding * 2),
-            child: Column(
-              children: const [
-                Text(
-                    'Prontinho! Basta aguardar nossa equipe encontrar o frete ideal pra você.'),
-                SizedBox(
-                  height: kDefaultPadding,
-                ),
-                LoadingAdaptive(),
-              ],
-            ),
-          ),
-          TextButton(
-            onPressed: () {
-              UIUtils.showInputDialog(
-                context,
-                confirmButtonText: 'Enviar',
-                onSave: (text) {
-                  widget.actions.setHelp(text);
-                },
-                title: 'Em que podemos lhe ajudar?',
-              );
-            },
-            child: const Text('Precisa de ajuda? Clique aqui'),
-          ),
+          const OrderWaitingDriver(),
+          OrderHelp(onSave: widget.actions.setHelp),
         ]
       ],
     );
