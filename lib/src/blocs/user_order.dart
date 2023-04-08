@@ -54,6 +54,14 @@ class UserOrder extends StateNotifier<MovingOrder?> {
     _persist();
   }
 
+  Future declineBudget(String reason) async {
+    state = state?.copyWith(
+      status: OrderStatus.declined,
+      declineReason: reason,
+    );
+    _persist();
+  }
+
   // method that calls the firebase API and persist it on firestore
   void _persist() async {
     if (state != null) {

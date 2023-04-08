@@ -17,6 +17,9 @@ class MovingOrder with _$MovingOrder {
     String? originAddress,
     String? pixCode,
     String? helpNeeded,
+    String? declineReason,
+    String? driverName,
+    double? budgetValue,
   }) = _MovingOrder;
 
   factory MovingOrder.fromJson(Map<String, dynamic>? json) =>

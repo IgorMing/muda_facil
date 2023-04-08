@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/features/my_order/editButtons.dart';
+import 'package:muda_facil/src/features/my_order/order_declined.dart';
 import 'package:muda_facil/src/features/my_order/order_help.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_approval.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_driver.dart';
+import 'package:muda_facil/src/features/my_order/order_waiting_payment.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/general.dart';
@@ -108,7 +110,22 @@ class _OrderInfoState extends State<OrderInfo> {
         if (widget.order.status == OrderStatus.waitingDriver)
           const OrderWaitingDriver(),
         if (widget.order.status == OrderStatus.waitingApproval)
-          const OrderWaitingApproval(),
+          OrderWaitingApproval(
+            driverName: widget.order.driverName!,
+            budgetValue: widget.order.budgetValue!,
+            onDecline: (String reason) {
+              widget.actions.declineBudget(reason);
+            },
+            onSave: () {
+              UIUtils.showLoaderDialog(context, action: () {
+                widget.actions.setStatus(OrderStatus.waitingPayment);
+              });
+            },
+          ),
+        if (widget.order.status == OrderStatus.declined)
+          OrderDeclined(reason: widget.order.declineReason!),
+        if (widget.order.status == OrderStatus.waitingPayment)
+          const OrderWaitingPayment(),
         OrderHelp(onSave: widget.actions.setHelp),
       ],
     );

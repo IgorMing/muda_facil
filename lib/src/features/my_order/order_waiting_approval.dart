@@ -1,9 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 
+// TODO: get rid of all hardcoded stuff and get it from firestore
 class OrderWaitingApproval extends StatelessWidget {
-  const OrderWaitingApproval({super.key});
+  const OrderWaitingApproval({
+    super.key,
+    required this.onDecline,
+    required this.onSave,
+    required this.driverName,
+    required this.budgetValue,
+  });
+
+  final String driverName;
+  final double budgetValue;
+  final Function(String reason) onDecline;
+  final Function() onSave;
 
   @override
   Widget build(BuildContext context) {
@@ -21,19 +34,26 @@ class OrderWaitingApproval extends StatelessWidget {
               size: 45,
             ),
             const SizedBox(height: kDefaultPadding / 2),
-            const Text('Antonio Silva'),
-            const Text('R\$ 1250'),
+            Text(driverName),
+            Text('R\$ ${budgetValue.toInt()}'),
             const SizedBox(height: kDefaultPadding),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    UIUtils.showInputDialog(
+                      context,
+                      onSave: onDecline,
+                      title: 'Explique o motivo, por favor',
+                      requireMinLength: true,
+                    );
+                  },
                   child: const Text('Não gostei'),
                 ),
                 CheckableButton(
                   title: 'Aceito',
-                  onPressed: () {},
+                  onPressed: onSave,
                   checked: true,
                 ),
               ],

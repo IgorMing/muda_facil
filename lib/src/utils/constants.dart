@@ -10,7 +10,6 @@ enum OrderStatus {
   helpNeeded,
   waitingDriver,
   waitingApproval,
-  waitingPaymentCode,
   waitingPayment,
   approved,
 }
@@ -25,8 +24,6 @@ String getOrderStatusLabelByEnumName(String label) {
       return 'Aguardando ajuda';
     case 'waitingApproval':
       return 'Aguardando aprovação';
-    case 'waitingPaymentCode':
-      return 'Aguarde código pix para pagamento';
     case 'waitingPayment':
       return 'Aguardando pagamento';
     case 'approved':

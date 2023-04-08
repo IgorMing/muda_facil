@@ -29,6 +29,9 @@ mixin _$MovingOrder {
   String? get originAddress => throw _privateConstructorUsedError;
   String? get pixCode => throw _privateConstructorUsedError;
   String? get helpNeeded => throw _privateConstructorUsedError;
+  String? get declineReason => throw _privateConstructorUsedError;
+  String? get driverName => throw _privateConstructorUsedError;
+  double? get budgetValue => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +53,10 @@ abstract class $MovingOrderCopyWith<$Res> {
       String? destinyAddress,
       String? originAddress,
       String? pixCode,
-      String? helpNeeded});
+      String? helpNeeded,
+      String? declineReason,
+      String? driverName,
+      double? budgetValue});
 }
 
 /// @nodoc
@@ -74,6 +80,9 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
     Object? originAddress = freezed,
     Object? pixCode = freezed,
     Object? helpNeeded = freezed,
+    Object? declineReason = freezed,
+    Object? driverName = freezed,
+    Object? budgetValue = freezed,
   }) {
     return _then(_value.copyWith(
       items: null == items
@@ -108,6 +117,18 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
           ? _value.helpNeeded
           : helpNeeded // ignore: cast_nullable_to_non_nullable
               as String?,
+      declineReason: freezed == declineReason
+          ? _value.declineReason
+          : declineReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverName: freezed == driverName
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      budgetValue: freezed == budgetValue
+          ? _value.budgetValue
+          : budgetValue // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -128,7 +149,10 @@ abstract class _$$_MovingOrderCopyWith<$Res>
       String? destinyAddress,
       String? originAddress,
       String? pixCode,
-      String? helpNeeded});
+      String? helpNeeded,
+      String? declineReason,
+      String? driverName,
+      double? budgetValue});
 }
 
 /// @nodoc
@@ -150,6 +174,9 @@ class __$$_MovingOrderCopyWithImpl<$Res>
     Object? originAddress = freezed,
     Object? pixCode = freezed,
     Object? helpNeeded = freezed,
+    Object? declineReason = freezed,
+    Object? driverName = freezed,
+    Object? budgetValue = freezed,
   }) {
     return _then(_$_MovingOrder(
       items: null == items
@@ -184,6 +211,18 @@ class __$$_MovingOrderCopyWithImpl<$Res>
           ? _value.helpNeeded
           : helpNeeded // ignore: cast_nullable_to_non_nullable
               as String?,
+      declineReason: freezed == declineReason
+          ? _value.declineReason
+          : declineReason // ignore: cast_nullable_to_non_nullable
+              as String?,
+      driverName: freezed == driverName
+          ? _value.driverName
+          : driverName // ignore: cast_nullable_to_non_nullable
+              as String?,
+      budgetValue: freezed == budgetValue
+          ? _value.budgetValue
+          : budgetValue // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -200,7 +239,10 @@ class _$_MovingOrder implements _MovingOrder {
       this.destinyAddress,
       this.originAddress,
       this.pixCode,
-      this.helpNeeded})
+      this.helpNeeded,
+      this.declineReason,
+      this.driverName,
+      this.budgetValue})
       : _items = items;
 
   factory _$_MovingOrder.fromJson(Map<String, dynamic> json) =>
@@ -230,10 +272,16 @@ class _$_MovingOrder implements _MovingOrder {
   final String? pixCode;
   @override
   final String? helpNeeded;
+  @override
+  final String? declineReason;
+  @override
+  final String? driverName;
+  @override
+  final double? budgetValue;
 
   @override
   String toString() {
-    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode, helpNeeded: $helpNeeded)';
+    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode, helpNeeded: $helpNeeded, declineReason: $declineReason, driverName: $driverName, budgetValue: $budgetValue)';
   }
 
   @override
@@ -253,7 +301,13 @@ class _$_MovingOrder implements _MovingOrder {
                 other.originAddress == originAddress) &&
             (identical(other.pixCode, pixCode) || other.pixCode == pixCode) &&
             (identical(other.helpNeeded, helpNeeded) ||
-                other.helpNeeded == helpNeeded));
+                other.helpNeeded == helpNeeded) &&
+            (identical(other.declineReason, declineReason) ||
+                other.declineReason == declineReason) &&
+            (identical(other.driverName, driverName) ||
+                other.driverName == driverName) &&
+            (identical(other.budgetValue, budgetValue) ||
+                other.budgetValue == budgetValue));
   }
 
   @JsonKey(ignore: true)
@@ -267,7 +321,10 @@ class _$_MovingOrder implements _MovingOrder {
       destinyAddress,
       originAddress,
       pixCode,
-      helpNeeded);
+      helpNeeded,
+      declineReason,
+      driverName,
+      budgetValue);
 
   @JsonKey(ignore: true)
   @override
@@ -292,7 +349,10 @@ abstract class _MovingOrder implements MovingOrder {
       final String? destinyAddress,
       final String? originAddress,
       final String? pixCode,
-      final String? helpNeeded}) = _$_MovingOrder;
+      final String? helpNeeded,
+      final String? declineReason,
+      final String? driverName,
+      final double? budgetValue}) = _$_MovingOrder;
 
   factory _MovingOrder.fromJson(Map<String, dynamic> json) =
       _$_MovingOrder.fromJson;
@@ -314,6 +374,12 @@ abstract class _MovingOrder implements MovingOrder {
   String? get pixCode;
   @override
   String? get helpNeeded;
+  @override
+  String? get declineReason;
+  @override
+  String? get driverName;
+  @override
+  double? get budgetValue;
   @override
   @JsonKey(ignore: true)
   _$$_MovingOrderCopyWith<_$_MovingOrder> get copyWith =>

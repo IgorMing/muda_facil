@@ -74,28 +74,49 @@ class UIUtils {
 
   static showInputDialog(
     BuildContext context, {
-    required Function onSave,
+    required Function(String text) onSave,
     required String title,
     String? initialText = '',
     String cancelButtonText = 'Cancelar',
     String confirmButtonText = 'Salvar',
+    bool requireMinLength = false,
+    int minLength = 10,
   }) {
     final controller = TextEditingController(text: initialText);
+    final formKey = GlobalKey<FormState>();
 
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: TextField(
-          controller: controller,
-          autofocus: true,
-          autocorrect: false,
-          textCapitalization: TextCapitalization.sentences,
-          decoration: const InputDecoration(
-            focusedBorder: OutlineInputBorder(),
-            border: OutlineInputBorder(),
+        content: Form(
+          key: formKey,
+          child: TextFormField(
+            validator: (value) {
+              if (!requireMinLength) {
+                return null;
+              }
+
+              if (value == null || value.length < minLength) {
+                return 'Digite ao menos $minLength caracteres';
+              }
+
+              return null;
+            },
+            controller: controller,
+            autofocus: true,
+            autocorrect: false,
+            textCapitalization: TextCapitalization.sentences,
+            onSaved: (newValue) {
+              onSave(controller.text);
+              Navigator.of(context).pop();
+            },
+            decoration: const InputDecoration(
+              focusedBorder: OutlineInputBorder(),
+              border: OutlineInputBorder(),
+            ),
+            maxLines: 3,
           ),
-          maxLines: 3,
         ),
         actions: [
           TextButton(
@@ -106,8 +127,9 @@ class UIUtils {
           ),
           TextButton(
             onPressed: () {
-              onSave(controller.text);
-              Navigator.of(context).pop();
+              if (formKey.currentState!.validate()) {
+                formKey.currentState!.save();
+              }
             },
             child: Text(confirmButtonText),
           ),

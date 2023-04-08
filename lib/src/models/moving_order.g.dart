@@ -20,6 +20,9 @@ _$_MovingOrder _$$_MovingOrderFromJson(Map<String, dynamic> json) =>
       originAddress: json['originAddress'] as String?,
       pixCode: json['pixCode'] as String?,
       helpNeeded: json['helpNeeded'] as String?,
+      declineReason: json['declineReason'] as String?,
+      driverName: json['driverName'] as String?,
+      budgetValue: (json['budgetValue'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$$_MovingOrderToJson(_$_MovingOrder instance) {
@@ -41,6 +44,9 @@ Map<String, dynamic> _$$_MovingOrderToJson(_$_MovingOrder instance) {
   writeNotNull('originAddress', instance.originAddress);
   writeNotNull('pixCode', instance.pixCode);
   writeNotNull('helpNeeded', instance.helpNeeded);
+  writeNotNull('declineReason', instance.declineReason);
+  writeNotNull('driverName', instance.driverName);
+  writeNotNull('budgetValue', instance.budgetValue);
   return val;
 }
 
@@ -50,7 +56,6 @@ const _$OrderStatusEnumMap = {
   OrderStatus.helpNeeded: 'helpNeeded',
   OrderStatus.waitingDriver: 'waitingDriver',
   OrderStatus.waitingApproval: 'waitingApproval',
-  OrderStatus.waitingPaymentCode: 'waitingPaymentCode',
   OrderStatus.waitingPayment: 'waitingPayment',
   OrderStatus.approved: 'approved',
 };
