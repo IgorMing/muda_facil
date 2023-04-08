@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/blocs/storage_items.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/screens/review.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/item_tile.dart';
@@ -15,7 +14,6 @@ class ItemsScreen extends ConsumerWidget {
     late final TextEditingController textEditingController;
     final items = ref.watch(manageItemsProvider);
     final manageItemsActions = ref.read(manageItemsProvider.notifier);
-    final a = ref.watch(userOrderOrNullProvider);
 
     final filtered = ref.watch(filteredItemsProvider);
 

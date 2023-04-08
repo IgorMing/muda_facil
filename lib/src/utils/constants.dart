@@ -1,5 +1,8 @@
+import 'package:flutter/material.dart';
+
 const double kDefaultPadding = 16.0;
 const int kDefaultMaxLines = 4;
+const Color kSuccessColor = Colors.green;
 
 enum OrderStatus {
   pending,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/features/my_order/editButtons.dart';
 import 'package:muda_facil/src/features/my_order/order_help.dart';
+import 'package:muda_facil/src/features/my_order/order_waiting_approval.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_driver.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
@@ -104,10 +105,11 @@ class _OrderInfoState extends State<OrderInfo> {
             },
             selectedDate: _selectedDate,
           ),
-        if (widget.order.status == OrderStatus.waitingDriver) ...[
+        if (widget.order.status == OrderStatus.waitingDriver)
           const OrderWaitingDriver(),
-          OrderHelp(onSave: widget.actions.setHelp),
-        ]
+        if (widget.order.status == OrderStatus.waitingApproval)
+          const OrderWaitingApproval(),
+        OrderHelp(onSave: widget.actions.setHelp),
       ],
     );
   }

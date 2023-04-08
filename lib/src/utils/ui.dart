@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
 class UIUtils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -15,7 +16,7 @@ class UIUtils {
     final snackBar = SnackBar(
       content: Text(text),
       backgroundColor:
-          success ? Colors.green : Theme.of(context).colorScheme.error,
+          success ? kSuccessColor : Theme.of(context).colorScheme.error,
     );
 
     messengerKey.currentState!

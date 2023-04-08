@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
 class CheckableButton extends StatelessWidget {
   const CheckableButton({
@@ -18,7 +19,7 @@ class CheckableButton extends StatelessWidget {
       style: OutlinedButton.styleFrom(
         side: BorderSide(
             color: checked == true
-                ? Colors.green
+                ? kSuccessColor
                 : Theme.of(context).colorScheme.primary),
       ),
       onPressed: onPressed,
@@ -34,7 +35,7 @@ class CheckableButton extends StatelessWidget {
                     : Theme.of(context).colorScheme.primary),
           ),
           const SizedBox(width: 5),
-          if (checked == true) const Icon(Icons.check, color: Colors.green),
+          if (checked == true) const Icon(Icons.check, color: kSuccessColor),
         ],
       ),
     );
