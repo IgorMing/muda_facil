@@ -170,7 +170,7 @@ class _AuthLayoutState extends State<AuthLayout> {
   Future onPressButton() async {
     bool hasError = false;
 
-    UIUtils.showLoaderDialog(context, action: () async {
+    UIUtils.showLoaderDialog(context, () async {
       try {
         if (_formKey.currentState!.validate()) {
           await widget.onPress(

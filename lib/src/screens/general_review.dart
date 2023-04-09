@@ -67,7 +67,7 @@ class GeneralReviewScreen extends ConsumerWidget {
                         'Ao confirmar, iremos buscar alguém para fazer este frete. Revise com atenção todas as informações adicionadas.',
                     onSelect: (selected) {
                       if (selected) {
-                        UIUtils.showLoaderDialog(context, action: () {
+                        UIUtils.showLoaderDialog(context, () {
                           actions.setStatus(OrderStatus.waitingDriver);
                         });
                       }

@@ -54,7 +54,7 @@ class UIUtils {
     );
   }
 
-  static showLoaderDialog(BuildContext context, {Function? action}) {
+  static showLoaderDialog(BuildContext context, Function? action) {
     showDialog(
       context: context,
       barrierDismissible: false,

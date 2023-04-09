@@ -37,7 +37,7 @@ class ReviewScreen extends ConsumerWidget {
               width: double.infinity,
               child: ElevatedButton(
                 onPressed: () {
-                  UIUtils.showLoaderDialog(context, action: () {
+                  UIUtils.showLoaderDialog(context, () {
                     userOrder.setItems(items);
                   });
                 },

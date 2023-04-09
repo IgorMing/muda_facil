@@ -117,7 +117,7 @@ class _OrderInfoState extends State<OrderInfo> {
               widget.actions.declineBudget(reason);
             },
             onSave: () {
-              UIUtils.showLoaderDialog(context, action: () {
+              UIUtils.showLoaderDialog(context, () {
                 widget.actions.setStatus(OrderStatus.waitingPayment);
               });
             },
