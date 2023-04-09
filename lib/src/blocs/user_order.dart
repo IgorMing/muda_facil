@@ -8,65 +8,54 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   final orderService = OrderService();
 
   UserOrder() : super(null) {
-    getOrder();
+    final stream = orderService.getStream();
+    stream.listen((event) {
+      state = event;
+    });
   }
 
-  // this will be created just on our state notifier (not on firebase, for now)
   void create() {
     state ??= const MovingOrder(status: OrderStatus.pending);
   }
 
   void setAddresses({String? from, String? to}) {
-    state = state?.copyWith(originAddress: from, destinyAddress: to);
-    _persist();
+    _persist((state?.copyWith(originAddress: from, destinyAddress: to))!);
   }
 
   void setItems(List<Item> list) {
-    state = state?.copyWith(items: list);
-    _persist();
+    _persist((state?.copyWith(items: list))!);
   }
 
   void setStatus(OrderStatus status) {
-    state = state?.copyWith(status: status);
-    _persist();
+    _persist((state?.copyWith(status: status))!);
   }
 
   void setHelp(String text) {
-    state = state?.copyWith(
+    _persist((state?.copyWith(
       helpNeeded: text,
       status: OrderStatus.helpNeeded,
-    );
-    _persist();
+    ))!);
   }
 
   void setMovingDate(DateTime date) {
-    state = state?.copyWith(movingDate: date);
-    _persist();
-  }
-
-  Future getOrder() async {
-    state = await orderService.getOrder();
+    _persist((state?.copyWith(movingDate: date))!);
   }
 
   Future deleteOrder() async {
     state = null;
     await orderService.deleteOrder();
-    _persist();
   }
 
   Future declineBudget(String reason) async {
-    state = state?.copyWith(
+    _persist((state?.copyWith(
       status: OrderStatus.declined,
       declineReason: reason,
-    );
-    _persist();
+    ))!);
   }
 
   // method that calls the firebase API and persist it on firestore
-  void _persist() async {
-    if (state != null) {
-      await orderService.setOrder(state!);
-    }
+  void _persist(MovingOrder order) async {
+    await orderService.setOrder(order);
   }
 
   get allCompleted =>
