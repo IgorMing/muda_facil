@@ -180,7 +180,7 @@ class _AuthLayoutState extends State<AuthLayout> {
         }
       } on FirebaseAuthException catch (err) {
         hasError = true;
-        UIUtils.showSnackBar(context, err.message);
+        UIUtils.showSnackBar(context, err.message ?? kDefaultErrorMessage);
       } finally {
         if (widget.hasSuccessSnackbar == true && !hasError) {
           UIUtils.showSnackBar(

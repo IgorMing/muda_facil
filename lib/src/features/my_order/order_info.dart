@@ -125,7 +125,7 @@ class _OrderInfoState extends State<OrderInfo> {
         if (widget.order.status == OrderStatus.declined)
           OrderDeclined(reason: widget.order.declineReason!),
         if (widget.order.status == OrderStatus.waitingPayment)
-          const OrderWaitingPayment(),
+          OrderWaitingPayment(pixCode: widget.order.pixCode!),
         OrderHelp(onSave: widget.actions.setHelp),
       ],
     );

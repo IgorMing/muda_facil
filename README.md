@@ -37,14 +37,15 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] after we get a driver, we should display the driver information
   - [x] provide a way to decline it _(show a input modal to a brief explanation why)_
   - [x] provide a way to approve it _(here, after the price being set, we can generate a pix code and let it ready to be used, after the user approves it)_
-- [ ] add a way to copy a pix value, for paying the moving order
-- [ ] push notification when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
+- [x] add a way to copy a pix value, for paying the moving order
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
+- [ ] listen for order data changes
 - [ ] add a step on the sign up flow to put the whatsapp number
-
 - [ ] configure splash screen
 
 ## Less priority TODOs
+
+- [ ] configure push notifications and send one when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
 
 - [ ] find items that are not in the list, and persist them into a different document _(add into a doc called `candidates` under items collection)_
 

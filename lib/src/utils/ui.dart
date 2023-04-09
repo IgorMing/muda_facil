@@ -9,10 +9,8 @@ class UIUtils {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static showSnackBar(BuildContext context, String? text,
+  static showSnackBar(BuildContext context, String text,
       {bool success = false}) {
-    if (text == null) return;
-
     final snackBar = SnackBar(
       content: Text(text),
       backgroundColor:
