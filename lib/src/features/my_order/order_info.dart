@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
-import 'package:muda_facil/src/features/my_order/editButtons.dart';
 import 'package:muda_facil/src/features/my_order/order_approved.dart';
 import 'package:muda_facil/src/features/my_order/order_declined.dart';
 import 'package:muda_facil/src/features/my_order/order_help.dart';
 import 'package:muda_facil/src/features/my_order/order_help_needed.dart';
+import 'package:muda_facil/src/features/my_order/order_pending.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_approval.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_driver.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_payment.dart';
@@ -29,8 +29,6 @@ class OrderInfo extends StatefulWidget {
 }
 
 class _OrderInfoState extends State<OrderInfo> {
-  DateTime? _selectedDate;
-
   Widget getOrderStep() {
     switch (widget.order.status) {
       case OrderStatus.waitingDriver:
@@ -49,23 +47,12 @@ class _OrderInfoState extends State<OrderInfo> {
           },
         );
       case OrderStatus.pending:
-        return Column(
-          children: [
-            ...getEditButtons(
-              context: context,
-              order: widget.order,
-              actions: widget.actions,
-              onChangeDateEphemeral: (selected) {
-                setState(() {
-                  _selectedDate = selected;
-                });
-              },
-              onChangeDate: (selected) {
-                widget.actions.setMovingDate(selected);
-              },
-              selectedDate: _selectedDate,
-            )
-          ],
+        return OrderPending(
+          order: widget.order,
+          actions: widget.actions,
+          onChangeDate: (selected) {
+            widget.actions.setMovingDate(selected);
+          },
         );
       case OrderStatus.declined:
         return OrderDeclined(reason: widget.order.declineReason!);
