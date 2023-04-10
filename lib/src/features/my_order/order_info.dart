@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/features/my_order/editButtons.dart';
+import 'package:muda_facil/src/features/my_order/order_approved.dart';
 import 'package:muda_facil/src/features/my_order/order_declined.dart';
 import 'package:muda_facil/src/features/my_order/order_help.dart';
+import 'package:muda_facil/src/features/my_order/order_help_needed.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_approval.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_driver.dart';
 import 'package:muda_facil/src/features/my_order/order_waiting_payment.dart';
@@ -28,6 +30,53 @@ class OrderInfo extends StatefulWidget {
 
 class _OrderInfoState extends State<OrderInfo> {
   DateTime? _selectedDate;
+
+  Widget getOrderStep() {
+    switch (widget.order.status) {
+      case OrderStatus.waitingDriver:
+        return const OrderWaitingDriver();
+      case OrderStatus.waitingApproval:
+        return OrderWaitingApproval(
+          driverName: widget.order.driverName!,
+          budgetValue: widget.order.budgetValue!,
+          onDecline: (String reason) {
+            widget.actions.declineBudget(reason);
+          },
+          onSave: () {
+            UIUtils.showLoaderDialog(context, () {
+              widget.actions.setStatus(OrderStatus.waitingPayment);
+            });
+          },
+        );
+      case OrderStatus.pending:
+        return Column(
+          children: [
+            ...getEditButtons(
+              context: context,
+              order: widget.order,
+              actions: widget.actions,
+              onChangeDateEphemeral: (selected) {
+                setState(() {
+                  _selectedDate = selected;
+                });
+              },
+              onChangeDate: (selected) {
+                widget.actions.setMovingDate(selected);
+              },
+              selectedDate: _selectedDate,
+            )
+          ],
+        );
+      case OrderStatus.declined:
+        return OrderDeclined(reason: widget.order.declineReason!);
+      case OrderStatus.helpNeeded:
+        return OrderHelpNeeded(helpText: widget.order.helpNeeded!);
+      case OrderStatus.waitingPayment:
+        return OrderWaitingPayment(pixCode: widget.order.pixCode!);
+      case OrderStatus.approved:
+        return OrderApproved(driverName: widget.order.driverName!);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,40 +141,7 @@ class _OrderInfoState extends State<OrderInfo> {
             showAll: true,
           ),
         Divider(color: Theme.of(context).primaryColorDark),
-        if (widget.actions.canShowEditButtons)
-          ...getEditButtons(
-            context: context,
-            order: widget.order,
-            actions: widget.actions,
-            onChangeDateEphemeral: (selected) {
-              setState(() {
-                _selectedDate = selected;
-              });
-            },
-            onChangeDate: (selected) {
-              widget.actions.setMovingDate(selected);
-            },
-            selectedDate: _selectedDate,
-          ),
-        if (widget.order.status == OrderStatus.waitingDriver)
-          const OrderWaitingDriver(),
-        if (widget.order.status == OrderStatus.waitingApproval)
-          OrderWaitingApproval(
-            driverName: widget.order.driverName!,
-            budgetValue: widget.order.budgetValue!,
-            onDecline: (String reason) {
-              widget.actions.declineBudget(reason);
-            },
-            onSave: () {
-              UIUtils.showLoaderDialog(context, () {
-                widget.actions.setStatus(OrderStatus.waitingPayment);
-              });
-            },
-          ),
-        if (widget.order.status == OrderStatus.declined)
-          OrderDeclined(reason: widget.order.declineReason!),
-        if (widget.order.status == OrderStatus.waitingPayment)
-          OrderWaitingPayment(pixCode: widget.order.pixCode!),
+        getOrderStep(),
         OrderHelp(onSave: widget.actions.setHelp),
       ],
     );
