@@ -40,6 +40,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add a way to copy a pix value, for paying the moving order
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
 - [x] listen for order data changes
+- [ ] double check the entire flow, from the initial to finish
 - [ ] add a step on the sign up flow to put the whatsapp number
 - [ ] configure splash screen
 
