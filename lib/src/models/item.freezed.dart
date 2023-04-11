@@ -114,10 +114,9 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res, _$_Item>
 }
 
 /// @nodoc
-
-@JsonSerializable(includeIfNull: false)
-class _$_Item implements _Item {
-  _$_Item({required this.name, this.amount = 0, this.comment});
+@JsonSerializable()
+class _$_Item extends _Item {
+  _$_Item({required this.name, this.amount = 0, this.comment}) : super._();
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -148,8 +147,9 @@ class _$_Item implements _Item {
   }
 }
 
-abstract class _Item implements Item {
+abstract class _Item extends Item {
   factory _Item({required String name, int amount, String? comment}) = _$_Item;
+  _Item._() : super._();
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 

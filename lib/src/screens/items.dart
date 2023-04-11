@@ -124,6 +124,9 @@ class ItemsScreen extends ConsumerWidget {
                       itemName: item.name,
                     );
                   },
+                  onRemoveComment: () {
+                    manageItemsActions.removeComment(itemName: item.name);
+                  },
                 );
               },
             ),

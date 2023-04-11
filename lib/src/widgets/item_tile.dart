@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/models/item.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/item_counter.dart';
 
 class ItemTile extends StatelessWidget {
   final Item data;
-  final VoidCallback? onMinus;
-  final VoidCallback? onPlus;
-  final VoidCallback? onRemove;
-  final Function? onAddComment;
+  final VoidCallback onMinus;
+  final VoidCallback onPlus;
+  final VoidCallback onRemove;
+  final Function(String comment) onAddComment;
+  final Function() onRemoveComment;
 
   const ItemTile({
     super.key,
     required this.data,
-    this.onMinus,
-    this.onPlus,
-    this.onRemove,
-    this.onAddComment,
+    required this.onMinus,
+    required this.onPlus,
+    required this.onRemove,
+    required this.onAddComment,
+    required this.onRemoveComment,
   });
 
   @override
@@ -45,26 +48,36 @@ class ItemTile extends StatelessWidget {
             )
           ],
         ),
-        subtitle: data.comment != null && data.comment!.isNotEmpty
-            ? Text(
-                data.comment ?? '',
-                style: Theme.of(context).textTheme.bodySmall,
+        subtitle: data.existsComment
+            ? Padding(
+                padding: const EdgeInsets.only(bottom: kDefaultPadding / 2),
+                child: Text(
+                  data.comment!,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
               )
             : null,
         children: [
           ListTile(
-            title: const Text('Adicionar observação'),
+            title: Text(
+              data.existsComment ? 'Editar observação' : 'Adicionar observação',
+            ),
             onTap: () {
               UIUtils.showInputDialog(
                 context,
                 onSave: (text) {
-                  onAddComment!(text);
+                  onAddComment(text);
                 },
                 title: 'Observação',
                 initialText: data.comment,
               );
             },
           ),
+          if (data.existsComment)
+            ListTile(
+              title: const Text('Remover comentário'),
+              onTap: onRemoveComment,
+            ),
           ListTile(
             onTap: () {
               UIUtils.showAlertDialog(
@@ -72,7 +85,7 @@ class ItemTile extends StatelessWidget {
                 text: 'O item sairá de sua lista',
                 onSelect: (selected) {
                   if (selected) {
-                    onRemove!();
+                    onRemove();
                   }
                 },
               );

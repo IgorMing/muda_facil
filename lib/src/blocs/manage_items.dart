@@ -24,6 +24,16 @@ class ManageItems extends StateNotifier<List<Item>> {
     state = [...state];
   }
 
+  void removeComment({required String itemName}) {
+    for (var each in state) {
+      if (each.name == itemName) {
+        each.comment = null;
+      }
+    }
+
+    state = [...state];
+  }
+
   void plus(String name) {
     if (!exists(name)) {
       _addItem(name);
