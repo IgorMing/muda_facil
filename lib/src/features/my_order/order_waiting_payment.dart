@@ -36,7 +36,7 @@ class OrderWaitingPayment extends StatelessWidget {
             ),
             const SizedBox(height: kDefaultPadding / 2),
             Text(
-              'Após o pagamento ser registrado, iremos atualizar o status de sua solicitação.',
+              'Após identificarmos o pagamento, atualizaremos o status de sua solicitação.',
               style: Theme.of(context)
                   .textTheme
                   .bodySmall!

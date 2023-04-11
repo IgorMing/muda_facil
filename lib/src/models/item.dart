@@ -5,9 +5,9 @@ part 'item.g.dart';
 
 @unfreezed
 class Item with _$Item {
-  @JsonSerializable(includeIfNull: false)
   const Item._();
 
+  @JsonSerializable(includeIfNull: false)
   factory Item({
     required String name,
     @Default(0) int amount,
