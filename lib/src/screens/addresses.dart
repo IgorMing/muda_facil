@@ -86,7 +86,7 @@ class AddressField extends StatelessWidget {
       maxLines: kDefaultMaxLines,
       autofocus: autoFocus,
       validator: (value) {
-        if (required == false) return null;
+        if (!required) return null;
         return value!.isEmpty ? "Este campo é obrigatório" : null;
       },
       controller: controller,
