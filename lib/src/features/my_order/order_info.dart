@@ -129,7 +129,8 @@ class _OrderInfoState extends State<OrderInfo> {
           ),
         Divider(color: Theme.of(context).primaryColorDark),
         getOrderStep(),
-        OrderHelp(onSave: widget.actions.setHelp),
+        if (widget.order.status != OrderStatus.helpNeeded)
+          OrderHelp(onSave: widget.actions.setHelp),
       ],
     );
   }
