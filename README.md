@@ -38,6 +38,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
   - [x] provide a way to decline it _(show a input modal to a brief explanation why)_
   - [x] provide a way to approve it _(here, after the price being set, we can generate a pix code and let it ready to be used, after the user approves it)_
 - [x] add a way to copy a pix value, for paying the moving order
+- [ ] show different tabs based on the access role
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
 - [x] listen for order data changes
 - [x] double check the entire flow, from the initial to finish
