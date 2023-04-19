@@ -19,6 +19,12 @@ class BottomNavigation extends ConsumerStatefulWidget {
 class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   int _selectedIndex = 0;
 
+  @override
+  void dispose() {
+    _selectedIndex = 0;
+    super.dispose();
+  }
+
   Widget _getActiveScreen(UserModel? user) {
     if (user?.role == Role.admin) {
       switch (_selectedIndex) {
@@ -32,13 +38,11 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
       }
     } else if (user?.role == Role.driver) {
       switch (_selectedIndex) {
-        case 2:
-          return const ProfileScreen();
         case 1:
-          return const DriverHome();
+          return const ProfileScreen();
         case 0:
         default:
-          return const HomeScreen();
+          return const DriverHome();
       }
     } else {
       switch (_selectedIndex) {
@@ -84,7 +88,6 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    print(_selectedIndex);
     final user = ref.watch(appUserProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
