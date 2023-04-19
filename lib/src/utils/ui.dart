@@ -13,7 +13,7 @@ class UIUtils {
     return MediaQuery.of(context).viewInsets.bottom != 0;
   }
 
-  static showSnackBar(BuildContext context, String text,
+  static void showSnackBar(BuildContext context, String text,
       {bool success = false}) {
     final snackBar = SnackBar(
       content: Text(text),
@@ -26,7 +26,7 @@ class UIUtils {
       ..showSnackBar(snackBar);
   }
 
-  static showAlertDialog(
+  static void showAlertDialog(
     BuildContext context, {
     required String text,
     required Function(bool v) onSelect,
@@ -56,7 +56,7 @@ class UIUtils {
     );
   }
 
-  static showLoaderDialog(BuildContext context, Function? action) {
+  static void showLoaderDialog(BuildContext context, Function? action) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -74,7 +74,7 @@ class UIUtils {
     );
   }
 
-  static showInputDialog(
+  static void showInputDialog(
     BuildContext context, {
     required Function(String text) onSave,
     required String title,

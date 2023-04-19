@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/profile.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
-class BottomNavigation extends StatefulWidget {
+class BottomNavigation extends ConsumerStatefulWidget {
   const BottomNavigation({super.key});
 
   @override
-  State<BottomNavigation> createState() => _BottomNavigationState();
+  ConsumerState<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationState extends State<BottomNavigation> {
+class _BottomNavigationState extends ConsumerState<BottomNavigation> {
   int _selectedIndex = 0;
 
   Widget get _activeScreen {
@@ -25,6 +28,7 @@ class _BottomNavigationState extends State<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
+    final user = ref.watch(appUserProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -34,12 +38,17 @@ class _BottomNavigationState extends State<BottomNavigation> {
             _selectedIndex = selected;
           });
         },
-        items: const [
-          BottomNavigationBarItem(
+        items: [
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: 'Home',
           ),
-          BottomNavigationBarItem(
+          if (user != null && user.role == Role.admin)
+            const BottomNavigationBarItem(
+              icon: Icon(Icons.admin_panel_settings_outlined),
+              label: 'Admin',
+            ),
+          const BottomNavigationBarItem(
             icon: Icon(Icons.person),
             label: 'Perfil',
           ),

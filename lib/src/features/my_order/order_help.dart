@@ -11,16 +11,18 @@ class OrderHelp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () {
-        UIUtils.showInputDialog(
-          context,
-          confirmButtonText: 'Enviar',
-          onSave: onSave,
-          title: 'Em que podemos lhe ajudar?',
-        );
-      },
-      child: const Text('Precisa de ajuda? Clique aqui'),
+    return Center(
+      child: TextButton(
+        onPressed: () {
+          UIUtils.showInputDialog(
+            context,
+            confirmButtonText: 'Enviar',
+            onSave: onSave,
+            title: 'Em que podemos lhe ajudar?',
+          );
+        },
+        child: const Text('Precisa de ajuda? Clique aqui'),
+      ),
     );
   }
 }
