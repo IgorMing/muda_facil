@@ -40,7 +40,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add a way to copy a pix value, for paying the moving order
 - [x] fix general issues on signin/signout
 - [x] fix UI issues on Android
-- [ ] show different tabs based on the access role
+- [x] show different tabs based on the access role
 - [ ] when the payment gets done, we provide the driver's phone _(does that make sense? keep thinking...)_
 - [x] listen for order data changes
 - [x] double check the entire flow, from the initial to finish
