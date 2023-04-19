@@ -17,6 +17,12 @@ enum OrderStatus {
   approved,
 }
 
+enum Role {
+  user,
+  admin,
+  driver,
+}
+
 String getOrderStatusLabelByEnumName(String label) {
   switch (label) {
     case 'declined':

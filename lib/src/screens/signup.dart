@@ -1,28 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
-import 'package:muda_facil/src/services/auth.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
-class SignupScreen extends StatefulWidget {
-  final VoidCallback onClickedSignIn;
+class SignupScreen extends ConsumerWidget {
+  final Function() onClickedSignIn;
 
   const SignupScreen({super.key, required this.onClickedSignIn});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
-}
-
-class _SignupScreenState extends State<SignupScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: AuthLayout(
         title: 'Create your account',
         onPress: (String email, String password) =>
-            AuthService.signUpByEmailAndPassword(email, password),
+            ref.read(appUserProvider.notifier).signUp(email, password),
         buttonText: 'Create account',
         extra: LinkText(
-          onTap: widget.onClickedSignIn,
+          onTap: onClickedSignIn,
           message: 'Already have an account?',
           link: 'Sign In',
         ),

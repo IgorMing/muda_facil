@@ -30,7 +30,6 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
         title: 'Log in',
         onPress: (email, password) async {
           await notifier.signIn(email, password);
-          notifier.init();
         },
         buttonText: 'Log in',
         extra: Column(

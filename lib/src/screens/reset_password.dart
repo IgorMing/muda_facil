@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
-import 'package:muda_facil/src/services/auth.dart';
 
-class ResetPasswordScreen extends StatefulWidget {
+class ResetPasswordScreen extends ConsumerWidget {
   const ResetPasswordScreen({super.key});
 
   @override
-  State<ResetPasswordScreen> createState() => _ResetPasswordScreenState();
-}
-
-class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(),
       body: AuthLayout(
         title: 'Reset your password',
-        onPress: (email, _) => AuthService.resetPasswordByEmail(email),
+        onPress: (email, _) =>
+            ref.read(appUserProvider.notifier).resetPassword(email),
         buttonText: 'Reset',
         hidePasswordField: true,
         hasSuccessSnackbar: true,

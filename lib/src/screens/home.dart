@@ -5,11 +5,28 @@ import 'package:muda_facil/src/features/my_order/my_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
-class HomeScreen extends ConsumerWidget {
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  @override
+  void initState() {
+    final notifier = ref.read(appUserProvider.notifier);
+    notifier.init();
+    super.initState();
+  }
+
+  initData() {
+    final notifier = ref.read(appUserProvider.notifier);
+    notifier.init();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final user = ref.watch(appUserProvider);
 
     if (user == null) return const LoadingAdaptive();

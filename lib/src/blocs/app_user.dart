@@ -14,11 +14,19 @@ class AppUser extends StateNotifier<UserModel?> {
   }
 
   Future<void> init() async {
-    state = await authService.getUserInfo();
+    state ??= await authService.getUserInfo();
   }
 
-  Future<void> signIn(String email, String password) async {
-    await AuthService.signInByEmailAndPassword(email, password);
+  Future<void> signIn(String email, String password) {
+    return authService.signInByEmailAndPassword(email, password);
+  }
+
+  Future<void> resetPassword(String email) {
+    return authService.resetPasswordByEmail(email);
+  }
+
+  Future<void> signUp(String email, String password) {
+    return authService.signUpByEmailAndPassword(email, password);
   }
 
   Future<void> signOut() {
