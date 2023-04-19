@@ -1,39 +1,35 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/user_order.dart';
 import 'package:muda_facil/src/models/user_model.dart';
 import 'package:muda_facil/src/services/auth.dart';
 
 class AppUser extends StateNotifier<UserModel?> {
   final authService = AuthService();
+  late final StateNotifierProviderRef<AppUser, UserModel?> _ref;
 
-  AppUser() : super(null) {
-    _init();
+  AppUser(StateNotifierProviderRef<AppUser, UserModel?> ref) : super(null) {
+    _ref = ref;
   }
 
-  Future<void> _init() async {
-    authService.stream.listen((event) async {
-      if (event != null) {
-        final uid = event.uid;
-        final role = await authService.getUserRole(uid);
-        state = state == null
-            ? UserModel(
-                uid: uid,
-                email: event.email,
-                name: event.displayName,
-                role: role,
-              )
-            : state!.copyWith(
-                uid: uid,
-                email: event.email,
-                name: event.displayName,
-                role: role,
-              );
-        authService.setUser(state!);
-      } else {
-        state = null;
-      }
-    });
+  Future<void> init() async {
+    state = await authService.getUserInfo();
+  }
+
+  Future<void> signIn(String email, String password) async {
+    await AuthService.signInByEmailAndPassword(email, password);
+  }
+
+  Future<void> signOut() {
+    _ref.read(userOrderOrNullProvider.notifier).cancelSubscription();
+    _ref.invalidate(userOrderOrNullProvider);
+    _ref.invalidate(appUserProvider);
+
+    return authService.signOut();
   }
 }
 
-final appUserProvider =
-    StateNotifierProvider<AppUser, UserModel?>((ref) => AppUser());
+final appUserProvider = StateNotifierProvider<AppUser, UserModel?>((ref) {
+  return AppUser(ref);
+});

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
@@ -6,12 +8,17 @@ import 'package:muda_facil/src/utils/constants.dart';
 
 class UserOrder extends StateNotifier<MovingOrder?> {
   final orderService = OrderService();
+  late final StreamSubscription<MovingOrder?> _subscription;
 
   UserOrder() : super(null) {
     final stream = orderService.getStream();
-    stream.listen((event) {
+    _subscription = stream.listen((event) {
       state = event;
     });
+  }
+
+  void cancelSubscription() {
+    _subscription.cancel();
   }
 
   void create() {

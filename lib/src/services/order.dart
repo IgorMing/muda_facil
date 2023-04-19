@@ -6,7 +6,7 @@ class OrderService {
   final User user = FirebaseAuth.instance.currentUser as User;
   final FirebaseFirestore db = FirebaseFirestore.instance;
   late final CollectionReference<MovingOrder> collection;
-  late Stream<MovingOrder> _stream;
+  late Stream<MovingOrder?> _stream;
 
   OrderService() {
     collection = db.collection("users/${user.uid}/orders").withConverter(
@@ -16,10 +16,16 @@ class OrderService {
         );
 
     collection.snapshots().first;
-    _stream = collection.snapshots().map((event) => event.docs[0].data());
+    _stream = collection.snapshots().map((event) {
+      if (event.docs.isNotEmpty) {
+        return event.docs[0].data();
+      }
+
+      return null;
+    });
   }
 
-  Stream<MovingOrder> getStream() {
+  Stream<MovingOrder?> getStream() {
     return _stream;
   }
 

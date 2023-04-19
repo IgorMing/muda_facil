@@ -3,8 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:muda_facil/src/models/user_model.dart';
 
 class AuthService {
-  late Stream<User?> _authStream;
   late final CollectionReference<UserModel> collection;
+  final user = FirebaseAuth.instance.currentUser;
+
+  User? get loggedInUser => user;
 
   AuthService() {
     collection = FirebaseFirestore.instance.collection('users').withConverter(
@@ -12,10 +14,15 @@ class AuthService {
               UserModel.fromJson(snapshot.data()),
           toFirestore: (value, _) => value.toJson(),
         );
-    _authStream = FirebaseAuth.instance.authStateChanges();
   }
 
-  Stream<User?> get stream => _authStream;
+  Stream<User?> get onStateChanges => FirebaseAuth.instance.authStateChanges();
+
+  Future<UserModel?> getUserInfo({String? uid}) async {
+    final id = uid ?? loggedInUser?.uid;
+    final userData = await collection.doc(id).get();
+    return userData.data();
+  }
 
   Future<String?> getUserRole(String uid) async {
     final userData = await collection.doc(uid).get();
@@ -26,17 +33,17 @@ class AuthService {
     return collection.doc(user.uid).set(user);
   }
 
-  static Future<UserCredential> signInByEmailAndPassword(
-      String email, String password) {
-    return FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: email, password: password);
-  }
-
   static Future<void> addUserRole(String uid, {String role = "user"}) {
     return FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .set({"role": role}, SetOptions(merge: true));
+  }
+
+  static Future<UserCredential> signInByEmailAndPassword(
+      String email, String password) {
+    return FirebaseAuth.instance
+        .signInWithEmailAndPassword(email: email, password: password);
   }
 
   static Future<UserCredential> signUpByEmailAndPassword(
@@ -52,7 +59,7 @@ class AuthService {
     return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
-  static Future<void> signOut() {
+  Future<void> signOut() {
     return FirebaseAuth.instance.signOut();
   }
 }
