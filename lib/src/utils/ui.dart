@@ -9,6 +9,10 @@ class UIUtils {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
+  static bool isKeyboardOpen(BuildContext context) {
+    return MediaQuery.of(context).viewInsets.bottom != 0;
+  }
+
   static showSnackBar(BuildContext context, String text,
       {bool success = false}) {
     final snackBar = SnackBar(

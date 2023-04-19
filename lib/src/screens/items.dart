@@ -19,7 +19,7 @@ class ItemsScreen extends ConsumerWidget {
 
     return Scaffold(
       floatingActionButton: Visibility(
-        visible: items.isNotEmpty,
+        visible: items.isNotEmpty && !UIUtils.isKeyboardOpen(context),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(

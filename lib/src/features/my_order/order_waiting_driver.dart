@@ -14,7 +14,7 @@ class OrderWaitingDriver extends StatelessWidget {
           Text(
               'Prontinho! Basta aguardar nossa equipe encontrar o frete ideal pra você.'),
           SizedBox(
-            height: kDefaultPadding,
+            height: kDefaultPadding * 2,
           ),
           LoadingAdaptive(),
         ],

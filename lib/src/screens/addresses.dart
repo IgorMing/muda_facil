@@ -32,33 +32,35 @@ class AddressesScreen extends ConsumerWidget {
         },
         child: const Icon(Icons.navigate_next_outlined),
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(kDefaultPadding),
-        child: Form(
-          key: formKey,
-          child: Column(
-            children: [
-              AddressField(
-                autoFocus: fromController.text.isEmpty,
-                label: "De",
-                controller: fromController,
-                required: true,
-              ),
-              const SizedBox(height: kDefaultPadding),
-              AddressField(
-                autoFocus: fromController.text.isNotEmpty,
-                label: "Para",
-                controller: toController,
-              ),
-              const SizedBox(height: kDefaultPadding),
-              const Padding(
-                padding: EdgeInsets.all(kDefaultPadding * 2),
-                child: Text(
-                  'Adicione a informação completa do endereço. Exemplo: Rua José Roberto, n. 23, Bairro, Cidade-UF',
-                  style: TextStyle(fontStyle: FontStyle.italic, height: 1.6),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(kDefaultPadding),
+          child: Form(
+            key: formKey,
+            child: Column(
+              children: [
+                AddressField(
+                  autoFocus: fromController.text.isEmpty,
+                  label: "De",
+                  controller: fromController,
+                  required: true,
                 ),
-              ),
-            ],
+                const SizedBox(height: kDefaultPadding),
+                AddressField(
+                  autoFocus: fromController.text.isNotEmpty,
+                  label: "Para",
+                  controller: toController,
+                ),
+                const SizedBox(height: kDefaultPadding),
+                const Padding(
+                  padding: EdgeInsets.all(kDefaultPadding * 2),
+                  child: Text(
+                    'Adicione a informação completa do endereço. Exemplo: Rua José Roberto, n. 23, Bairro, Cidade-UF',
+                    style: TextStyle(fontStyle: FontStyle.italic, height: 1.6),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
