@@ -1,5 +1,7 @@
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 
+const Color kPrimaryColor = FlexColor.bahamaBlueDarkPrimaryContainer;
 const double kDefaultPadding = 16.0;
 const int kDefaultMaxLines = 4;
 const Color kSuccessColor = Colors.green;

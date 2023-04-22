@@ -5,7 +5,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/providers/authentication.dart';
 import 'package:muda_facil/src/screens/auth.dart';
-import 'package:muda_facil/src/screens/bottom_navigation.dart';
+import 'package:muda_facil/src/screens/onboarding.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
@@ -34,9 +35,12 @@ class App extends ConsumerWidget {
         scheme: FlexScheme.bahamaBlue,
         textTheme: GoogleFonts.montserratTextTheme(),
       ).copyWith(
-        floatingActionButtonTheme: const FloatingActionButtonThemeData(
-          backgroundColor: FlexColor.bahamaBlueDarkPrimaryContainer,
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          elevation: 8.0,
+          backgroundColor: kPrimaryColor,
           foregroundColor: Colors.white,
+          iconSize: 36.0,
+          splashColor: kPrimaryColor.withOpacity(0.4),
         ),
       ),
       darkTheme: FlexThemeData.dark(
@@ -48,7 +52,8 @@ class App extends ConsumerWidget {
       home: authState.when(
         loading: () => const LoadingAdaptive(),
         data: (data) =>
-            data == null ? const AuthScreen() : const BottomNavigation(),
+            data == null ? const AuthScreen() : const OnboardingScreen(),
+        // data == null ? const AuthScreen() : const BottomNavigation(),
         error: (error, _) => Center(
           child: Text('Ops, um erro ocorreu\n. Erro: $error'),
         ),
