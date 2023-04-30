@@ -18,8 +18,10 @@ class ProfileScreen extends ConsumerWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Text('Nome: ${user.name}'),
             Text('Você está logado como: ${user.email}'),
             Text('Role: ${user.role}'),
+            Text('Telefone: ${user.phone}'),
             const SizedBox(height: 8),
             ElevatedButton.icon(
               icon: const Icon(Icons.logout),

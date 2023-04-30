@@ -36,6 +36,18 @@ class AppUser extends StateNotifier<UserModel?> {
 
     return authService.signOut();
   }
+
+  setFullName(String fullName) async {
+    if (state == null) {
+      await init();
+    }
+    state = state!.copyWith(name: fullName);
+  }
+
+  setPhone(String phone) {
+    state = state!.copyWith(phone: phone);
+    authService.setUser(user: state!);
+  }
 }
 
 final appUserProvider = StateNotifierProvider<AppUser, UserModel?>((ref) {

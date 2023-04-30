@@ -1,29 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/blocs/app_user.dart';
+import 'package:muda_facil/src/features/onboarding/onboarding.dart';
+import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
-const int kMinNumberTextLen = 14;
+class OnboardingNameStep extends ConsumerStatefulWidget {
+  const OnboardingNameStep({
+    super.key,
+    required this.onNext,
+  });
 
-class OnboardingStep extends StatefulWidget {
-  const OnboardingStep(this.text, {super.key, required this.onNext});
-
-  final String text;
   final Function onNext;
 
   @override
-  State<OnboardingStep> createState() => _OnboardingStepState();
+  ConsumerState<OnboardingNameStep> createState() => _OnboardingNameStepState();
 }
 
-class _OnboardingStepState extends State<OnboardingStep> {
+class _OnboardingNameStepState extends ConsumerState<OnboardingNameStep> {
   late final TextEditingController _textController;
   late final GlobalKey<FormState> _formKey;
 
   @override
   void initState() {
-    _textController = TextEditingController();
-    _formKey = GlobalKey<FormState>();
-
     super.initState();
+
+    final userName = ref.read(appUserProvider)?.name;
+    _textController = TextEditingController(text: userName);
+    _formKey = GlobalKey<FormState>();
   }
 
   @override
@@ -36,10 +40,11 @@ class _OnboardingStepState extends State<OnboardingStep> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textStyle = theme.primaryTextTheme.bodyLarge!.copyWith(fontSize: 26);
+    final notifier = ref.read(appUserProvider.notifier);
 
     void onFinishEditting() {
       if (_formKey.currentState!.validate()) {
-        FocusManager.instance.primaryFocus?.unfocus();
+        notifier.setFullName(_textController.text);
         widget.onNext();
       }
     }
@@ -57,7 +62,7 @@ class _OnboardingStepState extends State<OnboardingStep> {
           children: [
             const SizedBox(height: kDefaultPadding * 2),
             Text(
-              '${widget.text}: Qual seu número para contato?',
+              'Digite seu nome completo',
               style: theme.textTheme.bodyLarge!
                   .copyWith(color: theme.colorScheme.onPrimary),
             ),
@@ -65,48 +70,45 @@ class _OnboardingStepState extends State<OnboardingStep> {
             Form(
               key: _formKey,
               child: TextFormField(
-                // autofocus: true, // double check if this is working
+                textCapitalization: TextCapitalization.words,
+                cursorHeight: 42,
                 cursorColor: Colors.grey.shade400,
                 controller: _textController,
-                keyboardType: TextInputType.phone,
+                keyboardType: TextInputType.name,
                 textInputAction: TextInputAction.next,
-                onEditingComplete: () => onFinishEditting(),
-                inputFormatters: [
-                  MaskTextInputFormatter(
-                    mask: '(##) #####-####',
-                    filter: {'#': RegExp(r'[0-9]')},
-                    type: MaskAutoCompletionType.lazy,
-                  ),
-                ],
-                style: textStyle,
+                onEditingComplete: () {
+                  FocusManager.instance.primaryFocus?.unfocus();
+                },
+                style: textStyle.copyWith(height: 1.4),
                 decoration: InputDecoration(
                   errorStyle: TextStyle(color: theme.colorScheme.error),
-                  hintText: '(19) 99999-9999',
+                  hintText: 'E.g. João da Silva',
                   hintStyle: textStyle.copyWith(
                       color: theme.colorScheme.onPrimary.withOpacity(0.2)),
-                  labelText: 'Celular',
+                  labelText: 'Nome completo',
                   labelStyle: theme.primaryTextTheme.bodyLarge,
-                  focusedBorder: _getBorder(theme),
-                  border: _getBorder(theme, lineWidth: 2.0),
-                  enabledBorder: _getBorder(theme, lineWidth: 2.0),
+                  focusedBorder: getBorder(theme),
+                  enabledBorder: getBorder(theme, lineWidth: 2.0),
                 ),
-                validator: (value) => value!.length < kMinNumberTextLen
-                    ? 'Preencha o número completo'
-                    : null,
+                validator: (value) => RegExp(r'(\s+)').hasMatch(value!)
+                    ? null
+                    : 'Preencha o nome completo',
               ),
+            ),
+            const SizedBox(height: kDefaultPadding),
+            Row(
+              children: [
+                ExpandedButton(
+                  text: 'Avançar',
+                  onPressed: () {
+                    onFinishEditting();
+                  },
+                ),
+              ],
             ),
           ],
         ),
       ),
     );
   }
-}
-
-UnderlineInputBorder _getBorder(ThemeData theme, {double lineWidth = 1.0}) {
-  return UnderlineInputBorder(
-    borderSide: BorderSide(
-      width: lineWidth,
-      color: theme.colorScheme.onPrimary,
-    ),
-  );
 }

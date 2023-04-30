@@ -23,6 +23,7 @@ mixin _$UserModel {
   String? get uid => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
+  String? get phone => throw _privateConstructorUsedError;
   Role? get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -36,7 +37,8 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String? uid, String? email, String? name, Role? role});
+  $Res call(
+      {String? uid, String? email, String? name, String? phone, Role? role});
 }
 
 /// @nodoc
@@ -55,6 +57,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? uid = freezed,
     Object? email = freezed,
     Object? name = freezed,
+    Object? phone = freezed,
     Object? role = freezed,
   }) {
     return _then(_value.copyWith(
@@ -69,6 +72,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       name: freezed == name
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
+              as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
               as String?,
       role: freezed == role
           ? _value.role
@@ -85,7 +92,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       __$$_UserModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? uid, String? email, String? name, Role? role});
+  $Res call(
+      {String? uid, String? email, String? name, String? phone, Role? role});
 }
 
 /// @nodoc
@@ -102,6 +110,7 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? uid = freezed,
     Object? email = freezed,
     Object? name = freezed,
+    Object? phone = freezed,
     Object? role = freezed,
   }) {
     return _then(_$_UserModel(
@@ -117,6 +126,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.name
           : name // ignore: cast_nullable_to_non_nullable
               as String?,
+      phone: freezed == phone
+          ? _value.phone
+          : phone // ignore: cast_nullable_to_non_nullable
+              as String?,
       role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
@@ -128,8 +141,9 @@ class __$$_UserModelCopyWithImpl<$Res>
 /// @nodoc
 
 @JsonSerializable(includeIfNull: false)
-class _$_UserModel implements _UserModel {
-  _$_UserModel({this.uid, this.email, this.name, this.role});
+class _$_UserModel extends _UserModel {
+  _$_UserModel({this.uid, this.email, this.name, this.phone, this.role})
+      : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
       _$$_UserModelFromJson(json);
@@ -141,11 +155,13 @@ class _$_UserModel implements _UserModel {
   @override
   final String? name;
   @override
+  final String? phone;
+  @override
   final Role? role;
 
   @override
   String toString() {
-    return 'UserModel(uid: $uid, email: $email, name: $name, role: $role)';
+    return 'UserModel(uid: $uid, email: $email, name: $name, phone: $phone, role: $role)';
   }
 
   @override
@@ -156,12 +172,13 @@ class _$_UserModel implements _UserModel {
             (identical(other.uid, uid) || other.uid == uid) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.name, name) || other.name == name) &&
+            (identical(other.phone, phone) || other.phone == phone) &&
             (identical(other.role, role) || other.role == role));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, uid, email, name, role);
+  int get hashCode => Object.hash(runtimeType, uid, email, name, phone, role);
 
   @JsonKey(ignore: true)
   @override
@@ -177,12 +194,14 @@ class _$_UserModel implements _UserModel {
   }
 }
 
-abstract class _UserModel implements UserModel {
+abstract class _UserModel extends UserModel {
   factory _UserModel(
       {final String? uid,
       final String? email,
       final String? name,
+      final String? phone,
       final Role? role}) = _$_UserModel;
+  _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$_UserModel.fromJson;
@@ -193,6 +212,8 @@ abstract class _UserModel implements UserModel {
   String? get email;
   @override
   String? get name;
+  @override
+  String? get phone;
   @override
   Role? get role;
   @override

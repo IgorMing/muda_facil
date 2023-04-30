@@ -68,8 +68,8 @@ class UIUtils {
     Future.delayed(
       const Duration(seconds: 1),
       () {
-        if (action != null) action();
         navigatorKey.currentState!.popUntil((route) => route.isFirst);
+        if (action != null) action();
       },
     );
   }

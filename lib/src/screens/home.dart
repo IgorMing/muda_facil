@@ -38,7 +38,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: kDefaultPadding * 2),
-            Text('Bem vindo, ${user.email}'),
+            Text('Bem vindo, ${user.name}'),
             const SizedBox(height: kDefaultPadding / 2),
             const MyOrder(),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:muda_facil/src/layouts/onboarding_step.dart';
+import 'package:muda_facil/src/features/onboarding/name_step.dart';
+import 'package:muda_facil/src/features/onboarding/phone_step.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
@@ -24,21 +25,11 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         controller: _pageController,
         scrollDirection: Axis.vertical,
         children: [
-          OnboardingStep(
-            'screen 1',
-            onNext: () {
-              _navigate(1);
-            },
-          ),
-          OnboardingStep(
-            'screen 2',
-            onNext: () {
-              _navigate(2);
-            },
-          ),
-          OnboardingStep(
-            'screen 3',
-            onNext: () {
+          OnboardingNameStep(onNext: () {
+            _navigate(1);
+          }),
+          OnboardingPhoneStep(
+            onBack: () {
               _navigate(0);
             },
           ),
@@ -48,7 +39,19 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   }
 
   Future<void> _navigate(int pageIndex) {
-    return _pageController.animateToPage(pageIndex,
-        duration: const Duration(seconds: 1), curve: Curves.easeInOut);
+    return _pageController.animateToPage(
+      pageIndex,
+      duration: const Duration(milliseconds: 800),
+      curve: Curves.easeInToLinear,
+    );
   }
+}
+
+UnderlineInputBorder getBorder(ThemeData theme, {double lineWidth = 1.0}) {
+  return UnderlineInputBorder(
+    borderSide: BorderSide(
+      width: lineWidth,
+      color: theme.colorScheme.onPrimary,
+    ),
+  );
 }

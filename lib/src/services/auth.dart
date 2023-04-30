@@ -27,12 +27,8 @@ class AuthService {
     return userData.data()?.role;
   }
 
-  Future<void> setUser(UserModel user) {
-    return collection.doc(user.uid).set(user);
-  }
-
-  Future<void> _addUserInfo(String uid, {required UserModel user}) {
-    return collection.doc(uid).set(user, SetOptions(merge: true));
+  Future<void> setUser({required UserModel user}) {
+    return collection.doc(user.uid).set(user, SetOptions(merge: true));
   }
 
   Future<UserCredential> signInByEmailAndPassword(
@@ -47,8 +43,7 @@ class AuthService {
         .createUserWithEmailAndPassword(email: email, password: password);
     final uid = createdUser.user!.uid;
 
-    await _addUserInfo(uid,
-        user: UserModel(uid: uid, email: email, role: Role.user));
+    await setUser(user: UserModel(uid: uid, email: email, role: Role.user));
     return createdUser;
   }
 
