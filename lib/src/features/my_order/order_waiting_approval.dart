@@ -3,7 +3,6 @@ import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 
-// TODO: get rid of all hardcoded stuff and get it from firestore
 class OrderWaitingApproval extends StatelessWidget {
   const OrderWaitingApproval({
     super.key,
