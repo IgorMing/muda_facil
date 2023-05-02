@@ -28,7 +28,8 @@ class ProfileScreen extends ConsumerWidget {
           children: [
             ProfileRow(label: 'Nome', value: user!.name),
             ProfileRow(label: 'Email', value: user.email),
-            ProfileRow(label: 'Role', value: user.role.toString()),
+            if (user.role == Role.admin)
+              ProfileRow(label: 'Role', value: user.role.toString()),
             ProfileRow(label: 'Celular', value: user.phone),
             const SizedBox(height: 8),
             Padding(
