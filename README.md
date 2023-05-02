@@ -45,6 +45,7 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] listen for order data changes
 - [x] double check the entire flow, from the initial to finish
 - [x] add a step on the sign up flow to put the whatsapp number
+- [x] improve the profile screen
 - [ ] configure splash screen
 
 ## Less priority TODOs
@@ -62,6 +63,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [ ] separate items on groups, to make the user's lifes easier
 
 - [ ] change focus based on which button was pressed _(for addresses)_
+
+- [ ] make profile fields editable
 
 ## Structural info
 

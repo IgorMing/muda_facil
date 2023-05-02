@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:muda_facil/src/models/user_model.dart';
 import 'package:muda_facil/src/screens/admin_home.dart';
 import 'package:muda_facil/src/screens/driver_home.dart';
@@ -104,9 +103,6 @@ class _BottomNavigationState extends State<BottomNavigation> {
             label: 'Perfil',
           ),
         ],
-      ),
-      appBar: AppBar(
-        systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
       body: _getActiveScreen(),
     );
