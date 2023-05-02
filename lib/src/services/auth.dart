@@ -15,9 +15,13 @@ class AuthService {
   }
 
   Stream<User?> get onStateChanges => FirebaseAuth.instance.authStateChanges();
+  Stream<UserModel?> get onUserChanges => collection
+      .doc(FirebaseAuth.instance.currentUser!.uid)
+      .snapshots()
+      .map((event) => event.data());
 
   Future<UserModel?> getUserInfo({String? uid}) async {
-    final id = uid ?? FirebaseAuth.instance.currentUser!.uid;
+    final id = uid ?? FirebaseAuth.instance.currentUser?.uid;
     final userData = await collection.doc(id).get();
     return userData.data();
   }

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
@@ -12,13 +13,15 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   UserOrder() : super(null) {
     final stream = orderService.getStream();
-    _subscription = stream.listen((event) {
-      state = event;
-    });
+    if (FirebaseAuth.instance.currentUser != null) {
+      _subscription = stream.listen((event) {
+        state = event;
+      });
+    }
   }
 
-  void cancelSubscription() {
-    _subscription.cancel();
+  Future<void> cancelSubscription() {
+    return _subscription.cancel();
   }
 
   void create() {

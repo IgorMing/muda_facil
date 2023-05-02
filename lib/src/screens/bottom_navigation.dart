@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/models/user_model.dart';
 import 'package:muda_facil/src/screens/admin_home.dart';
 import 'package:muda_facil/src/screens/driver_home.dart';
@@ -9,14 +7,16 @@ import 'package:muda_facil/src/screens/home.dart';
 import 'package:muda_facil/src/screens/profile.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
-class BottomNavigation extends ConsumerStatefulWidget {
-  const BottomNavigation({super.key});
+class BottomNavigation extends StatefulWidget {
+  const BottomNavigation(this.user, {super.key});
+
+  final UserModel user;
 
   @override
-  ConsumerState<BottomNavigation> createState() => _BottomNavigationState();
+  State<BottomNavigation> createState() => _BottomNavigationState();
 }
 
-class _BottomNavigationState extends ConsumerState<BottomNavigation> {
+class _BottomNavigationState extends State<BottomNavigation> {
   int _selectedIndex = 0;
 
   @override
@@ -25,8 +25,8 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     super.dispose();
   }
 
-  Widget _getActiveScreen(UserModel? user) {
-    if (user?.role == Role.admin) {
+  Widget _getActiveScreen() {
+    if (widget.user.role == Role.admin) {
       switch (_selectedIndex) {
         case 2:
           return const ProfileScreen();
@@ -36,7 +36,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
         default:
           return const HomeScreen();
       }
-    } else if (user?.role == Role.driver) {
+    } else if (widget.user.role == Role.driver) {
       switch (_selectedIndex) {
         case 1:
           return const ProfileScreen();
@@ -55,8 +55,8 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
     }
   }
 
-  List<BottomNavigationBarItem> _getSpecialTab(UserModel? user) {
-    switch (user?.role) {
+  List<BottomNavigationBarItem> _getSpecialTab() {
+    switch (widget.user.role) {
       case Role.admin:
         return const [
           BottomNavigationBarItem(
@@ -88,7 +88,6 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
 
   @override
   Widget build(BuildContext context) {
-    final user = ref.watch(appUserProvider);
     return Scaffold(
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
@@ -99,7 +98,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
           });
         },
         items: [
-          ..._getSpecialTab(user),
+          ..._getSpecialTab(),
           const BottomNavigationBarItem(
             icon: Icon(Icons.person_outline),
             label: 'Perfil',
@@ -109,7 +108,7 @@ class _BottomNavigationState extends ConsumerState<BottomNavigation> {
       appBar: AppBar(
         systemOverlayStyle: SystemUiOverlayStyle.light,
       ),
-      body: _getActiveScreen(user),
+      body: _getActiveScreen(),
     );
   }
 }
