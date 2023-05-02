@@ -14,7 +14,6 @@ class ItemsScreen extends ConsumerWidget {
     late final TextEditingController textEditingController;
     final items = ref.watch(manageItemsProvider);
     final manageItemsActions = ref.read(manageItemsProvider.notifier);
-
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(

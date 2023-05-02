@@ -69,15 +69,19 @@ class UserOrder extends StateNotifier<MovingOrder?> {
   }
 
   get allCompleted =>
-      state?.destinyAddress != null &&
-      state?.originAddress != null &&
-      state?.movingDate != null;
+      _isFieldFilled(state?.destinyAddress) &&
+      _isFieldFilled(state?.originAddress) &&
+      _isFieldFilled(state?.movingDate?.toIso8601String());
 
   get canDeleteOrder =>
       state?.status == OrderStatus.pending ||
       state?.status == OrderStatus.helpNeeded;
 
   get canShowEditButtons => state?.status == OrderStatus.pending;
+}
+
+bool _isFieldFilled(String? field) {
+  return field != null && field.isNotEmpty;
 }
 
 final userOrderOrNullProvider =
