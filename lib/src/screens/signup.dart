@@ -13,7 +13,6 @@ class SignupScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: AuthLayout(
-        title: 'Create your account',
         onPress: (String email, String password) =>
             ref.read(appUserProvider.notifier).signUp(email, password),
         buttonText: 'Create account',

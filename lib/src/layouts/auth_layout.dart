@@ -11,11 +11,9 @@ class AuthLayout extends StatefulWidget {
   final Widget? extra;
   final bool? hidePasswordField;
   final bool? hasSuccessSnackbar;
-  final String title;
 
   const AuthLayout({
     super.key,
-    required this.title,
     required this.onPress,
     required this.buttonText,
     this.extra,
@@ -70,98 +68,86 @@ class _AuthLayoutState extends State<AuthLayout> {
         ),
       ),
       child: SafeArea(
-        child: Column(
-          children: [
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            Form(
-              key: _formKey,
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 80,
-                  ),
-                  TextFormField(
-                    controller: _emailController,
-                    autocorrect: false,
-                    keyboardType: TextInputType.emailAddress,
-                    textInputAction: TextInputAction.next,
-                    decoration: const InputDecoration(
-                      labelText: 'Email',
-                    ),
-                    validator: (String? value) {
-                      if (value!.isEmpty) {
-                        return 'The email is empty';
-                      }
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Column(
+            children: [
+              const SizedBox(height: kDefaultPadding * 4),
+              TextFormField(
+                controller: _emailController,
+                autocorrect: false,
+                keyboardType: TextInputType.emailAddress,
+                textInputAction: TextInputAction.next,
+                decoration: const InputDecoration(
+                  labelText: 'Email',
+                ),
+                validator: (String? value) {
+                  if (value!.isEmpty) {
+                    return 'The email is empty';
+                  }
 
-                      if (!EmailValidator.validate(value)) {
-                        return 'Invalid email address';
-                      }
+                  if (!EmailValidator.validate(value)) {
+                    return 'Invalid email address';
+                  }
 
-                      return null;
-                    },
-                  ),
-                  Visibility(
-                    visible: !(widget.hidePasswordField == true),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        suffixIcon: AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 500),
-                          child: IconButton(
-                            icon: Icon(
-                              _visiblePassword
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _visiblePassword = !_visiblePassword;
-                              });
-                            },
-                            key: ValueKey<bool>(_visiblePassword),
-                          ),
-                        ),
-                      ),
-                      obscureText: !_visiblePassword,
-                      validator: (value) {
-                        if (value!.isEmpty) {
-                          return 'The password is empty';
-                        }
-
-                        if (!value.isValidPassword) {
-                          return 'The password must have at least 6 characters';
-                        }
-
-                        return null;
-                      },
-                    ),
-                  ),
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        onPressButton();
-                      }
-                    },
-                    label: Text(widget.buttonText),
-                    icon: const Icon(
-                      Icons.lock_open,
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  widget.extra ?? const SizedBox(),
-                ],
+                  return null;
+                },
               ),
-            ),
-          ],
+              Visibility(
+                visible: !(widget.hidePasswordField == true),
+                child: TextFormField(
+                  controller: _passwordController,
+                  textInputAction: TextInputAction.done,
+                  decoration: InputDecoration(
+                    labelText: 'Password',
+                    suffixIcon: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 500),
+                      child: IconButton(
+                        icon: Icon(
+                          _visiblePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _visiblePassword = !_visiblePassword;
+                          });
+                        },
+                        key: ValueKey<bool>(_visiblePassword),
+                      ),
+                    ),
+                  ),
+                  obscureText: !_visiblePassword,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return 'The password is empty';
+                    }
+
+                    if (!value.isValidPassword) {
+                      return 'The password must have at least 6 characters';
+                    }
+
+                    return null;
+                  },
+                ),
+              ),
+              const SizedBox(height: kDefaultPadding),
+              ElevatedButton.icon(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    onPressButton();
+                  }
+                },
+                label: Text(widget.buttonText),
+                icon: const Icon(
+                  Icons.lock_open,
+                ),
+              ),
+              const SizedBox(height: kDefaultPadding),
+              widget.extra ?? const SizedBox(),
+            ],
+          ),
         ),
       ),
     );

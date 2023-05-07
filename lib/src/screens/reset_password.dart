@@ -11,7 +11,6 @@ class ResetPasswordScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(),
       body: AuthLayout(
-        title: 'Reset your password',
         onPress: (email, _) =>
             ref.read(appUserProvider.notifier).resetPassword(email),
         buttonText: 'Reset',
