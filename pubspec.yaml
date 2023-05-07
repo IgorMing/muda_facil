@@ -36,9 +36,10 @@ dependencies:
   flex_color_scheme: ^6.1.2
   flutter:
     sdk: flutter
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.13.1
   flutter_localizations:
     sdk: flutter
+  flutter_native_splash: ^2.2.19
   flutter_riverpod: ^2.2.0
   freezed_annotation: ^2.2.0
   google_fonts: ^4.0.1
@@ -89,3 +90,10 @@ flutter:
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
+flutter_native_splash:
+  color: "#375094"
+  background_image: "assets/appstore.png"
+  android_12:
+    background_image: "assets/appstore.png"
+  android: true
+  ios: true

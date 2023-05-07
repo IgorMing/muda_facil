@@ -1,6 +1,7 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/providers/authentication.dart';
@@ -52,8 +53,12 @@ class App extends ConsumerWidget {
           ThemeMode.light, // FIXME: change this later to `ThemeMode.system`
       home: authState.when(
         loading: () => const LoadingAdaptive(),
-        data: (data) =>
-            data == null ? const AuthScreen() : const Authenticated(),
+        data: (data) {
+          Future.delayed(const Duration(seconds: 5), () {
+            FlutterNativeSplash.remove();
+          });
+          return data == null ? const AuthScreen() : const Authenticated();
+        },
         error: (error, _) => ErrorScreen(error.toString()),
       ),
     );
