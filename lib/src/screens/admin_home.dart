@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:badges/badges.dart' as badges;
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/widgets/badge_button.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -14,11 +14,6 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    var outlinedButton = OutlinedButton(
-      onPressed: () {},
-      child: const Text('Pedidos'),
-    );
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('Admin'),
@@ -27,34 +22,16 @@ class _AdminHomeState extends State<AdminHome> {
         padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
           children: [
-            count > 0
-                ? badges.Badge(
-                    badgeContent: Text(
-                      count.toString(),
-                      style: TextStyle(
-                        color: Theme.of(context).colorScheme.onPrimary,
-                        fontSize: 10.0,
-                      ),
-                    ),
-                    badgeStyle: badges.BadgeStyle(
-                      badgeColor: Theme.of(context).colorScheme.primary,
-                      padding: const EdgeInsets.all(kDefaultPadding / 2.5),
-                    ),
-                    badgeAnimation: const badges.BadgeAnimation.rotation(
-                      animationDuration: Duration(milliseconds: 500),
-                      curve: Curves.easeInOutCubic,
-                      colorChangeAnimationCurve: Curves.easeInCubic,
-                    ),
-                    child: outlinedButton,
-                  )
-                : outlinedButton,
-            OutlinedButton(
-                onPressed: () {
-                  setState(() {
-                    count++;
-                  });
-                },
-                child: const Text('Adicionar')),
+            BadgeButton(
+                onPress: () {}, label: 'Pedidos', value: count.toString()),
+            BadgeButton(
+              onPress: () {
+                setState(() {
+                  count++;
+                });
+              },
+              label: 'Add 1 more',
+            ),
           ],
         ),
       ),
