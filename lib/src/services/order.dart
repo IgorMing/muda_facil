@@ -4,18 +4,18 @@ import 'package:muda_facil/src/models/moving_order.dart';
 
 class OrderService {
   final User user = FirebaseAuth.instance.currentUser as User;
-  final FirebaseFirestore db = FirebaseFirestore.instance;
   late final CollectionReference<MovingOrder> collection;
   late Stream<MovingOrder?> _stream;
 
   OrderService() {
-    collection = db.collection("users/${user.uid}/orders").withConverter(
+    collection = FirebaseFirestore.instance
+        .collection("users/${user.uid}/orders")
+        .withConverter(
           fromFirestore: (snapshot, options) =>
               MovingOrder.fromJson(snapshot.data()),
           toFirestore: (MovingOrder value, _) => value.toJson(),
         );
 
-    collection.snapshots().first;
     _stream = collection.snapshots().map((event) {
       if (event.docs.isNotEmpty) {
         return event.docs[0].data();

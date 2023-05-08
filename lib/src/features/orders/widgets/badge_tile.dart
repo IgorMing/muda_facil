@@ -1,10 +1,9 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
-import '../utils/constants.dart';
-
-class BadgeButton extends StatelessWidget {
-  const BadgeButton({
+class BadgeTile extends StatelessWidget {
+  const BadgeTile({
     super.key,
     required this.onPress,
     required this.label,
@@ -17,15 +16,6 @@ class BadgeButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final outlinedButton = OutlinedButton(
-      onPressed: onPress,
-      child: Text(label),
-    );
-
-    if (value == null) {
-      return outlinedButton;
-    }
-
     return badges.Badge(
       badgeContent: Text(
         value!,
@@ -43,7 +33,9 @@ class BadgeButton extends StatelessWidget {
         curve: Curves.decelerate,
         colorChangeAnimationCurve: Curves.easeInCubic,
       ),
-      child: outlinedButton,
+      child: const ListTile(
+        title: Text('Pedidos'),
+      ),
     );
   }
 }
