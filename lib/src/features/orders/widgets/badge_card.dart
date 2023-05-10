@@ -2,16 +2,16 @@ import 'package:badges/badges.dart' as badges;
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
-class BadgeButton extends StatelessWidget {
-  const BadgeButton({
+class BadgeCard extends StatelessWidget {
+  const BadgeCard({
     super.key,
-    required this.onPress,
     required this.label,
+    this.onPress,
     this.description,
     this.value,
   });
 
-  final Function() onPress;
+  final Function()? onPress;
   final String label;
   final String? description;
   final String? value;
@@ -19,14 +19,24 @@ class BadgeButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final outlinedButton = SizedBox(
+    final disabled = onPress == null;
+
+    final SizedBox outlinedButton = SizedBox(
       width: double.infinity,
       child: OutlinedButton(
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+              disabled ? Colors.grey.withOpacity(0.8) : Colors.white),
+        ),
         onPressed: onPress,
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding),
           child: Column(
             children: [
+              if (disabled) ...[
+                const Icon(Icons.lock),
+                const SizedBox(height: kDefaultPadding / 2),
+              ],
               Text(
                 label,
                 style: theme.textTheme.bodyLarge!

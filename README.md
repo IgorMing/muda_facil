@@ -47,8 +47,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] add a step on the sign up flow to put the whatsapp number
 - [x] improve the profile screen
 - [x] configure splash screen _(maybe a rework on this will be necessary later)_
-- [ ] create admin screens layouts on draw.io
-- [ ] implement initial menu _(admin)_
+- [x] create admin screens layouts on draw.io
+- [x] implement initial menu _(admin)_
 - [ ] create a list of orders, being able to set information and send the budget value _(admin)_
 
 ## Less priority TODOs

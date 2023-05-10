@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
-import 'package:muda_facil/src/features/orders/widgets/badge_button.dart';
+import 'package:muda_facil/src/features/orders/orders.screen.dart';
+import 'package:muda_facil/src/features/orders/widgets/badge_card.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
 class AdminHome extends ConsumerStatefulWidget {
@@ -40,12 +41,22 @@ class _AdminHomeState extends ConsumerState<AdminHome> {
         padding: const EdgeInsets.all(kDefaultPadding),
         child: Column(
           children: [
-            BadgeButton(
-              onPress: () {},
+            BadgeCard(
+              onPress: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => const OrdersScreen(),
+                ));
+              },
               label: 'Mudanças',
               description:
                   'Aqui podem ser encontradas todas as mudanças pendentes',
               value: orders.length.toString(),
+            ),
+            const SizedBox(height: kDefaultPadding),
+            const BadgeCard(
+              label: 'Novos itens',
+              description:
+                  'Itens que entraram em algum pedido, e não estão disponíveis no auto complete do usuário',
             ),
           ],
         ),
