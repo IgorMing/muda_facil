@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/app.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/dialogs.dart';
 
 class UIUtils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
@@ -84,57 +85,42 @@ class UIUtils {
     bool requireMinLength = false,
     int minLength = 10,
   }) {
-    final controller = TextEditingController(text: initialText);
-    final formKey = GlobalKey<FormState>();
-
     showDialog(
+      context: context,
+      builder: (context) => Dialogs.getSingleInputDialog(
+        context,
+        title: title,
+        requireMinLength: requireMinLength,
+        minLength: minLength,
+        initialText: initialText,
+        onSave: onSave,
+        cancelButtonText: cancelButtonText,
+        confirmButtonText: confirmButtonText,
+      ),
+    );
+  }
+
+  static Future<void> showInfoDialog(
+    BuildContext context, {
+    required String title,
+    required List<String> body,
+    String confirmationText = 'Ok',
+  }) {
+    return showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: Text(title),
-        content: Form(
-          key: formKey,
-          child: TextFormField(
-            validator: (value) {
-              if (!requireMinLength) {
-                return null;
-              }
-
-              if (value == null || value.length < minLength) {
-                return 'Digite ao menos $minLength caracteres';
-              }
-
-              return null;
-            },
-            controller: controller,
-            autofocus: true,
-            autocorrect: false,
-            textCapitalization: TextCapitalization.sentences,
-            onSaved: (newValue) {
-              onSave(controller.text);
-              Navigator.of(context).pop();
-            },
-            decoration: const InputDecoration(
-              focusedBorder: OutlineInputBorder(),
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 3,
+        content: SingleChildScrollView(
+          child: ListBody(
+            children: body.map((e) => Text(e)).toList(),
           ),
         ),
         actions: [
           TextButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-            child: Text(cancelButtonText),
-          ),
-          TextButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                formKey.currentState!.save();
-              }
-            },
-            child: Text(confirmButtonText),
-          ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text(confirmationText))
         ],
       ),
     );
