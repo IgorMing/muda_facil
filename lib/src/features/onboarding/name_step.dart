@@ -4,6 +4,7 @@ import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/validators.dart';
 
 class OnboardingNameStep extends ConsumerStatefulWidget {
   const OnboardingNameStep({
@@ -90,9 +91,10 @@ class _OnboardingNameStepState extends ConsumerState<OnboardingNameStep> {
                   focusedBorder: getBorder(theme),
                   enabledBorder: getBorder(theme, lineWidth: 2.0),
                 ),
-                validator: (value) => RegExp(r'(\s+)').hasMatch(value!)
-                    ? null
-                    : 'Preencha o nome completo',
+                validator: (value) =>
+                    value != null && Validators.hasSpaceBetween(value)
+                        ? null
+                        : 'Preencha o nome completo',
               ),
             ),
             const SizedBox(height: kDefaultPadding),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/dialogs.dart';
 import 'package:muda_facil/src/utils/general.dart';
 import 'package:muda_facil/src/widgets/info_row.dart';
 
@@ -21,7 +22,21 @@ class OrderCard extends StatelessWidget {
       shape: _roundedRectangleBorder,
       child: InkWell(
         splashColor: Theme.of(context).colorScheme.primary,
-        onTap: () {},
+        onTap: () {
+          showDialog(
+            context: context,
+            builder: (context) => Dialogs.getBugetInfoDialog(
+              context,
+              onSave: ({
+                required budgetValue,
+                required driverName,
+                required pixCode,
+              }) {
+                // TODO: call the service here
+              },
+            ),
+          );
+        },
         customBorder: _roundedRectangleBorder,
         child: Padding(
           padding: const EdgeInsets.all(kDefaultPadding),
