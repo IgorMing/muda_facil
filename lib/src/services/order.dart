@@ -41,9 +41,13 @@ class OrderService {
       await collection.add(order);
     } else {
       // update
-      final docRef = collection.doc(snapshot.docs[0].id);
-      await docRef.set(order);
+      await setOrderById(snapshot.docs[0].id, order);
     }
+  }
+
+  Future<void> setOrderById(String uid, MovingOrder order) {
+    final docRef = collection.doc(uid);
+    return docRef.set(order);
   }
 
   Future<void> deleteOrder() async {

@@ -49,7 +49,10 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] configure splash screen _(maybe a rework on this will be necessary later)_
 - [x] create admin screens layouts on draw.io
 - [x] implement initial menu _(admin)_
-- [ ] create a list of orders, being able to set information and send the budget value _(admin)_
+- [x] create a list of orders, being able to set information and send the budget value _(admin)_
+- [x] check if the order is waiting for driver or for payment _(second part of the flow that requires an admin approval)_
+  - [x] if waiting for driver, open a proper modal for fill these informations
+  - [x] add a logical check either for what is the current status, and consider the background color by that.
 
 ## Less priority TODOs
 

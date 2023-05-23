@@ -11,6 +11,7 @@ class OrdersScreen extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final orders = ref.watch(ordersProvider);
+    final notifier = ref.read(ordersProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -41,11 +42,25 @@ class OrdersScreen extends ConsumerWidget {
           padding: const EdgeInsets.all(kDefaultPadding),
           child: ListView.builder(
             itemCount: orders.length,
-            itemBuilder: (context, index) => OrderCard(
-              topText: orders[index].originAddress!,
-              bottomText: orders[index].destinyAddress!,
-              date: orders[index].movingDate!,
-            ),
+            itemBuilder: (context, index) {
+              final orderModel = orders[index];
+              return OrderCard(
+                status: orderModel.order.status,
+                order: orderModel.order,
+                onConfirm: () => notifier.confirmPayment(orderModel.ref),
+                onSave: (
+                    {required budgetValue,
+                    required driverName,
+                    required pixCode}) {
+                  notifier.setBudget(
+                    orderModel.ref,
+                    value: budgetValue,
+                    driver: driverName,
+                    pixCode: pixCode,
+                  );
+                },
+              );
+            },
           ),
         ),
       ),

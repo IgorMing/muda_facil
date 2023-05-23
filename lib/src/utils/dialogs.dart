@@ -4,6 +4,30 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 import 'package:muda_facil/src/utils/validators.dart';
 
 class Dialogs {
+  static AlertDialog getConfirmDialog(BuildContext context,
+      {required Function() onConfirm}) {
+    return AlertDialog(
+      title: const Text('Confirma o pagamento?'),
+      content: const Text(
+          'Isso deve ser confirmado apenas quando o pagamento for identificado.'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          child: const Text('Cancelar'),
+        ),
+        TextButton(
+          onPressed: () {
+            onConfirm();
+            Navigator.of(context).pop();
+          },
+          child: const Text('Confirmar'),
+        ),
+      ],
+    );
+  }
+
   static AlertDialog getBugetInfoDialog(
     BuildContext context, {
     required Function({
@@ -101,6 +125,7 @@ class Dialogs {
                 budgetValue: budgetValueController.numberValue,
                 pixCode: pixCodeController.text,
               );
+              Navigator.of(context).pop();
             }
           },
           child: const Text('Enviar'),

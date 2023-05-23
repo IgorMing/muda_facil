@@ -5,6 +5,13 @@ import 'package:muda_facil/src/utils/constants.dart';
 part 'moving_order.freezed.dart';
 part 'moving_order.g.dart';
 
+class MovingOrderWithRef {
+  final MovingOrder order;
+  final DocumentReference<MovingOrder> ref;
+
+  MovingOrderWithRef({required this.order, required this.ref});
+}
+
 @freezed
 class MovingOrder with _$MovingOrder {
   @JsonSerializable(includeIfNull: false, explicitToJson: true)
