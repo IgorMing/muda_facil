@@ -14,14 +14,14 @@ class BadgeCard extends StatelessWidget {
   final Function()? onPress;
   final String label;
   final String? description;
-  final String? value;
+  final int? value;
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final disabled = onPress == null;
 
-    final SizedBox outlinedButton = SizedBox(
+    final outlinedButton = SizedBox(
       width: double.infinity,
       child: OutlinedButton(
         style: ButtonStyle(
@@ -60,7 +60,7 @@ class BadgeCard extends StatelessWidget {
 
     return badges.Badge(
       badgeContent: Text(
-        value!,
+        value.toString(),
         style: TextStyle(
           color: Theme.of(context).colorScheme.onPrimary,
           fontSize: 10.0,

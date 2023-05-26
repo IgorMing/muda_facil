@@ -59,6 +59,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 - [ ] _(admin feat)_ check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
+- [ ] apply new UI for the user order _(following draw.io' design)_
+
 ## Less priority TODOs
 
 - [ ] configure push notifications and send one when the order takes any feedback _(e.g. driver responded and the price is ready for approval)_
