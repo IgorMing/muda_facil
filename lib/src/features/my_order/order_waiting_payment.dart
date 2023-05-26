@@ -25,8 +25,7 @@ class OrderWaitingPayment extends StatelessWidget {
             ElevatedButton.icon(
               onPressed: () {
                 Clipboard.setData(ClipboardData(text: pixCode));
-                UIUtils.showSnackBar(
-                  context,
+                UIUtils.of(context).showSnackBar(
                   'O código pix foi copiado.',
                   success: true,
                 );

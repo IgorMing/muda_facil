@@ -49,7 +49,7 @@ class _OnboardingPhoneStepState extends ConsumerState<OnboardingPhoneStep> {
 
     void onFinishEditting() {
       if (_formKey.currentState!.validate()) {
-        UIUtils.showLoaderDialog(context, () {
+        UIUtils.of(context).showLoaderDialog(() {
           notifier.setPhone(_textController.text);
         });
       }

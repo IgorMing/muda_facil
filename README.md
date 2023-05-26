@@ -51,8 +51,13 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [x] implement initial menu _(admin)_
 - [x] create a list of orders, being able to set information and send the budget value _(admin)_
 - [x] check if the order is waiting for driver or for payment _(second part of the flow that requires an admin approval)_
+
   - [x] if waiting for driver, open a proper modal for fill these informations
   - [x] add a logical check either for what is the current status, and consider the background color by that.
+
+- [x] create an admin tab
+
+- [ ] _(admin feat)_ check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 ## Less priority TODOs
 
@@ -63,8 +68,6 @@ App for learning flutter _(and maybe become a solution for house moving)_
 - [ ] add a progress bar to the order
 
 - [ ] add a way to the user change its name
-
-- [ ] create an admin tab that can check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] separate items on groups, to make the user's lifes easier
 

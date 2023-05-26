@@ -61,13 +61,12 @@ class GeneralReviewScreen extends ConsumerWidget {
             FullWidthButton(
                 title: 'Confirmar',
                 onPressed: () {
-                  UIUtils.showAlertDialog(
-                    context,
+                  UIUtils.of(context).showAlertDialog(
                     text:
                         'Ao confirmar, iremos buscar alguém para fazer este frete. Revise com atenção todas as informações adicionadas.',
                     onSelect: (selected) {
                       if (selected) {
-                        UIUtils.showLoaderDialog(context, () {
+                        UIUtils.of(context).showLoaderDialog(() {
                           actions.setStatus(OrderStatus.waitingDriver);
                         });
                       }

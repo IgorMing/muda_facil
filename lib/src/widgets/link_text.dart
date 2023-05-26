@@ -25,7 +25,7 @@ class LinkText extends StatelessWidget {
             recognizer: TapGestureRecognizer()..onTap = onTap,
             text: ' $link',
             style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                  color: UIUtils.isDarkmode(context)
+                  color: UIUtils.of(context).isDarkmode()
                       ? null
                       : Theme.of(context).colorScheme.primary,
                   fontWeight: FontWeight.bold,

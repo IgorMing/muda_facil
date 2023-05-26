@@ -41,7 +41,7 @@ class _OrderInfoState extends State<OrderInfo> {
             widget.actions.declineBudget(reason);
           },
           onSave: () {
-            UIUtils.showLoaderDialog(context, () {
+            UIUtils.of(context).showLoaderDialog(() {
               widget.actions.setStatus(OrderStatus.waitingPayment);
             });
           },
@@ -85,8 +85,7 @@ class _OrderInfoState extends State<OrderInfo> {
             if (widget.actions.canDeleteOrder)
               IconButton(
                 onPressed: () {
-                  UIUtils.showAlertDialog(
-                    context,
+                  UIUtils.of(context).showAlertDialog(
                     text:
                         'Esta ação é irreversível, e vai apagar toda a solicitação.',
                     onSelect: (selectedValue) {

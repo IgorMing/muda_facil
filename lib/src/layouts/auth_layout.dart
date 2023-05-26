@@ -60,7 +60,7 @@ class _AuthLayoutState extends State<AuthLayout> {
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
           colors: [
-            UIUtils.isDarkmode(context)
+            UIUtils.of(context).isDarkmode()
                 ? Colors.blueGrey
                 : Theme.of(context).colorScheme.primary,
             Colors.white,
@@ -156,7 +156,7 @@ class _AuthLayoutState extends State<AuthLayout> {
   Future onPressButton() async {
     bool hasError = false;
 
-    UIUtils.showLoaderDialog(context, () async {
+    UIUtils.of(context).showLoaderDialog(() async {
       try {
         if (_formKey.currentState!.validate()) {
           await widget.onPress(
@@ -166,11 +166,10 @@ class _AuthLayoutState extends State<AuthLayout> {
         }
       } on FirebaseAuthException catch (err) {
         hasError = true;
-        UIUtils.showSnackBar(context, err.message ?? kDefaultErrorMessage);
+        UIUtils.of(context).showSnackBar(err.message ?? kDefaultErrorMessage);
       } finally {
         if (widget.hasSuccessSnackbar == true && !hasError) {
-          UIUtils.showSnackBar(
-            context,
+          UIUtils.of(context).showSnackBar(
             'Um email foi enviado para resetar sua senha',
             success: true,
           );

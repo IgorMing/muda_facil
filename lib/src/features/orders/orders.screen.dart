@@ -18,8 +18,7 @@ class OrdersScreen extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              UIUtils.showInfoDialog(
-                context,
+              UIUtils.of(context).showInfoDialog(
                 title: 'Instruções de uso',
                 body: [
                   'Clique no item para adicionar as informações de: motorista, valor e código pix.\n',

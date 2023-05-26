@@ -18,7 +18,7 @@ class ItemsScreen extends ConsumerWidget {
 
     return Scaffold(
       floatingActionButton: Visibility(
-        visible: items.isNotEmpty && !UIUtils.isKeyboardOpen(context),
+        visible: items.isNotEmpty && !UIUtils.of(context).isKeyboardOpen(),
         child: FloatingActionButton(
           onPressed: () {
             Navigator.of(context).push(MaterialPageRoute(
@@ -101,8 +101,7 @@ class ItemsScreen extends ConsumerWidget {
                   },
                   onMinus: () {
                     if (item.amount == 1) {
-                      UIUtils.showAlertDialog(
-                        context,
+                      UIUtils.of(context).showAlertDialog(
                         text: 'O item sairá de sua lista',
                         onSelect: (selected) {
                           if (selected) {

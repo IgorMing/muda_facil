@@ -14,8 +14,7 @@ class OrderHelp extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
-          UIUtils.showInputDialog(
-            context,
+          UIUtils.of(context).showInputDialog(
             confirmButtonText: 'Enviar',
             onSave: onSave,
             title: 'Em que podemos lhe ajudar?',

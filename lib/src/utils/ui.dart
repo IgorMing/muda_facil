@@ -5,17 +5,19 @@ import 'package:muda_facil/src/utils/dialogs.dart';
 
 class UIUtils {
   static final messengerKey = GlobalKey<ScaffoldMessengerState>();
+  late final BuildContext context;
 
-  static bool isDarkmode(BuildContext context) {
+  UIUtils.of(this.context);
+
+  bool isDarkmode() {
     return Theme.of(context).brightness == Brightness.dark;
   }
 
-  static bool isKeyboardOpen(BuildContext context) {
+  bool isKeyboardOpen() {
     return MediaQuery.of(context).viewInsets.bottom != 0;
   }
 
-  static void showSnackBar(BuildContext context, String text,
-      {bool success = false}) {
+  void showSnackBar(String text, {bool success = false}) {
     final snackBar = SnackBar(
       content: Text(text),
       backgroundColor:
@@ -27,8 +29,7 @@ class UIUtils {
       ..showSnackBar(snackBar);
   }
 
-  static void showAlertDialog(
-    BuildContext context, {
+  void showAlertDialog({
     required String text,
     required Function(bool v) onSelect,
   }) {
@@ -57,7 +58,7 @@ class UIUtils {
     );
   }
 
-  static void showLoaderDialog(BuildContext context, Function? action) {
+  void showLoaderDialog(Function? action) {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -75,8 +76,7 @@ class UIUtils {
     );
   }
 
-  static void showInputDialog(
-    BuildContext context, {
+  void showInputDialog({
     required Function(String text) onSave,
     required String title,
     String? initialText = '',
@@ -100,8 +100,7 @@ class UIUtils {
     );
   }
 
-  static Future<void> showInfoDialog(
-    BuildContext context, {
+  Future<void> showInfoDialog({
     required String title,
     required List<String> body,
     String confirmationText = 'Ok',

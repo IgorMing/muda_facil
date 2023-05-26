@@ -41,8 +41,7 @@ class OrderWaitingApproval extends StatelessWidget {
               children: [
                 TextButton(
                   onPressed: () {
-                    UIUtils.showInputDialog(
-                      context,
+                    UIUtils.of(context).showInputDialog(
                       onSave: onDecline,
                       title: 'Explique o motivo, por favor',
                       requireMinLength: true,

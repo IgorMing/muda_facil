@@ -63,8 +63,7 @@ class ItemTile extends StatelessWidget {
               data.existsComment ? 'Editar observação' : 'Adicionar observação',
             ),
             onTap: () {
-              UIUtils.showInputDialog(
-                context,
+              UIUtils.of(context).showInputDialog(
                 onSave: (text) {
                   onAddComment(text);
                 },
@@ -80,8 +79,7 @@ class ItemTile extends StatelessWidget {
             ),
           ListTile(
             onTap: () {
-              UIUtils.showAlertDialog(
-                context,
+              UIUtils.of(context).showAlertDialog(
                 text: 'O item sairá de sua lista',
                 onSelect: (selected) {
                   if (selected) {
