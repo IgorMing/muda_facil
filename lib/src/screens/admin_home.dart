@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/features/items_admin/items.providers.dart';
-import 'package:muda_facil/src/features/items_admin/items_admin.screen.dart';
+import 'package:muda_facil/src/features/items/items.providers.dart';
+import 'package:muda_facil/src/features/items/items_admin.screen.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/orders.screen.dart';
 import 'package:muda_facil/src/features/orders/widgets/badge_card.dart';

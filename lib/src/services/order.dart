@@ -5,7 +5,7 @@ import 'package:muda_facil/src/models/moving_order.dart';
 class OrderService {
   final User user = FirebaseAuth.instance.currentUser as User;
   late final CollectionReference<MovingOrder> collection;
-  late Stream<MovingOrder?> _stream;
+  late final Stream<MovingOrder?> _stream;
 
   OrderService() {
     collection = FirebaseFirestore.instance
