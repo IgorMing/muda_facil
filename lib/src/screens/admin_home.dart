@@ -42,39 +42,46 @@ class _AdminHomeState extends ConsumerState<AdminHome> {
         title: const Text('Admin'),
       ),
       body: Padding(
-          padding: const EdgeInsets.all(kDefaultPadding),
-          child: pendingCount.when(
-            data: (data) => ListView(
-              children: [
-                BadgeCard(
-                  onPress: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const OrdersScreen(),
-                    ));
-                  },
-                  label: 'Mudanças',
-                  description:
-                      'Aqui podem ser encontradas todas as mudanças pendentes',
-                  value: data["orders"],
-                ),
-                const SizedBox(height: kDefaultPadding),
-                BadgeCard(
-                  onPress: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const ItemsAdminScreen(),
-                    ));
-                  },
-                  label: 'Novos itens',
-                  description:
-                      'Itens que entraram em algum pedido, e não estão disponíveis no auto complete do usuário',
-                  value: data["items"],
-                ),
-              ],
-            ),
-            error: (error, stackTrace) =>
-                const ErrorScreen('Algo inesperado aconteceu'),
-            loading: () => const LoadingAdaptive(),
-          )),
+        padding: const EdgeInsets.all(kDefaultPadding),
+        child: pendingCount.when(
+          data: (data) => ListView(
+            children: [
+              BadgeCard(
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const OrdersScreen(),
+                  ));
+                },
+                label: 'Mudanças',
+                description:
+                    'Aqui podem ser encontradas todas as mudanças pendentes',
+                value: data["orders"],
+              ),
+              const SizedBox(height: kDefaultPadding),
+              BadgeCard(
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const ItemsAdminScreen(),
+                  ));
+                },
+                label: 'Novos itens',
+                description:
+                    'Itens que entraram em algum pedido, e não estão disponíveis no auto complete do usuário',
+                value: data["items"],
+              ),
+              const SizedBox(height: kDefaultPadding),
+              const BadgeCard(
+                label: 'Pedidos de ajuda',
+                description:
+                    'Pedidos que estão com pendência de retorno de ajuda',
+              ),
+            ],
+          ),
+          error: (error, stackTrace) =>
+              const ErrorScreen('Algo inesperado aconteceu'),
+          loading: () => const LoadingAdaptive(),
+        ),
+      ),
     );
   }
 }
