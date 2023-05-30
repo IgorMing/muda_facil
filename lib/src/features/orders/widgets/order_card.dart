@@ -75,13 +75,14 @@ class OrderCard extends ConsumerWidget {
                 label: 'Para',
                 value: order.destinyAddress,
               ),
-              Center(
-                child: InfoRow(
-                  label: 'Data',
-                  value: GeneralUtils.formatDateFromTimestamp(
-                      order.movingDate!.microsecondsSinceEpoch),
-                ),
-              )
+              if (order.movingDate != null)
+                Center(
+                  child: InfoRow(
+                    label: 'Data',
+                    value: GeneralUtils.formatDateFromTimestamp(
+                        order.movingDate!.microsecondsSinceEpoch),
+                  ),
+                )
             ],
           ),
         ),
