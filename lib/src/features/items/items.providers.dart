@@ -13,12 +13,17 @@ final ordersPendingCountProvider = Provider<int>((ref) {
       .length;
 });
 
+final candidatesCountProvider = Provider<int>((ref) {
+  return ref.watch(candidatesListStateProvider).length;
+});
+
 final adminPendingCountProvider = FutureProvider<Map<String, int>>((ref) {
   final ordersCount = ref.watch(ordersPendingCountProvider);
+  final candidatesCount = ref.watch(candidatesCountProvider);
 
   return {
     "orders": ordersCount,
-    "items": 12,
+    "items": candidatesCount,
   };
 });
 

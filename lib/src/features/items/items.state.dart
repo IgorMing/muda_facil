@@ -36,7 +36,7 @@ class CandidatesListState extends StateNotifier<List<String>> with ListState {
 
   @override
   subscribe() {
-    _subscription = itemsService.listStream.listen((event) {
+    _subscription = itemsService.candidatesStream.listen((event) {
       if (event == null) return;
 
       state = event.data;

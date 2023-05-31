@@ -63,6 +63,11 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 - [ ] _(admin feat)_ check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
+  - [x] UI and simple get
+  - [ ] edit
+  - [ ] approve
+  - [ ] remove
+
 - [ ] configure analytics
 
 - [ ] apply new UI for the user order _(following draw.io' design)_
