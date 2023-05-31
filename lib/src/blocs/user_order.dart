@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/features/items/items.service.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/services/order.dart';
@@ -9,6 +10,7 @@ import 'package:muda_facil/src/utils/constants.dart';
 
 class UserOrder extends StateNotifier<MovingOrder?> {
   final orderService = OrderService();
+  final itemsService = ItemsService();
   late final StreamSubscription<MovingOrder?> _subscription;
 
   UserOrder() : super(null) {
@@ -38,6 +40,11 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   void setStatus(OrderStatus status) {
     _persist((state?.copyWith(status: status))!);
+
+    if (status == OrderStatus.waitingDriver) {
+      final items = state!.items.map<String>((e) => e.name).toList();
+      itemsService.checkCandidates(items);
+    }
   }
 
   void setHelp(String text) {

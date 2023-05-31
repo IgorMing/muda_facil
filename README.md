@@ -59,6 +59,8 @@ App for learning flutter _(and maybe become a solution for house moving)_
 
 - [x] refactor on storage's items list
 
+- [x] save candidates to the list after an order be sent
+
 - [ ] _(admin feat)_ check new items on a separated list, and edit/approve it. _(Approve means: Remove it from `items/candidates` Add it to the document `items/list`)_
 
 - [ ] configure analytics

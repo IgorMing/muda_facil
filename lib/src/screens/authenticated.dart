@@ -22,6 +22,7 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
     appUserNotifier = ref.read(appUserProvider.notifier)..subscribe();
     autocompleteNotifier = ref.read(autocompleteListStateProvider.notifier)
       ..subscribe();
+
     super.initState();
   }
 

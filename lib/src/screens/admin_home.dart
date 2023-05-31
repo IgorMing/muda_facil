@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/features/items/items.providers.dart';
+import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/items/items_admin.screen.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/orders.screen.dart';
@@ -18,17 +19,21 @@ class AdminHome extends ConsumerStatefulWidget {
 
 class _AdminHomeState extends ConsumerState<AdminHome> {
   late final Orders ordersNotifier;
+  late final CandidatesListState candidatesNotifier;
 
   @override
   void initState() {
-    ordersNotifier = ref.read(ordersProvider.notifier);
-    ordersNotifier.subscribe();
+    ordersNotifier = ref.read(ordersProvider.notifier)..subscribe();
+    candidatesNotifier = ref.read(candidatesListStateProvider.notifier)
+      ..subscribe();
+
     super.initState();
   }
 
   @override
   void dispose() {
     ordersNotifier.unsubscribe();
+    candidatesNotifier.unsubscribe();
     ref.invalidate(ordersProvider);
     super.dispose();
   }

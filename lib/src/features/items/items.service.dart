@@ -19,4 +19,17 @@ class ItemsService {
     candidatesStream =
         _collection.doc('candidates').snapshots().map((event) => event.data());
   }
+
+  checkCandidates(List<String> items) async {
+    final listCollection = await _collection.doc('list').get();
+    final list = listCollection.data()!;
+
+    final difference = items.toSet().difference(list.data.toSet());
+
+    final candidatesCollection = await _collection.doc('candidates').get();
+    final AutocompleteList candidates = candidatesCollection.data()!;
+
+    candidates.data.addAll(difference);
+    await _collection.doc('candidates').set(candidates);
+  }
 }

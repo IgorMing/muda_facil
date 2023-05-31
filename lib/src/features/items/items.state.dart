@@ -32,7 +32,7 @@ class AutocompleteListState extends StateNotifier<List<String>> with ListState {
 class CandidatesListState extends StateNotifier<List<String>> with ListState {
   CandidatesListState() : super([]);
 
-  late final StreamSubscription _subscription;
+  late StreamSubscription _subscription;
 
   @override
   subscribe() {

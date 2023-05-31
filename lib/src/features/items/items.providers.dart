@@ -26,6 +26,10 @@ final autocompleteListStateProvider =
     StateNotifierProvider<AutocompleteListState, List<String>>(
         (ref) => AutocompleteListState());
 
+final candidatesListStateProvider =
+    StateNotifierProvider<CandidatesListState, List<String>>(
+        (ref) => CandidatesListState());
+
 final filteredItemsProvider = FutureProvider<List<String>>((ref) {
   final selectedItems =
       ref.watch(manageItemsProvider).map((e) => e.name).toSet();
