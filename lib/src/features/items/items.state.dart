@@ -47,4 +47,8 @@ class CandidatesListState extends StateNotifier<List<String>> with ListState {
   unsubscribe() {
     _subscription.cancel();
   }
+
+  set(List<String> list) {
+    itemsService.setCandidates(list);
+  }
 }

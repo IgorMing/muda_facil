@@ -10,6 +10,10 @@ class AutocompleteList with _$AutocompleteList {
     required List<String> data,
   }) = _AutocompleteList;
 
+  factory AutocompleteList.fromList(List<String> list) {
+    return AutocompleteList(data: list);
+  }
+
   factory AutocompleteList.fromJson(Map<String, dynamic>? json) =>
       _$AutocompleteListFromJson(json!);
 }

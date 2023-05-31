@@ -32,4 +32,8 @@ class ItemsService {
     candidates.data.addAll(difference);
     await _collection.doc('candidates').set(candidates);
   }
+
+  setCandidates(List<String> candidates) {
+    _collection.doc('candidates').set(AutocompleteList.fromList(candidates));
+  }
 }
