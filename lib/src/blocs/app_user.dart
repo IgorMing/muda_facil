@@ -9,7 +9,7 @@ import 'package:muda_facil/src/services/auth.dart';
 class AppUser extends StateNotifier<UserModel?> {
   late final AuthService authService;
   late final StateNotifierProviderRef<AppUser, UserModel?> _ref;
-  late final StreamSubscription<UserModel?> _subscription;
+  late StreamSubscription<UserModel?> _subscription;
 
   AppUser(StateNotifierProviderRef<AppUser, UserModel?> ref) : super(null) {
     _ref = ref;

@@ -12,7 +12,7 @@ abstract class ListState {
 class AutocompleteListState extends StateNotifier<List<String>> with ListState {
   AutocompleteListState() : super([]);
 
-  late final StreamSubscription _subscription;
+  late StreamSubscription _subscription;
 
   @override
   subscribe() {
