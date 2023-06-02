@@ -34,6 +34,10 @@ class CandidatesListState extends StateNotifier<List<String>> with ListState {
 
   late StreamSubscription _subscription;
 
+  get set => itemsService.setCandidates;
+  get deleteCandidate => itemsService.deleteCandidate;
+  get approveCandidate => itemsService.approveCandidate;
+
   @override
   subscribe() {
     _subscription = itemsService.candidatesStream.listen((event) {
@@ -46,9 +50,5 @@ class CandidatesListState extends StateNotifier<List<String>> with ListState {
   @override
   unsubscribe() {
     _subscription.cancel();
-  }
-
-  set(List<String> list) {
-    itemsService.setCandidates(list);
   }
 }

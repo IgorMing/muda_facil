@@ -22,9 +22,9 @@ class ItemsService {
 
   checkCandidates(List<String> items) async {
     final listCollection = await _collection.doc('list').get();
-    final list = listCollection.data()!;
+    final list = listCollection.data()!.data;
 
-    final difference = items.toSet().difference(list.data.toSet());
+    final difference = items.toSet().difference(list.toSet());
 
     final candidatesCollection = await _collection.doc('candidates').get();
     final AutocompleteList candidates = candidatesCollection.data()!;
@@ -33,7 +33,24 @@ class ItemsService {
     await _collection.doc('candidates').set(candidates);
   }
 
-  setCandidates(List<String> candidates) {
-    _collection.doc('candidates').set(AutocompleteList.fromList(candidates));
+  setCandidates(List<String> value) {
+    _collection.doc('candidates').set(AutocompleteList.fromList(value));
+  }
+
+  deleteCandidate(String value) async {
+    final candidatesCollection = await _collection.doc('candidates').get();
+    final list = candidatesCollection.data()!.data;
+    list.remove(value);
+
+    await _collection.doc('candidates').set(AutocompleteList.fromList(list));
+  }
+
+  approveCandidate(String value) async {
+    final listCollection = await _collection.doc('list').get();
+    final list = listCollection.data()!.data;
+    list.add(value);
+
+    await deleteCandidate(value);
+    await _collection.doc('list').set(AutocompleteList.fromList(list));
   }
 }

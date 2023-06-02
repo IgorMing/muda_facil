@@ -31,12 +31,13 @@ class UIUtils {
 
   void showAlertDialog({
     required String text,
-    required Function(bool v) onSelect,
+    required Function(bool confirmed) onSelect,
+    String title = 'Tem certeza?',
   }) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Tem certeza?'),
+        title: Text(title),
         content: Text(text),
         actions: [
           TextButton(
