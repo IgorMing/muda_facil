@@ -57,12 +57,16 @@ class OrderCard extends ConsumerWidget {
             children: [
               Align(
                 alignment: Alignment.centerRight,
-                child: Text(
-                  getOrderStatusLabelByEnumName(status.name),
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                      height: 1.5,
-                      backgroundColor:
-                          _getColorByStatus(context, status: status)),
+                child: Container(
+                  padding: const EdgeInsets.all(kDefaultPadding / 4),
+                  color: _getColorByStatus(context, status: status),
+                  child: Text(
+                    getOrderStatusLabelByEnumName(status.name),
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          height: 1.5,
+                          color: Theme.of(context).colorScheme.onPrimary,
+                        ),
+                  ),
                 ),
               ),
               const SizedBox(height: kDefaultPadding / 2),
