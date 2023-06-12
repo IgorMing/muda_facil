@@ -4,11 +4,13 @@ import 'package:muda_facil/firebase_options.dart';
 import 'package:muda_facil/src/app.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 void main() async {
   final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseAnalytics.instance.logAppOpen();
   runApp(ProviderScope(
     observers: [Logger()],
     child: const App(),
@@ -23,6 +25,11 @@ class Logger extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
+    FirebaseAnalytics.instance.logEvent(
+      name: 'state_changed',
+      parameters: {"old": previousValue, "new": newValue},
+    );
+
     print('''
 {
   "provider": "${provider.name ?? provider.runtimeType}",

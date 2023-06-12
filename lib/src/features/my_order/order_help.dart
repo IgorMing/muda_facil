@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 
@@ -14,6 +15,7 @@ class OrderHelp extends StatelessWidget {
     return Center(
       child: TextButton(
         onPressed: () {
+          FirebaseAnalytics.instance.logEvent(name: 'needs_help');
           UIUtils.of(context).showInputDialog(
             confirmButtonText: 'Enviar',
             onSave: onSave,

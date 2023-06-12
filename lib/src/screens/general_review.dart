@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/user_order.dart';
@@ -66,6 +67,8 @@ class GeneralReviewScreen extends ConsumerWidget {
                         'Ao confirmar, iremos buscar alguém para fazer este frete. Revise com atenção todas as informações adicionadas.',
                     onSelect: (selected) {
                       if (selected) {
+                        FirebaseAnalytics.instance
+                            .logEvent(name: 'order_sent_by_user');
                         UIUtils.of(context).showLoaderDialog(() {
                           actions.setStatus(OrderStatus.waitingDriver);
                         });

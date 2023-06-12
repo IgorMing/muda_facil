@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/screens/addresses.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 class NoOrderInfo extends StatelessWidget {
   const NoOrderInfo({
@@ -18,9 +19,10 @@ class NoOrderInfo extends StatelessWidget {
             height: kDefaultPadding,
           ),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (context) => const AddressesScreen()));
+              await FirebaseAnalytics.instance.logEvent(name: 'create_order');
             },
             child: const Text('Iniciar mudança'),
           )

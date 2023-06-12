@@ -4,6 +4,7 @@ import 'package:muda_facil/src/features/items/items.providers.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/items/items_admin.screen.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
+import 'package:muda_facil/src/features/orders/orders.providers.dart';
 import 'package:muda_facil/src/features/orders/orders.screen.dart';
 import 'package:muda_facil/src/features/orders/widgets/badge_card.dart';
 import 'package:muda_facil/src/screens/error.dart';
@@ -69,7 +70,7 @@ class _AdminHomeState extends ConsumerState<AdminHome> {
                     builder: (context) => const ItemsAdminScreen(),
                   ));
                 },
-                label: 'Novos itens',
+                label: 'Itens inéditos',
                 description:
                     'Itens que entraram em algum pedido, e não estão disponíveis no auto complete do usuário',
                 value: data["items"],
