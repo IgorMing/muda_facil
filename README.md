@@ -68,9 +68,15 @@ App for learning flutter _(and maybe become a solution for house moving)_
   - [x] approve
   - [x] remove
 
-- [ ] configure analytics
+- [x] configure analytics
 
-- [ ] apply new UI for the user order _(following draw.io' design)_
+- [x] _(admin feat)_ create screen to follow orders with help needed _(no action on it right now)_
+
+- [x] apply new UI for the user order _(following draw.io' design)_
+
+- [ ] _(improvement)_ on user's items' screen, close the keyboard everytime that might be convenient
+
+- [ ] integrate google places auto complete for addresses
 
 ## Less priority TODOs
 

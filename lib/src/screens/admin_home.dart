@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/features/items/items.providers.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/items/items_admin.screen.dart';
+import 'package:muda_facil/src/features/orders/needing_help.screen.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/orders.providers.dart';
 import 'package:muda_facil/src/features/orders/orders.screen.dart';
@@ -76,10 +77,16 @@ class _AdminHomeState extends ConsumerState<AdminHome> {
                 value: data["items"],
               ),
               const SizedBox(height: kDefaultPadding),
-              const BadgeCard(
+              BadgeCard(
+                onPress: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const NeedingHelpScreen(),
+                  ));
+                },
                 label: 'Pedidos de ajuda',
                 description:
                     'Pedidos que estão com pendência de retorno de ajuda',
+                value: data["helpNeeded"],
               ),
             ],
           ),

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:muda_facil/src/models/item.dart';
+import 'package:muda_facil/src/models/user_model.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 part 'moving_order.freezed.dart';
 part 'moving_order.g.dart';
@@ -8,8 +9,9 @@ part 'moving_order.g.dart';
 class MovingOrderWithRef {
   final MovingOrder order;
   final DocumentReference<MovingOrder> ref;
+  UserModel? user;
 
-  MovingOrderWithRef({required this.order, required this.ref});
+  MovingOrderWithRef({required this.order, required this.ref, this.user});
 }
 
 @freezed

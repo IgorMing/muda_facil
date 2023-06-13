@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+import 'package:muda_facil/src/utils/general.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/checkable_button.dart';
 
@@ -34,7 +35,7 @@ class OrderWaitingApproval extends StatelessWidget {
             ),
             const SizedBox(height: kDefaultPadding / 2),
             Text(driverName),
-            Text('R\$ ${budgetValue.toInt()}'),
+            Text(GeneralUtils.getCurrencyFormat(budgetValue)),
             const SizedBox(height: kDefaultPadding),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

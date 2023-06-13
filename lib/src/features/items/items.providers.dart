@@ -1,15 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
+import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/orders.providers.dart';
-import 'package:muda_facil/src/utils/constants.dart';
 
 final ordersPendingCountProvider = Provider<int>((ref) {
   final orders = ref.watch(ordersProvider);
   return orders
-      .where((element) =>
-          element.order.status == OrderStatus.waitingDriver ||
-          element.order.status == OrderStatus.waitingPayment)
+      .where((element) => isStatusInterable(element.order.status))
       .length;
 });
 

@@ -26,6 +26,10 @@ class AppUser extends StateNotifier<UserModel?> {
     _subscription.cancel();
   }
 
+  Future<UserModel?> getUser(String id) {
+    return authService.getUserInfo(uid: id);
+  }
+
   Future<void> signIn(String email, String password) {
     return authService.signInByEmailAndPassword(email, password);
   }

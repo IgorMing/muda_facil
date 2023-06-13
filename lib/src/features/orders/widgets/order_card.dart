@@ -3,14 +3,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
 class OrderCard extends ConsumerWidget {
-  const OrderCard(
-      {super.key,
-      required this.clickable,
-      required this.content,
-      required this.onTap});
+  const OrderCard({
+    super.key,
+    required this.clickable,
+    required this.content,
+    this.onTap,
+  });
 
   final bool clickable;
-  final Function() onTap;
+  final Function()? onTap;
   final Widget content;
 
   @override
@@ -20,8 +21,8 @@ class OrderCard extends ConsumerWidget {
       child: InkWell(
         splashColor: Theme.of(context).colorScheme.primary,
         onTap: () {
-          if (!clickable) return;
-          onTap();
+          if (!clickable || onTap == null) return;
+          onTap!();
         },
         customBorder: _roundedRectangleBorder,
         child: Padding(

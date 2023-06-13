@@ -24,4 +24,8 @@ class GeneralUtils {
 
     return strItems.substring(0, strItems.length - 2);
   }
+
+  static String getCurrencyFormat(double value) {
+    return 'R\$ ${value.toInt()}';
+  }
 }

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/features/orders/orders.service.dart';
+import 'package:muda_facil/src/utils/constants.dart';
 
 class Orders extends StateNotifier<List<MovingOrderWithRef>> {
   final ordersService = OrdersService();
@@ -33,6 +34,13 @@ class Orders extends StateNotifier<List<MovingOrderWithRef>> {
   }
 
   void confirmPayment(DocumentReference<MovingOrder> ref) {
-    ordersService.confirmPayment(ref);
+    ordersService.setStatus(ref, OrderStatus.approved);
   }
+}
+
+bool isStatusInterable(OrderStatus status) {
+  return status == OrderStatus.waitingDriver ||
+      status == OrderStatus.waitingPayment ||
+      status == OrderStatus.declined ||
+      status == OrderStatus.helpNeeded;
 }

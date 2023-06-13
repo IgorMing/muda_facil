@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/widgets/order_card.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/dialogs.dart';
 import 'package:muda_facil/src/utils/general.dart';
+import 'package:muda_facil/src/widgets/icon_row.dart';
 
 class PendingOrderCard extends ConsumerWidget {
   const PendingOrderCard({
@@ -27,8 +29,7 @@ class PendingOrderCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return OrderCard(
-        clickable: status == OrderStatus.waitingDriver ||
-            status == OrderStatus.waitingPayment,
+        clickable: isStatusInterable(status),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -49,12 +50,12 @@ class PendingOrderCard extends ConsumerWidget {
             const SizedBox(
               height: kDefaultPadding,
             ),
-            AddressRow(
+            IconRow(
               iconData: Icons.home_filled,
               text: order.originAddress!,
             ),
             const Divider(),
-            AddressRow(
+            IconRow(
                 iconData: Icons.location_on_outlined,
                 text: order.destinyAddress!),
             const SizedBox(
@@ -77,48 +78,16 @@ class PendingOrderCard extends ConsumerWidget {
         onTap: () {
           showDialog(
             context: context,
-            builder: (context) => status == OrderStatus.waitingDriver
-                ? Dialogs.getBugetInfoDialog(
-                    context,
-                    onSave: onSave,
-                  )
-                : Dialogs.getConfirmDialog(
+            builder: (context) => status == OrderStatus.waitingPayment
+                ? Dialogs.getConfirmDialog(
                     context,
                     onConfirm: onConfirm,
+                  )
+                : Dialogs.getBugetInfoDialog(
+                    context,
+                    onSave: onSave,
                   ),
           );
         });
-  }
-}
-
-class AddressRow extends StatelessWidget {
-  const AddressRow({
-    super.key,
-    required this.text,
-    required this.iconData,
-  });
-
-  final String text;
-  final IconData iconData;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Icon(
-          iconData,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(
-          width: kDefaultPadding / 2,
-        ),
-        Flexible(
-          child: Text(
-            text,
-            style: Theme.of(context).textTheme.bodySmall,
-          ),
-        ),
-      ],
-    );
   }
 }

@@ -82,7 +82,8 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   get canDeleteOrder =>
       state?.status == OrderStatus.pending ||
-      state?.status == OrderStatus.helpNeeded;
+      state?.status == OrderStatus.helpNeeded ||
+      state?.status == OrderStatus.declined;
 
   get canShowEditButtons => state?.status == OrderStatus.pending;
 }
