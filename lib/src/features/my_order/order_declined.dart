@@ -14,14 +14,13 @@ class OrderDeclined extends StatelessWidget {
     final TextStyle textStyle = Theme.of(context).textTheme.bodyMedium!;
 
     return Padding(
-      padding: const EdgeInsets.all(kDefaultPadding),
+      padding: const EdgeInsets.only(
+        top: kDefaultPadding * 2,
+        bottom: kDefaultPadding,
+      ),
       child: RichText(
         text: TextSpan(
           children: [
-            TextSpan(
-              text: 'Orçamento recusado.\n\n',
-              style: textStyle,
-            ),
             TextSpan(
                 text: 'Motivo: ',
                 style: textStyle.copyWith(fontWeight: FontWeight.bold)),

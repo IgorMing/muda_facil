@@ -11,7 +11,9 @@ final pendingAdminActionOrdersProvider =
     Provider<List<MovingOrderWithRef>>((ref) {
   final orders = ref.watch(ordersProvider);
   return orders
-      .where((element) => isStatusInterable(element.order.status))
+      .where((element) =>
+          element.order.status == OrderStatus.waitingDriver ||
+          element.order.status == OrderStatus.waitingPayment)
       .toList();
 });
 
