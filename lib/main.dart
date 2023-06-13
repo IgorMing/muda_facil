@@ -27,7 +27,7 @@ class Logger extends ProviderObserver {
   ) {
     FirebaseAnalytics.instance.logEvent(
       name: 'state_changed',
-      parameters: {"old": previousValue, "new": newValue},
+      parameters: {"old": previousValue.toString(), "new": newValue.toString()},
     );
 
     print('''
