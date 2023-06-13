@@ -36,6 +36,3 @@ class Orders extends StateNotifier<List<MovingOrderWithRef>> {
     ordersService.confirmPayment(ref);
   }
 }
-
-final ordersProvider =
-    StateNotifierProvider<Orders, List<MovingOrderWithRef>>((ref) => Orders());

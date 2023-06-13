@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
-import 'package:muda_facil/src/features/orders/orders.bloc.dart';
+import 'package:muda_facil/src/features/orders/orders.providers.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
 final ordersPendingCountProvider = Provider<int>((ref) {
@@ -20,10 +20,12 @@ final candidatesCountProvider = Provider<int>((ref) {
 final adminPendingCountProvider = FutureProvider<Map<String, int>>((ref) {
   final ordersCount = ref.watch(ordersPendingCountProvider);
   final candidatesCount = ref.watch(candidatesCountProvider);
+  final helpNeededCount = ref.watch(ordersNeedingHelpCountProvider);
 
   return {
     "orders": ordersCount,
     "items": candidatesCount,
+    "helpNeeded": helpNeededCount,
   };
 });
 

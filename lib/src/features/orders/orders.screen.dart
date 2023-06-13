@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/features/orders/orders.bloc.dart';
-import 'package:muda_facil/src/features/orders/widgets/order_card.dart';
+import 'package:muda_facil/src/features/orders/orders.providers.dart';
+import 'package:muda_facil/src/features/orders/widgets/pending_order_card.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 
@@ -10,7 +10,7 @@ class OrdersScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final orders = ref.watch(ordersProvider);
+    final orders = ref.watch(pendingAdminActionOrdersProvider);
     final notifier = ref.read(ordersProvider.notifier);
 
     return Scaffold(
@@ -43,22 +43,21 @@ class OrdersScreen extends ConsumerWidget {
             itemCount: orders.length,
             itemBuilder: (context, index) {
               final orderModel = orders[index];
-              return OrderCard(
-                status: orderModel.order.status,
-                order: orderModel.order,
-                onConfirm: () => notifier.confirmPayment(orderModel.ref),
-                onSave: (
-                    {required budgetValue,
-                    required driverName,
-                    required pixCode}) {
-                  notifier.setBudget(
-                    orderModel.ref,
-                    value: budgetValue,
-                    driver: driverName,
-                    pixCode: pixCode,
-                  );
-                },
-              );
+              return PendingOrderCard(
+                  order: orderModel.order,
+                  onSave: (
+                      {required budgetValue,
+                      required driverName,
+                      required pixCode}) {
+                    notifier.setBudget(
+                      orderModel.ref,
+                      value: budgetValue,
+                      driver: driverName,
+                      pixCode: pixCode,
+                    );
+                  },
+                  onConfirm: () => notifier.confirmPayment(orderModel.ref),
+                  status: orderModel.order.status);
             },
           ),
         ),
