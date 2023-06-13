@@ -54,12 +54,22 @@ class PendingOrderCard extends ConsumerWidget {
               iconData: Icons.home_filled,
               text: order.originAddress!,
             ),
-            const Divider(),
+            const SizedBox(
+              height: kDefaultPadding / 2,
+            ),
             IconRow(
                 iconData: Icons.location_on_outlined,
                 text: order.destinyAddress!),
             const SizedBox(
-              height: kDefaultPadding,
+              height: kDefaultPadding / 2,
+            ),
+            IconRow(
+              iconData: Icons.monetization_on_outlined,
+              text: GeneralUtils.getCurrencyFormat(order.budgetValue ?? 0),
+            ),
+            const Divider(),
+            const SizedBox(
+              height: kDefaultPadding / 2,
             ),
             if (order.movingDate != null)
               Align(

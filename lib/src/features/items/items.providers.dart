@@ -1,15 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/manage_items.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
-import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/features/orders/orders.providers.dart';
-
-final ordersPendingCountProvider = Provider<int>((ref) {
-  final orders = ref.watch(ordersProvider);
-  return orders
-      .where((element) => isStatusInterable(element.order.status))
-      .length;
-});
 
 final candidatesCountProvider = Provider<int>((ref) {
   return ref.watch(candidatesListStateProvider).length;
