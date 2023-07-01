@@ -2,6 +2,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/screens/reset_password.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
 import 'package:muda_facil/src/utils/ui.dart';
@@ -12,6 +13,7 @@ class AuthLayout extends StatefulWidget {
   final Widget? extra;
   final bool? hidePasswordField;
   final bool? hasSuccessSnackbar;
+  final bool hasForgotPassButton;
 
   const AuthLayout({
     super.key,
@@ -20,6 +22,7 @@ class AuthLayout extends StatefulWidget {
     this.extra,
     this.hidePasswordField,
     this.hasSuccessSnackbar,
+    this.hasForgotPassButton = false,
   });
 
   @override
@@ -52,105 +55,146 @@ class _AuthLayoutState extends State<AuthLayout> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(
-        horizontal: kDefaultPadding,
-      ),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            UIUtils.of(context).isDarkmode()
-                ? Colors.blueGrey
-                : Theme.of(context).colorScheme.primary,
-            Colors.white,
-          ],
+    final Size size = MediaQuery.of(context).size;
+    const double radius = 30.0;
+
+    return Stack(
+      children: [
+        Container(
+          color: kPrimaryColor,
+          height: double.infinity,
         ),
-      ),
-      child: SafeArea(
-        child: Form(
-          key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          child: Column(
-            children: [
-              const SizedBox(height: kDefaultPadding * 4),
-              TextFormField(
-                controller: _emailController,
-                autocorrect: false,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                decoration: const InputDecoration(
-                  labelText: 'Email',
-                ),
-                validator: (String? value) {
-                  if (value!.isEmpty) {
-                    return 'The email is empty';
-                  }
-
-                  if (!EmailValidator.validate(value)) {
-                    return 'Invalid email address';
-                  }
-
-                  return null;
-                },
+        Positioned(
+          bottom: 0,
+          child: Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: kDefaultPadding * 1.5,
+              vertical: kDefaultPadding,
+            ),
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(radius),
+                topRight: Radius.circular(radius),
               ),
-              Visibility(
-                visible: !(widget.hidePasswordField == true),
-                child: TextFormField(
-                  controller: _passwordController,
-                  textInputAction: TextInputAction.done,
-                  decoration: InputDecoration(
-                    labelText: 'Password',
-                    suffixIcon: AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 500),
-                      child: IconButton(
-                        icon: Icon(
-                          _visiblePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+              color: Colors.white,
+            ),
+            width: size.width,
+            child: Form(
+              key: _formKey,
+              autovalidateMode: AutovalidateMode.onUserInteraction,
+              child: Column(
+                children: [
+                  const SizedBox(height: kDefaultPadding * 2),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Login',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: kPrimaryColor)),
+                  ),
+                  const SizedBox(height: kDefaultPadding),
+                  TextFormField(
+                    controller: _emailController,
+                    autocorrect: false,
+                    keyboardType: TextInputType.emailAddress,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      labelText: 'Email',
+                    ),
+                    validator: (String? value) {
+                      if (value!.isEmpty) {
+                        return 'O email está vazio';
+                      }
+
+                      if (!EmailValidator.validate(value)) {
+                        return 'Email inválido';
+                      }
+
+                      return null;
+                    },
+                  ),
+                  Visibility(
+                    visible: !(widget.hidePasswordField == true),
+                    child: TextFormField(
+                      controller: _passwordController,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        labelText: 'Senha',
+                        suffixIcon: AnimatedSwitcher(
+                          duration: const Duration(milliseconds: 500),
+                          child: IconButton(
+                            icon: Icon(
+                              _visiblePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _visiblePassword = !_visiblePassword;
+                              });
+                            },
+                            key: ValueKey<bool>(_visiblePassword),
+                          ),
                         ),
-                        onPressed: () {
-                          setState(() {
-                            _visiblePassword = !_visiblePassword;
-                          });
+                      ),
+                      obscureText: !_visiblePassword,
+                      validator: (value) {
+                        if (value!.isEmpty) {
+                          return 'A senha está vazia';
+                        }
+
+                        if (!value.isValidPassword) {
+                          return 'A senha tem que ter pelo menos 6 caracteres';
+                        }
+
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(height: kDefaultPadding / 1.5),
+                  Visibility(
+                    visible: widget.hasForgotPassButton,
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: GestureDetector(
+                        onTap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => const ResetPasswordScreen(),
+                            ),
+                          );
                         },
-                        key: ValueKey<bool>(_visiblePassword),
+                        child: Text(
+                          'Esqueceu sua senha?',
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium!
+                              .copyWith(color: kPrimaryColor),
+                        ),
                       ),
                     ),
                   ),
-                  obscureText: !_visiblePassword,
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'The password is empty';
-                    }
-
-                    if (!value.isValidPassword) {
-                      return 'The password must have at least 6 characters';
-                    }
-
-                    return null;
-                  },
-                ),
+                  const SizedBox(height: kDefaultPadding),
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      if (_formKey.currentState!.validate()) {
+                        onPressButton();
+                      }
+                    },
+                    label: Text(widget.buttonText),
+                    icon: const Icon(
+                      Icons.lock_open,
+                    ),
+                  ),
+                  const SizedBox(height: kDefaultPadding),
+                  widget.extra ?? const SizedBox(),
+                ],
               ),
-              const SizedBox(height: kDefaultPadding),
-              ElevatedButton.icon(
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    onPressButton();
-                  }
-                },
-                label: Text(widget.buttonText),
-                icon: const Icon(
-                  Icons.lock_open,
-                ),
-              ),
-              const SizedBox(height: kDefaultPadding),
-              widget.extra ?? const SizedBox(),
-            ],
+            ),
           ),
         ),
-      ),
+      ],
     );
   }
 

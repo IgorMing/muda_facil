@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
-import 'package:muda_facil/src/screens/reset_password.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
@@ -27,30 +26,32 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
+        hasForgotPassButton: true,
         onPress: (email, password) async {
           await notifier.signIn(email, password);
         },
-        buttonText: 'Log in',
+        buttonText: 'Entrar',
         extra: Column(
           children: [
             LinkText(
               onTap: widget.onClickedSignUp,
-              message: 'Não tem cadastro???',
+              message: 'Não tem cadastro?',
               link: 'Crie agora',
             ),
-            GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ResetPasswordScreen(),
-                  ),
-                );
-              },
-              child: Text(
-                'Forgot your password?',
-                style: Theme.of(context).textTheme.bodyMedium!,
-              ),
-            )
+            // GestureDetector(
+            //   onTap: () {
+            //     Navigator.of(context).push(
+            //       MaterialPageRoute(
+            //         builder: (context) => const ResetPasswordScreen(),
+            //       ),
+            //     );
+            //   },
+            //   child: Text(
+            //     'Esqueceu sua senha?',
+            //     style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+            //         decoration: TextDecoration.underline, color: kPrimaryColor),
+            //   ),
+            // )
           ],
         ),
       ),
