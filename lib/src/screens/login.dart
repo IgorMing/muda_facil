@@ -35,8 +35,8 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
           children: [
             LinkText(
               onTap: widget.onClickedSignUp,
-              message: 'No Account?',
-              link: 'Sign Up',
+              message: 'Não tem cadastro???',
+              link: 'Crie agora',
             ),
             GestureDetector(
               onTap: () {

@@ -95,10 +95,9 @@ flutter:
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
   color: "#364F93"
-  background_image: "assets/splash.png"
-  branding: "assets/splash.png"
+  image: assets/icon.png
+
   android_12:
-    background_image: "assets/splash.png"
     icon_background_color: "#364F93"
 
   android: true

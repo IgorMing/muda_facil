@@ -1,5 +1,6 @@
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/string_api.dart';
@@ -34,8 +35,8 @@ class _AuthLayoutState extends State<AuthLayout> {
 
   @override
   void initState() {
-    _emailController.text = 'igor.ming@gmail.com';
-    _passwordController.text = 'Igor1993';
+    _emailController.text = kDebugMode ? 'igor.ming@gmail.com' : '';
+    _passwordController.text = kDebugMode ? 'Igor1993' : '';
     _visiblePassword = false;
 
     super.initState();
