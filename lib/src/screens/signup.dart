@@ -16,11 +16,11 @@ class SignupScreen extends ConsumerWidget {
         title: 'Criar conta',
         onPress: (String email, String password) =>
             ref.read(appUserProvider.notifier).signUp(email, password),
-        buttonText: 'Create account',
+        buttonText: 'Criar conta',
         extra: LinkText(
           onTap: onClickedSignIn,
-          message: 'Already have an account?',
-          link: 'Sign In',
+          message: 'Já tem uma conta?',
+          link: 'Login',
         ),
       ),
     );
