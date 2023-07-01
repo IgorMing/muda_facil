@@ -46,7 +46,7 @@ dependencies:
   flutter_riverpod: ^2.2.0
   freezed_annotation: ^2.2.0
   google_fonts: ^4.0.1
-  intl: 0.17.0
+  intl: 0.18.0
   json_annotation: ^4.8.0
   mask_text_input_formatter: ^2.4.0
 
@@ -94,9 +94,12 @@ flutter:
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 flutter_native_splash:
-  color: "#375094"
-  background_image: "assets/appstore.png"
+  color: "#364F93"
+  background_image: "assets/splash.png"
+  branding: "assets/splash.png"
   android_12:
-    background_image: "assets/appstore.png"
+    background_image: "assets/splash.png"
+    icon_background_color: "#364F93"
+
   android: true
   ios: true
