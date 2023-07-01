@@ -10,6 +10,7 @@ import 'package:muda_facil/src/utils/ui.dart';
 class AuthLayout extends StatefulWidget {
   final Function onPress;
   final String buttonText;
+  final String title;
   final Widget? extra;
   final bool? hidePasswordField;
   final bool? hasSuccessSnackbar;
@@ -23,6 +24,7 @@ class AuthLayout extends StatefulWidget {
     this.hidePasswordField,
     this.hasSuccessSnackbar,
     this.hasForgotPassButton = false,
+    required this.title,
   });
 
   @override
@@ -87,7 +89,7 @@ class _AuthLayoutState extends State<AuthLayout> {
                   const SizedBox(height: kDefaultPadding * 2),
                   Align(
                     alignment: Alignment.centerLeft,
-                    child: Text('Login',
+                    child: Text(widget.title,
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!

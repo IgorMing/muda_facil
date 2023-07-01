@@ -26,6 +26,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: AuthLayout(
+        title: 'Login',
         hasForgotPassButton: true,
         onPress: (email, password) async {
           await notifier.signIn(email, password);
