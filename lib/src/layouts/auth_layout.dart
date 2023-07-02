@@ -201,27 +201,17 @@ class _AuthLayoutState extends State<AuthLayout> {
   }
 
   Future onPressButton() async {
-    bool hasError = false;
-
-    UIUtils.of(context).showLoaderDialog(() async {
-      try {
-        if (_formKey.currentState!.validate()) {
-          await widget.onPress(
-            _emailController.text.trim(),
-            _passwordController.text.trim(),
-          );
-        }
-      } on FirebaseAuthException catch (err) {
-        hasError = true;
-        UIUtils.of(context).showSnackBar(err.message ?? kDefaultErrorMessage);
-      } finally {
-        if (widget.hasSuccessSnackbar == true && !hasError) {
-          UIUtils.of(context).showSnackBar(
-            'Um email foi enviado para resetar sua senha',
-            success: true,
-          );
-        }
+    try {
+      if (_formKey.currentState!.validate()) {
+        await widget.onPress(
+          _emailController.text.trim(),
+          _passwordController.text.trim(),
+        );
       }
-    });
+    } on FirebaseAuthException catch (err) {
+      UIUtils.of(context).showSnackBar(err.message ?? kDefaultErrorMessage);
+    } on Exception {
+      UIUtils.of(context).showSnackBar(kDefaultErrorMessage);
+    }
   }
 }
