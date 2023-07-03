@@ -127,7 +127,7 @@ class _OrderPendingState extends State<OrderPending> {
             } else {
               final selectedDate = await showDatePicker(
                 context: context,
-                initialDate: now,
+                initialDate: widget.order.movingDate ?? now,
                 firstDate: now,
                 lastDate: DateTime(now.year + 1),
               );
