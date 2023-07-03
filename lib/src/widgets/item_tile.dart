@@ -32,7 +32,7 @@ class ItemTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Flexible(
-              flex: 2,
+              flex: 4,
               child: Text(
                 "( ${data.amount} ) ${data.name} ",
                 style: Theme.of(context).textTheme.titleMedium,
@@ -41,6 +41,7 @@ class ItemTile extends StatelessWidget {
               ),
             ),
             Flexible(
+              flex: 3,
               child: ItemCounter(
                 onMinus: onMinus,
                 onPlus: onPlus,
