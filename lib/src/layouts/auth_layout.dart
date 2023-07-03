@@ -14,6 +14,7 @@ class AuthLayout extends StatefulWidget {
   final Widget? extra;
   final bool? hidePasswordField;
   final bool? hasSuccessSnackbar;
+  final bool hasLogo;
   final bool hasForgotPassButton;
 
   const AuthLayout({
@@ -25,6 +26,7 @@ class AuthLayout extends StatefulWidget {
     this.hasSuccessSnackbar,
     this.hasForgotPassButton = false,
     required this.title,
+    this.hasLogo = true,
   });
 
   @override
@@ -63,8 +65,17 @@ class _AuthLayoutState extends State<AuthLayout> {
     return Stack(
       children: [
         Container(
-          color: kPrimaryColor,
           height: double.infinity,
+          decoration: BoxDecoration(
+            color: kPrimaryColor,
+            image: widget.hasLogo
+                ? const DecorationImage(
+                    image: AssetImage('assets/icon.png'),
+                    fit: BoxFit.contain,
+                    alignment: Alignment.topCenter,
+                  )
+                : null,
+          ),
         ),
         Positioned(
           bottom: 0,

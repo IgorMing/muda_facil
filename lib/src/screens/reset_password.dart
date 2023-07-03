@@ -12,6 +12,7 @@ class ResetPasswordScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(),
       body: AuthLayout(
+        hasLogo: false,
         title: 'Redefinir senha',
         onPress: (email, _) {
           ref.read(appUserProvider.notifier).resetPassword(email);
