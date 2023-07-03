@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/features/items/items.service.dart';
 
@@ -24,8 +25,8 @@ class AutocompleteListState extends StateNotifier<List<String>> with ListState {
   }
 
   @override
-  unsubscribe() {
-    _subscription.cancel();
+  Future<void> unsubscribe() {
+    return _subscription.cancel();
   }
 }
 

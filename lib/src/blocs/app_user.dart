@@ -61,6 +61,5 @@ class AppUser extends StateNotifier<UserModel?> {
   }
 }
 
-// FIXME: check all places that call this provider, and condition it to be called being logged in
 final appUserProvider =
     StateNotifierProvider<AppUser, UserModel?>((ref) => AppUser(ref));

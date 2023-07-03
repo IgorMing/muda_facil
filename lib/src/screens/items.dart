@@ -46,7 +46,7 @@ class ItemsScreen extends ConsumerWidget {
                 TextField(
                   autofocus: true,
                   textCapitalization: TextCapitalization.sentences,
-                  controller: fieldTextEditingController,
+                  controller: textEditingController,
                   focusNode: fieldFocusNode,
                   decoration: const InputDecoration(
                       suffixIcon: Icon(Icons.search),
