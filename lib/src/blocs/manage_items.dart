@@ -4,9 +4,6 @@ import 'package:muda_facil/src/models/item.dart';
 
 class ManageItems extends StateNotifier<List<Item>> {
   ManageItems() : super([]);
-  ManageItems.withList(List<Item> list) : super(list) {
-    state = list;
-  }
 
   bool get isSingle => false;
 
@@ -75,12 +72,12 @@ class ManageItems extends StateNotifier<List<Item>> {
   }
 }
 
-final manageItemsProvider =
-    StateNotifierProvider<ManageItems, List<Item>>((ref) {
-  final userOrder = ref.watch(userOrderOrNullProvider);
-  final userOrderItems = userOrder?.items;
+final manageItemsStateProvider =
+    StateNotifierProvider<ManageItems, List<Item>>((ref) => ManageItems());
 
-  return userOrderItems == null
-      ? ManageItems()
-      : ManageItems.withList(userOrderItems);
+final manageItemsProvider = Provider<List<Item>>((ref) {
+  final userOrder = ref.read(userOrderOrNullProvider);
+  final state = ref.watch(manageItemsStateProvider);
+
+  return List.from(state)..addAll(userOrder?.items ?? []);
 });

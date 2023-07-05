@@ -18,6 +18,7 @@ class AppUser extends StateNotifier<UserModel?> {
 
   void subscribe() {
     _subscription = authService.onUserChanges.listen((event) {
+      _ref.invalidate(userOrderOrNullProvider);
       state = event;
     });
   }
@@ -43,10 +44,10 @@ class AppUser extends StateNotifier<UserModel?> {
   }
 
   Future<void> signOut() async {
+    _ref.invalidate(appUserProvider);
+
     await _ref.read(userOrderOrNullProvider.notifier).cancelSubscription();
     await _subscription.cancel();
-    _ref.invalidate(userOrderOrNullProvider);
-    _ref.invalidate(appUserProvider);
 
     return await authService.signOut();
   }

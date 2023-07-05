@@ -28,7 +28,6 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
 
   @override
   void dispose() {
-    appUserNotifier.unsubscribe();
     autocompleteNotifier.unsubscribe();
     super.dispose();
   }

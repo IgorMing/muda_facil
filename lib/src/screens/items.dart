@@ -13,7 +13,7 @@ class ItemsScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     late final TextEditingController textEditingController;
     final items = ref.watch(manageItemsProvider);
-    final manageItemsActions = ref.read(manageItemsProvider.notifier);
+    final manageItemsActions = ref.read(manageItemsStateProvider.notifier);
     final filtered = ref.watch(filteredItemsProvider);
 
     return Scaffold(
@@ -128,7 +128,7 @@ class ItemsScreen extends ConsumerWidget {
                 );
               },
             ),
-          )
+          ),
         ],
       ),
     );

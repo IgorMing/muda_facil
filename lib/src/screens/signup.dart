@@ -20,7 +20,7 @@ class SignupScreen extends ConsumerWidget {
         extra: LinkText(
           onTap: onClickedSignIn,
           message: 'Já tem uma conta?',
-          link: 'Login',
+          link: 'Entre',
         ),
       ),
     );
