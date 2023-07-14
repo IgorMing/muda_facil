@@ -1,4 +1,4 @@
-package com.example.muda_facil
+package com.app.muda_facil
 
 import io.flutter.embedding.android.FlutterActivity
 
