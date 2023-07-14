@@ -5,6 +5,7 @@ import 'package:muda_facil/src/features/items/items.providers.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/screens/bottom_navigation.dart';
+import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
 class Authenticated extends ConsumerStatefulWidget {
   const Authenticated({super.key});
@@ -36,7 +37,13 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
   Widget build(BuildContext context) {
     final appUser = ref.watch(appUserProvider);
 
-    if (appUser != null && appUser.onboardingCompleted) {
+    if (appUser == null) {
+      return const Scaffold(
+        body: LoadingAdaptive(),
+      );
+    }
+
+    if (appUser.onboardingCompleted) {
       return BottomNavigation(appUser);
     } else {
       return const OnboardingScreen();

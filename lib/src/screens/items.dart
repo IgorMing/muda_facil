@@ -83,8 +83,8 @@ class ItemsScreen extends ConsumerWidget {
               );
             },
             onSelected: (selected) {
-              manageItemsActions.plus(selected);
               textEditingController.clear();
+              manageItemsActions.plus(selected);
             },
           ),
           Expanded(

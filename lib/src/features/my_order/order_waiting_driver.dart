@@ -7,10 +7,10 @@ class OrderWaitingDriver extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(kDefaultPadding * 1),
+    return const Padding(
+      padding: EdgeInsets.all(kDefaultPadding),
       child: Column(
-        children: const [
+        children: [
           Text(
               'Prontinho! Basta aguardar nossa equipe encontrar o frete ideal pra você.'),
           SizedBox(

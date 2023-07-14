@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:muda_facil/src/features/items/models/autocomplete_list.dart';
 
 class ItemsService {
@@ -24,13 +25,21 @@ class ItemsService {
     final listCollection = await _collection.doc('list').get();
     final list = listCollection.data()!.data;
 
-    final difference = items.toSet().difference(list.toSet());
+    final Set<String> difference = items.toSet().difference(list.toSet());
 
-    final candidatesCollection = await _collection.doc('candidates').get();
-    final AutocompleteList candidates = candidatesCollection.data()!;
+    if (difference.isNotEmpty) {
+      final candidatesCollection = await _collection.doc('candidates').get();
+      final AutocompleteList candidates = candidatesCollection.data()!;
 
-    candidates.data.addAll(difference);
-    await _collection.doc('candidates').set(candidates);
+      candidates.data.addAll(difference);
+      await _collection.doc('candidates').set(candidates);
+      await FirebaseAnalytics.instance.logEvent(
+          name: 'new_candidate_items',
+          parameters: {
+            "amount": difference.length,
+            "data": difference.toString()
+          });
+    }
   }
 
   setCandidates(List<String> value) {

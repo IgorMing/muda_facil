@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:muda_facil/src/utils/constants.dart';
 
 class LoadingAdaptive extends StatelessWidget {
   const LoadingAdaptive({super.key});
@@ -7,9 +6,7 @@ class LoadingAdaptive extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: CircularProgressIndicator.adaptive(
-        strokeWidth: kDefaultPadding,
-      ),
+      child: CircularProgressIndicator.adaptive(),
     );
   }
 }
