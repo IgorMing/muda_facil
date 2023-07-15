@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/features/items/items.service.dart';
 import 'package:muda_facil/src/models/item.dart';
@@ -37,11 +38,6 @@ class UserOrder extends StateNotifier<MovingOrder?> {
 
   void setStatus(OrderStatus status) {
     _persist((state?.copyWith(status: status))!);
-
-    if (status == OrderStatus.waitingDriver) {
-      final items = state!.items.map<String>((e) => e.name).toList();
-      itemsService.checkCandidates(items);
-    }
   }
 
   void setHelp(String text) {
@@ -65,6 +61,16 @@ class UserOrder extends StateNotifier<MovingOrder?> {
       status: OrderStatus.declined,
       declineReason: reason,
     ))!);
+  }
+
+  void finishOrder() {
+    FirebaseAnalytics.instance.logEvent(name: 'order_sent_by_user');
+    _persist(state!.copyWith(
+        status: OrderStatus.waitingDriver, orderSentDate: DateTime.now()));
+
+    final items = state!.items.map<String>((e) => e.name).toList();
+
+    itemsService.checkCandidates(items);
   }
 
   // method that calls the firebase API and persist it on firestore

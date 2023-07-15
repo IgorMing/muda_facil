@@ -15,12 +15,11 @@ class Authenticated extends ConsumerStatefulWidget {
 }
 
 class _AuthenticatedState extends ConsumerState<Authenticated> {
-  late final AppUser appUserNotifier;
   late final AutocompleteListState autocompleteNotifier;
 
   @override
   void initState() {
-    appUserNotifier = ref.read(appUserProvider.notifier)..subscribe();
+    ref.read(appUserProvider.notifier).subscribe();
     autocompleteNotifier = ref.read(autocompleteListStateProvider.notifier)
       ..subscribe();
 

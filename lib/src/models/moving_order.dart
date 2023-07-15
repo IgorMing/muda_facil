@@ -3,6 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:muda_facil/src/models/item.dart';
 import 'package:muda_facil/src/models/user_model.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+
 part 'moving_order.freezed.dart';
 part 'moving_order.g.dart';
 
@@ -22,6 +23,7 @@ class MovingOrder with _$MovingOrder {
     required OrderStatus status,
     bool? flexibleMovingDate,
     @TimestampOrNullConverter() DateTime? movingDate,
+    @TimestampOrNullConverter() DateTime? orderSentDate,
     String? destinyAddress,
     String? originAddress,
     String? pixCode,

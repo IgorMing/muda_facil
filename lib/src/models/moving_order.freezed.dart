@@ -25,6 +25,8 @@ mixin _$MovingOrder {
   bool? get flexibleMovingDate => throw _privateConstructorUsedError;
   @TimestampOrNullConverter()
   DateTime? get movingDate => throw _privateConstructorUsedError;
+  @TimestampOrNullConverter()
+  DateTime? get orderSentDate => throw _privateConstructorUsedError;
   String? get destinyAddress => throw _privateConstructorUsedError;
   String? get originAddress => throw _privateConstructorUsedError;
   String? get pixCode => throw _privateConstructorUsedError;
@@ -50,6 +52,7 @@ abstract class $MovingOrderCopyWith<$Res> {
       OrderStatus status,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
+      @TimestampOrNullConverter() DateTime? orderSentDate,
       String? destinyAddress,
       String? originAddress,
       String? pixCode,
@@ -76,6 +79,7 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
     Object? status = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
+    Object? orderSentDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
     Object? pixCode = freezed,
@@ -100,6 +104,10 @@ class _$MovingOrderCopyWithImpl<$Res, $Val extends MovingOrder>
       movingDate: freezed == movingDate
           ? _value.movingDate
           : movingDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      orderSentDate: freezed == orderSentDate
+          ? _value.orderSentDate
+          : orderSentDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       destinyAddress: freezed == destinyAddress
           ? _value.destinyAddress
@@ -146,6 +154,7 @@ abstract class _$$_MovingOrderCopyWith<$Res>
       OrderStatus status,
       bool? flexibleMovingDate,
       @TimestampOrNullConverter() DateTime? movingDate,
+      @TimestampOrNullConverter() DateTime? orderSentDate,
       String? destinyAddress,
       String? originAddress,
       String? pixCode,
@@ -170,6 +179,7 @@ class __$$_MovingOrderCopyWithImpl<$Res>
     Object? status = null,
     Object? flexibleMovingDate = freezed,
     Object? movingDate = freezed,
+    Object? orderSentDate = freezed,
     Object? destinyAddress = freezed,
     Object? originAddress = freezed,
     Object? pixCode = freezed,
@@ -194,6 +204,10 @@ class __$$_MovingOrderCopyWithImpl<$Res>
       movingDate: freezed == movingDate
           ? _value.movingDate
           : movingDate // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
+      orderSentDate: freezed == orderSentDate
+          ? _value.orderSentDate
+          : orderSentDate // ignore: cast_nullable_to_non_nullable
               as DateTime?,
       destinyAddress: freezed == destinyAddress
           ? _value.destinyAddress
@@ -236,6 +250,7 @@ class _$_MovingOrder implements _MovingOrder {
       required this.status,
       this.flexibleMovingDate,
       @TimestampOrNullConverter() this.movingDate,
+      @TimestampOrNullConverter() this.orderSentDate,
       this.destinyAddress,
       this.originAddress,
       this.pixCode,
@@ -265,6 +280,9 @@ class _$_MovingOrder implements _MovingOrder {
   @TimestampOrNullConverter()
   final DateTime? movingDate;
   @override
+  @TimestampOrNullConverter()
+  final DateTime? orderSentDate;
+  @override
   final String? destinyAddress;
   @override
   final String? originAddress;
@@ -281,7 +299,7 @@ class _$_MovingOrder implements _MovingOrder {
 
   @override
   String toString() {
-    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode, helpNeeded: $helpNeeded, declineReason: $declineReason, driverName: $driverName, budgetValue: $budgetValue)';
+    return 'MovingOrder(items: $items, status: $status, flexibleMovingDate: $flexibleMovingDate, movingDate: $movingDate, orderSentDate: $orderSentDate, destinyAddress: $destinyAddress, originAddress: $originAddress, pixCode: $pixCode, helpNeeded: $helpNeeded, declineReason: $declineReason, driverName: $driverName, budgetValue: $budgetValue)';
   }
 
   @override
@@ -295,6 +313,8 @@ class _$_MovingOrder implements _MovingOrder {
                 other.flexibleMovingDate == flexibleMovingDate) &&
             (identical(other.movingDate, movingDate) ||
                 other.movingDate == movingDate) &&
+            (identical(other.orderSentDate, orderSentDate) ||
+                other.orderSentDate == orderSentDate) &&
             (identical(other.destinyAddress, destinyAddress) ||
                 other.destinyAddress == destinyAddress) &&
             (identical(other.originAddress, originAddress) ||
@@ -318,6 +338,7 @@ class _$_MovingOrder implements _MovingOrder {
       status,
       flexibleMovingDate,
       movingDate,
+      orderSentDate,
       destinyAddress,
       originAddress,
       pixCode,
@@ -346,6 +367,7 @@ abstract class _MovingOrder implements MovingOrder {
       required final OrderStatus status,
       final bool? flexibleMovingDate,
       @TimestampOrNullConverter() final DateTime? movingDate,
+      @TimestampOrNullConverter() final DateTime? orderSentDate,
       final String? destinyAddress,
       final String? originAddress,
       final String? pixCode,
@@ -366,6 +388,9 @@ abstract class _MovingOrder implements MovingOrder {
   @override
   @TimestampOrNullConverter()
   DateTime? get movingDate;
+  @override
+  @TimestampOrNullConverter()
+  DateTime? get orderSentDate;
   @override
   String? get destinyAddress;
   @override

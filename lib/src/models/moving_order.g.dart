@@ -16,6 +16,8 @@ _$_MovingOrder _$$_MovingOrderFromJson(Map<String, dynamic> json) =>
       flexibleMovingDate: json['flexibleMovingDate'] as bool?,
       movingDate: const TimestampOrNullConverter()
           .fromJson(json['movingDate'] as Timestamp?),
+      orderSentDate: const TimestampOrNullConverter()
+          .fromJson(json['orderSentDate'] as Timestamp?),
       destinyAddress: json['destinyAddress'] as String?,
       originAddress: json['originAddress'] as String?,
       pixCode: json['pixCode'] as String?,
@@ -40,6 +42,8 @@ Map<String, dynamic> _$$_MovingOrderToJson(_$_MovingOrder instance) {
   writeNotNull('flexibleMovingDate', instance.flexibleMovingDate);
   writeNotNull('movingDate',
       const TimestampOrNullConverter().toJson(instance.movingDate));
+  writeNotNull('orderSentDate',
+      const TimestampOrNullConverter().toJson(instance.orderSentDate));
   writeNotNull('destinyAddress', instance.destinyAddress);
   writeNotNull('originAddress', instance.originAddress);
   writeNotNull('pixCode', instance.pixCode);
