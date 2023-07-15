@@ -2,10 +2,37 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/blocs/app_user.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
+import 'package:muda_facil/src/models/user_model.dart';
+import 'package:muda_facil/src/providers/authentication.dart';
 import 'package:muda_facil/src/utils/constants.dart';
+
+class OrderWithUser {
+  final MovingOrderWithRef orderWithRef;
+  final UserModel? user;
+
+  OrderWithUser({
+    required this.orderWithRef,
+    required this.user,
+  });
+}
 
 final ordersProvider =
     StateNotifierProvider<Orders, List<MovingOrderWithRef>>((ref) => Orders());
+
+final pendingAdminOrdersWithUserProvider = FutureProvider<List<OrderWithUser>>(
+  (ref) async {
+    final orders = ref.watch(pendingAdminActionOrdersProvider);
+    final auth = ref.read(authenticationProvider);
+    final List<OrderWithUser> response = [];
+
+    for (var order in orders) {
+      final user = await auth.getUserInfo(uid: order.ref.parent.parent!.id);
+      response.add(OrderWithUser(orderWithRef: order, user: user));
+    }
+
+    return response;
+  },
+);
 
 final pendingAdminActionOrdersProvider =
     Provider<List<MovingOrderWithRef>>((ref) {
