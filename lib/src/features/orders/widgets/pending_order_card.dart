@@ -34,6 +34,8 @@ class PendingOrderCard extends ConsumerWidget {
     final textTheme = Theme.of(context).textTheme;
 
     return OrderCard(
+        clipboardMessage: getMessageToDriver(
+            order.originAddress!, order.destinyAddress!, order.movingDate!),
         clickable: isStatusInterable(status),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

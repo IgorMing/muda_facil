@@ -1,5 +1,6 @@
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
+import 'package:muda_facil/src/utils/general.dart';
 
 const Color kPrimaryColor = FlexColor.bahamaBlueDarkPrimaryContainer;
 const Color kWarningColor = FlexColor.goldDarkPrimary;
@@ -24,6 +25,10 @@ enum Role {
   user,
   admin,
   driver,
+}
+
+String getMessageToDriver(String from, String to, DateTime date) {
+  return 'Bom dia! Temos um novo frete disponível. Será saindo do endereço: $from. Indo para o endereço: $to. A data prevista é: ${GeneralUtils.formatDateFromTimestamp(date.microsecondsSinceEpoch)}. Você teria interesse de fazer este frete? Ou sabe de alguém que possa fazê-lo? Obrigado!';
 }
 
 String getOrderStatusLabelByEnumName(String label) {
