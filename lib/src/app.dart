@@ -54,7 +54,7 @@ class App extends ConsumerWidget {
       home: authState.when(
         loading: () => const LoadingAdaptive(),
         data: (data) {
-          Future.delayed(const Duration(seconds: 5), () {
+          Future.delayed(const Duration(seconds: 2), () {
             FlutterNativeSplash.remove();
           });
           return data == null ? const AuthScreen() : const Authenticated();
