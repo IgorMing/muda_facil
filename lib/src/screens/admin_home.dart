@@ -59,7 +59,7 @@ class _AdminHomeState extends ConsumerState<AdminHome> {
                     builder: (context) => const OrdersScreen(),
                   ));
                 },
-                label: 'Mudanças',
+                label: 'Mudanças com pendência',
                 description:
                     'Aqui podem ser encontradas todas as mudanças pendentes',
                 value: data["orders"],

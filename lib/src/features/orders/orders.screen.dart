@@ -34,7 +34,7 @@ class OrdersScreen extends ConsumerWidget {
             ),
           ),
         ],
-        title: const Text('Mudanças'),
+        title: const Text('Mudanças com pendência'),
       ),
       body: Container(
         color: Theme.of(context).colorScheme.primaryContainer,
