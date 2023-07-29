@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
@@ -14,11 +15,19 @@ class UserModel with _$UserModel {
     String? email,
     String? name,
     String? phone,
-    Role? role,
+    @Default(Role.user) Role role,
   }) = _UserModel;
+
+  factory UserModel.empty() => UserModel(email: '');
 
   factory UserModel.fromJson(Map<String, dynamic>? json) =>
       _$UserModelFromJson(json!);
+
+  factory UserModel.fromDocument(DocumentSnapshot<Map<String, dynamic>> doc) {
+    return UserModel.fromJson(doc.data()).copyWith(uid: doc.id);
+  }
+
+  Map<String, dynamic> toDocument() => toJson()..remove('id');
 
   bool get onboardingCompleted => name != null && phone != null;
 }

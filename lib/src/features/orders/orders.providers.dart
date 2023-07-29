@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/models/user_model.dart';
@@ -51,14 +51,16 @@ final ordersPendingCountProvider = Provider<int>((ref) {
 final needingHelpAdminActionOrdersProvider =
     FutureProvider<List<MovingOrderWithRef>>((ref) async {
   final orders = ref.watch(ordersProvider);
-  final authNotifier = ref.read(appUserProvider.notifier);
 
   final filtered = orders.where((element) =>
       element.order.status == OrderStatus.helpNeeded ||
       element.order.status == OrderStatus.declined);
 
   for (var order in filtered) {
-    final user = await authNotifier.getUser(order.ref.parent.parent!.id);
+    final user = await ref
+        .read(userControllerProvider.notifier)
+        .getUserById(order.ref.parent.parent!.id);
+    // TODO: refactor this, changing the order model directly to have their parent's data
     order.user = user;
   }
 

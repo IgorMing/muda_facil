@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
 import 'package:muda_facil/src/utils/constants.dart';
@@ -26,7 +27,7 @@ class _OnboardingNameStepState extends ConsumerState<OnboardingNameStep> {
   void initState() {
     super.initState();
 
-    final userName = ref.read(appUserProvider)?.name;
+    final userName = ref.read(userControllerProvider)?.name;
     _textController = TextEditingController(text: userName);
     _formKey = GlobalKey<FormState>();
   }

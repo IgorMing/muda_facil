@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/auth_controller.dart';
+import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/widgets/profile_row.dart';
 
@@ -9,8 +10,7 @@ class ProfileScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(appUserProvider);
-    final actions = ref.read(appUserProvider.notifier);
+    final user = ref.watch(userControllerProvider);
 
     return Scaffold(
       body: NestedScrollView(
@@ -39,7 +39,7 @@ class ProfileScreen extends ConsumerWidget {
                 child: ElevatedButton.icon(
                   icon: const Icon(Icons.logout),
                   onPressed: () {
-                    actions.signOut();
+                    ref.read(authControllerProvider.notifier).signOut();
                   },
                   label: const Text('Encerrar sessão'),
                 ),

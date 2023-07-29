@@ -5,9 +5,9 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:muda_facil/src/controllers/auth_controller.dart';
-import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/authenticated.dart';
 import 'package:muda_facil/src/screens/error.dart';
+import 'package:muda_facil/src/screens/login.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/loading_adaptive.dart';
@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authController = ref.watch(authControllerProvider);
+    final authController = ref.watch(authStreamProvider);
 
     return MaterialApp(
       localizationsDelegates: const [
@@ -57,7 +57,7 @@ class App extends ConsumerWidget {
           Future.delayed(const Duration(seconds: 2), () {
             FlutterNativeSplash.remove();
           });
-          return data == null ? const AuthScreen() : const Authenticated();
+          return data == null ? const LoginScreen() : const Authenticated();
         },
         error: (error, _) => ErrorScreen(error.toString()),
       ),

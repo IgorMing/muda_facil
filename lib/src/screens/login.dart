@@ -1,41 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/auth_controller.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
+import 'package:muda_facil/src/screens/signup.dart';
 import 'package:muda_facil/src/widgets/link_text.dart';
 
-class LoginScreen extends ConsumerStatefulWidget {
-  final VoidCallback onClickedSignUp;
-
-  const LoginScreen({super.key, required this.onClickedSignUp});
+class LoginScreen extends ConsumerWidget {
+  const LoginScreen({super.key});
 
   @override
-  ConsumerState<LoginScreen> createState() => _LoginScreenState();
-}
-
-class _LoginScreenState extends ConsumerState<LoginScreen> {
-  late final AppUser notifier;
-
-  @override
-  void initState() {
-    notifier = ref.read(appUserProvider.notifier);
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       body: AuthLayout(
         title: 'Login',
         hasForgotPassButton: true,
         onPress: (email, password) async {
-          await notifier.signIn(email, password);
+          await ref
+              .read(authControllerProvider.notifier)
+              .signInByEmailAndPassword(email, password);
         },
         buttonText: 'Entrar',
         extra: Column(
           children: [
             LinkText(
-              onTap: widget.onClickedSignUp,
+              onTap: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => const SignupScreen(),
+                ));
+              },
               message: 'Não tem cadastro?',
               link: 'Crie agora',
             ),

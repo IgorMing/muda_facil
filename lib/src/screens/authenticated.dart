@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/items/items.providers.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
@@ -19,7 +19,6 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
 
   @override
   void initState() {
-    ref.read(appUserProvider.notifier).subscribe();
     autocompleteNotifier = ref.read(autocompleteListStateProvider.notifier)
       ..subscribe();
 
@@ -34,7 +33,7 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
 
   @override
   Widget build(BuildContext context) {
-    final appUser = ref.watch(appUserProvider);
+    final appUser = ref.watch(userControllerProvider);
 
     if (appUser == null) {
       return const Scaffold(

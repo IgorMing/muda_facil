@@ -24,7 +24,7 @@ mixin _$UserModel {
   String? get email => throw _privateConstructorUsedError;
   String? get name => throw _privateConstructorUsedError;
   String? get phone => throw _privateConstructorUsedError;
-  Role? get role => throw _privateConstructorUsedError;
+  Role get role => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -38,7 +38,7 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {String? uid, String? email, String? name, String? phone, Role? role});
+      {String? uid, String? email, String? name, String? phone, Role role});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? email = freezed,
     Object? name = freezed,
     Object? phone = freezed,
-    Object? role = freezed,
+    Object? role = null,
   }) {
     return _then(_value.copyWith(
       uid: freezed == uid
@@ -77,10 +77,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role?,
+              as Role,
     ) as $Val);
   }
 }
@@ -93,7 +93,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @override
   @useResult
   $Res call(
-      {String? uid, String? email, String? name, String? phone, Role? role});
+      {String? uid, String? email, String? name, String? phone, Role role});
 }
 
 /// @nodoc
@@ -111,7 +111,7 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? email = freezed,
     Object? name = freezed,
     Object? phone = freezed,
-    Object? role = freezed,
+    Object? role = null,
   }) {
     return _then(_$_UserModel(
       uid: freezed == uid
@@ -130,10 +130,10 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.phone
           : phone // ignore: cast_nullable_to_non_nullable
               as String?,
-      role: freezed == role
+      role: null == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as Role?,
+              as Role,
     ));
   }
 }
@@ -142,7 +142,8 @@ class __$$_UserModelCopyWithImpl<$Res>
 
 @JsonSerializable(includeIfNull: false)
 class _$_UserModel extends _UserModel {
-  _$_UserModel({this.uid, this.email, this.name, this.phone, this.role})
+  _$_UserModel(
+      {this.uid, this.email, this.name, this.phone, this.role = Role.user})
       : super._();
 
   factory _$_UserModel.fromJson(Map<String, dynamic> json) =>
@@ -157,7 +158,8 @@ class _$_UserModel extends _UserModel {
   @override
   final String? phone;
   @override
-  final Role? role;
+  @JsonKey()
+  final Role role;
 
   @override
   String toString() {
@@ -200,7 +202,7 @@ abstract class _UserModel extends UserModel {
       final String? email,
       final String? name,
       final String? phone,
-      final Role? role}) = _$_UserModel;
+      final Role role}) = _$_UserModel;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -215,7 +217,7 @@ abstract class _UserModel extends UserModel {
   @override
   String? get phone;
   @override
-  Role? get role;
+  Role get role;
   @override
   @JsonKey(ignore: true)
   _$$_UserModelCopyWith<_$_UserModel> get copyWith =>

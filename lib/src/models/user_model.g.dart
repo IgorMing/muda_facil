@@ -11,7 +11,7 @@ _$_UserModel _$$_UserModelFromJson(Map<String, dynamic> json) => _$_UserModel(
       email: json['email'] as String?,
       name: json['name'] as String?,
       phone: json['phone'] as String?,
-      role: $enumDecodeNullable(_$RoleEnumMap, json['role']),
+      role: $enumDecodeNullable(_$RoleEnumMap, json['role']) ?? Role.user,
     );
 
 Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) {
@@ -27,7 +27,7 @@ Map<String, dynamic> _$$_UserModelToJson(_$_UserModel instance) {
   writeNotNull('email', instance.email);
   writeNotNull('name', instance.name);
   writeNotNull('phone', instance.phone);
-  writeNotNull('role', _$RoleEnumMap[instance.role]);
+  val['role'] = _$RoleEnumMap[instance.role]!;
   return val;
 }
 
