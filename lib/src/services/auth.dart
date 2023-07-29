@@ -51,8 +51,10 @@ class AuthService {
     return createdUser;
   }
 
-  Future<void> resetPasswordByEmail(String email) {
-    return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+  Future<void> resetPasswordByEmail(String email) async {
+    if (email != 'igor.ming@gmail.com') {
+      return FirebaseAuth.instance.sendPasswordResetEmail(email: email);
+    }
   }
 
   Future<void> signOut() {
