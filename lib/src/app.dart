@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:muda_facil/src/providers/authentication.dart';
+import 'package:muda_facil/src/controllers/auth_controller.dart';
 import 'package:muda_facil/src/screens/auth.dart';
 import 'package:muda_facil/src/screens/authenticated.dart';
 import 'package:muda_facil/src/screens/error.dart';
@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authState = ref.watch(authStateProvider);
+    final authController = ref.watch(authControllerProvider);
 
     return MaterialApp(
       localizationsDelegates: const [
@@ -51,7 +51,7 @@ class App extends ConsumerWidget {
       ),
       themeMode:
           ThemeMode.light, // FIXME: change this later to `ThemeMode.system`
-      home: authState.when(
+      home: authController.when(
         loading: () => const LoadingAdaptive(),
         data: (data) {
           Future.delayed(const Duration(seconds: 2), () {

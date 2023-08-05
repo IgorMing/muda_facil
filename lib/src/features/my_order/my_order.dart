@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/features/my_order/no_order_info.dart';
 import 'package:muda_facil/src/features/my_order/order_info.dart';
 import 'package:muda_facil/src/utils/constants.dart';

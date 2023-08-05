@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/manage_items.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/controllers/manage_items.dart';
+import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 import 'package:muda_facil/src/widgets/review_item_card.dart';

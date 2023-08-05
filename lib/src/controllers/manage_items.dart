@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/models/item.dart';
 
 class ManageItems extends StateNotifier<List<Item>> {

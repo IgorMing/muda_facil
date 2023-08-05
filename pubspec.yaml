@@ -46,6 +46,7 @@ dependencies:
   flutter_riverpod: ^2.2.0
   freezed_annotation: ^2.2.0
   google_fonts: ^4.0.1
+  hooks_riverpod: ^2.3.7
   intl: 0.18.0
   json_annotation: ^4.8.0
   mask_text_input_formatter: ^2.4.0

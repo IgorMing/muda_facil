@@ -1,9 +1,9 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/app_user.dart';
+import 'package:muda_facil/src/controllers/app_user.dart';
 import 'package:muda_facil/src/features/orders/orders.bloc.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/models/user_model.dart';
-import 'package:muda_facil/src/providers/authentication.dart';
+import 'package:muda_facil/src/providers/providers.dart';
 import 'package:muda_facil/src/utils/constants.dart';
 
 class OrderWithUser {

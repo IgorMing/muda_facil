@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/models/user_model.dart';
-import 'package:muda_facil/src/providers/authentication.dart';
+import 'package:muda_facil/src/providers/providers.dart';
 import 'package:muda_facil/src/services/auth.dart';
 
 class AppUser extends StateNotifier<UserModel?> {

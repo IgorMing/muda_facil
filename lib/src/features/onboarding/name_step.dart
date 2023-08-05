@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/blocs/app_user.dart';
+import 'package:muda_facil/src/controllers/app_user.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
 import 'package:muda_facil/src/utils/constants.dart';

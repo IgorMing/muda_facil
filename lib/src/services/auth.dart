@@ -14,7 +14,6 @@ class AuthService {
         );
   }
 
-  Stream<User?> get onStateChanges => FirebaseAuth.instance.authStateChanges();
   Stream<UserModel?> get onUserChanges => collection
       .doc(FirebaseAuth.instance.currentUser!.uid)
       .snapshots()

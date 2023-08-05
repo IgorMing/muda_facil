@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:muda_facil/src/blocs/user_order.dart';
+import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/models/moving_order.dart';
 import 'package:muda_facil/src/screens/addresses.dart';
 import 'package:muda_facil/src/screens/general_review.dart';
