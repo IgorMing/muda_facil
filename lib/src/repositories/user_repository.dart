@@ -72,3 +72,13 @@ class UserRepository implements BaseUserRepository {
 
 final userRepositoryProvider =
     Provider<UserRepository>((ref) => UserRepository(ref));
+
+final userDataStreamProvider =
+    StreamProvider.family<UserModel?, String>((ref, uid) {
+  return ref
+      .read(firebaseFirestoreProvider)
+      .userRef()
+      .doc(uid)
+      .snapshots()
+      .map((snapshot) => snapshot.data());
+});

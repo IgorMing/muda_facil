@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:muda_facil/src/controllers/user_order.dart';
 import 'package:muda_facil/src/providers/providers.dart';
 import 'package:muda_facil/src/repositories/exceptions.dart';
 
@@ -18,9 +17,9 @@ abstract class BaseAuthRepository {
 
 class AuthRepository implements BaseAuthRepository {
   final FirebaseAuth firebaseAuth;
-  final UserOrder userOrder;
+  // final UserOrder userOrder;
 
-  AuthRepository(this.firebaseAuth, this.userOrder);
+  AuthRepository(this.firebaseAuth);
 
   @override
   Stream<User?> get authStateChanges => firebaseAuth.authStateChanges();
@@ -59,7 +58,7 @@ class AuthRepository implements BaseAuthRepository {
   @override
   Future<void> signOut() async {
     try {
-      await userOrder.cancelSubscription();
+      // await userOrder.cancelSubscription();
       await firebaseAuth.signOut();
     } on FirebaseAuthException catch (err) {
       throw CustomException(message: err.message.toString());
@@ -81,9 +80,13 @@ class AuthRepository implements BaseAuthRepository {
   }
 }
 
+final authUidProvider = Provider<String?>((ref) {
+  final auth = ref.watch(firebaseAuthProvider);
+  return auth.currentUser?.uid;
+});
+
 final authRepositoryProvider = Provider<AuthRepository>(
-  (ref) => AuthRepository(
-    ref.read(firebaseAuthProvider),
-    ref.read(userOrderOrNullProvider.notifier),
-  ),
+  (ref) => AuthRepository(ref.read(firebaseAuthProvider)
+      // ref.read(userOrderOrNullProvider.notifier),
+      ),
 );

@@ -19,7 +19,7 @@ class App extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final authController = ref.watch(authStreamProvider);
+    final authStream = ref.watch(authStreamProvider);
 
     return MaterialApp(
       localizationsDelegates: const [
@@ -51,7 +51,7 @@ class App extends ConsumerWidget {
       ),
       themeMode:
           ThemeMode.light, // FIXME: change this later to `ThemeMode.system`
-      home: authController.when(
+      home: authStream.when(
         loading: () => const LoadingAdaptive(),
         data: (data) {
           Future.delayed(const Duration(seconds: 2), () {

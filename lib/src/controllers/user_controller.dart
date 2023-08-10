@@ -1,34 +1,39 @@
 import 'dart:async';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:muda_facil/src/models/user_model.dart';
-import 'package:muda_facil/src/providers/providers.dart';
+import 'package:muda_facil/src/repositories/auth_repository.dart';
 import 'package:muda_facil/src/repositories/user_repository.dart';
 
 class UserController extends StateNotifier<UserModel?> {
   final UserRepository userRepository;
-  final FirebaseAuth authRepository;
-  // StreamSubscription<UserModel?>? _streamSubscription;
-  Stream<UserModel?> get userStream =>
-      userRepository.getUserStream(authRepository.currentUser!.uid);
+  final String uid;
 
-  UserController(this.userRepository, this.authRepository) : super(null) {
-    // final String uid = authRepository.currentUser!.uid;
-    // _streamSubscription?.cancel();
-    // _streamSubscription = userRepository.getUserStream(uid).listen((event) {
-    //   state = event;
-    // });
-  }
+  // StreamSubscription<UserModel?>? _streamSubscription;
+  // Stream<UserModel?> get userStream => userRepository.getUserStream(uid);
+
+  UserController(this.userRepository, this.uid) : super(null);
+
+  // Future<void> subscribe() async {
+  //   _streamSubscription?.cancel();
+  //   _streamSubscription = userStream.listen((event) {
+  //     state = event;
+  //   });
+  // }
+
+  // Future<void> unsubscribe() async {
+  //   _streamSubscription?.cancel();
+  // }
 
   // @override
   // void dispose() {
-  //   _streamSubscription?.cancel();
+  //   unsubscribe();
   //   super.dispose();
   // }
 
-  Future<UserModel?> getUser() {
-    return userRepository.getCurrentUser();
+  Future<UserModel?> getUser() async {
+    state = await userRepository.getCurrentUser();
+    return state;
   }
 
   Future<UserModel?> getUserById(String uid) {
@@ -37,14 +42,15 @@ class UserController extends StateNotifier<UserModel?> {
 }
 
 final userControllerProvider =
-    StateNotifierProvider<UserController, UserModel?>(
-  (ref) => UserController(
-    ref.read(userRepositoryProvider),
-    ref.read(firebaseAuthProvider),
-  ),
-);
+    StateNotifierProvider<UserController, UserModel?>((ref) {
+  final uid = ref.watch(authUidProvider); // ??
 
-final userStreamProvider = StreamProvider((ref) {
-  final userController = ref.watch(userControllerProvider.notifier);
-  return userController.userStream;
+  final controller = UserController(ref.read(userRepositoryProvider), uid!);
+
+  return controller;
 });
+
+// final userStreamProvider = StreamProvider((ref) {
+//   final userController = ref.watch(userControllerProvider.notifier);
+//   return userController.userStream;
+// });
