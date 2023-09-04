@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/auth_controller.dart';
 import 'package:muda_facil/src/layouts/auth_layout.dart';
 import 'package:muda_facil/src/utils/ui.dart';
 
@@ -15,7 +15,7 @@ class ResetPasswordScreen extends ConsumerWidget {
         hasLogo: false,
         title: 'Redefinir senha',
         onPress: (email, _) {
-          ref.read(appUserProvider.notifier).resetPassword(email);
+          ref.read(authControllerProvider.notifier).resetPassword(email);
 
           UIUtils.of(context).showSnackBar(
             'Um email foi enviado para resetar sua senha',

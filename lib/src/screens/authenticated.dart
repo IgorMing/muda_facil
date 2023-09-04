@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:muda_facil/src/controllers/auth_controller.dart';
 import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/items/items.providers.dart';
 import 'package:muda_facil/src/features/items/items.state.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/screens/bottom_navigation.dart';
-import 'package:muda_facil/src/widgets/loading_adaptive.dart';
 
 class Authenticated extends ConsumerStatefulWidget {
   const Authenticated({super.key});
@@ -36,8 +36,14 @@ class _AuthenticatedState extends ConsumerState<Authenticated> {
     final appUser = ref.watch(userControllerProvider);
 
     if (appUser == null) {
-      return const Scaffold(
-        body: LoadingAdaptive(),
+      return Scaffold(
+        body: Center(
+          child: ElevatedButton(
+              onPressed: () {
+                ref.read(authControllerProvider.notifier).signOut();
+              },
+              child: const Text('signout')),
+        ),
       );
     }
 

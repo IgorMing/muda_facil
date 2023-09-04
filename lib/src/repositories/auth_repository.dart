@@ -17,7 +17,7 @@ abstract class BaseAuthRepository {
 
 class AuthRepository implements BaseAuthRepository {
   final FirebaseAuth firebaseAuth;
-  // final UserOrder userOrder;
+  // final UserController userController;
 
   AuthRepository(this.firebaseAuth);
 
@@ -72,7 +72,8 @@ class AuthRepository implements BaseAuthRepository {
       final createdUser = await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password);
       // final uid = createdUser.user!.uid;
-      // TODO: Add here the rest of the flow
+      // userController
+      //     .createUser(UserModel(uid: uid, email: email, role: Role.user));
       return createdUser;
     } on FirebaseAuthException catch (err) {
       throw CustomException(message: err.message.toString());
@@ -86,7 +87,8 @@ final authUidProvider = Provider<String?>((ref) {
 });
 
 final authRepositoryProvider = Provider<AuthRepository>(
-  (ref) => AuthRepository(ref.read(firebaseAuthProvider)
-      // ref.read(userOrderOrNullProvider.notifier),
-      ),
+  (ref) => AuthRepository(
+    ref.read(firebaseAuthProvider),
+    // ref.read(userControllerProvider.notifier),
+  ),
 );

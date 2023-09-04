@@ -11,6 +11,8 @@ abstract class BaseUserRepository {
   Future<UserModel?> getUserById(String uid);
   Future<String> createUser(UserModel user);
   Future<void> updateUser({required String uid, required UserModel user});
+  Future<void> patchUser(
+      {required String uid, required Map<String, dynamic> fields});
 }
 
 class UserRepository implements BaseUserRepository {
@@ -20,7 +22,9 @@ class UserRepository implements BaseUserRepository {
 
   @override
   Future<UserModel?> getCurrentUser() async {
-    final id = _ref.read(firebaseAuthProvider).currentUser!.uid;
+    final id = _ref.read(firebaseAuthProvider).currentUser?.uid;
+    if (id == null) return null;
+
     return getUserById(id);
   }
 
@@ -53,6 +57,20 @@ class UserRepository implements BaseUserRepository {
           .userRef()
           .doc(uid)
           .update(user.toDocument());
+    } on FirebaseException catch (e) {
+      throw CustomException(message: e.message.toString());
+    }
+  }
+
+  @override
+  Future<void> patchUser(
+      {required String uid, required Map<String, dynamic> fields}) async {
+    try {
+      await _ref
+          .read(firebaseFirestoreProvider)
+          .userRef()
+          .doc(uid)
+          .update(fields);
     } on FirebaseException catch (e) {
       throw CustomException(message: e.message.toString());
     }

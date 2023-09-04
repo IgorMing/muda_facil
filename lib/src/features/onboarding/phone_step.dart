@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
+import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
 import 'package:muda_facil/src/utils/constants.dart';
@@ -30,7 +30,7 @@ class _OnboardingPhoneStepState extends ConsumerState<OnboardingPhoneStep> {
   void initState() {
     super.initState();
 
-    final userPhone = ref.read(appUserProvider)?.phone;
+    final userPhone = ref.read(userControllerProvider)?.phone;
     _textController = TextEditingController(text: userPhone);
     _formKey = GlobalKey<FormState>();
   }
@@ -45,7 +45,7 @@ class _OnboardingPhoneStepState extends ConsumerState<OnboardingPhoneStep> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textStyle = theme.primaryTextTheme.bodyLarge!.copyWith(fontSize: 26);
-    final notifier = ref.read(appUserProvider.notifier);
+    final notifier = ref.read(userControllerProvider.notifier);
 
     void onFinishEditting() {
       if (_formKey.currentState!.validate()) {

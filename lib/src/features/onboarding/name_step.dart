@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:muda_facil/src/controllers/app_user.dart';
 import 'package:muda_facil/src/controllers/user_controller.dart';
 import 'package:muda_facil/src/features/onboarding/onboarding.dart';
 import 'package:muda_facil/src/features/onboarding/widgets/expanded_button.dart';
@@ -42,7 +41,7 @@ class _OnboardingNameStepState extends ConsumerState<OnboardingNameStep> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final textStyle = theme.primaryTextTheme.bodyLarge!.copyWith(fontSize: 26);
-    final notifier = ref.read(appUserProvider.notifier);
+    final notifier = ref.read(userControllerProvider.notifier);
 
     void onFinishEditting() {
       if (_formKey.currentState!.validate()) {
